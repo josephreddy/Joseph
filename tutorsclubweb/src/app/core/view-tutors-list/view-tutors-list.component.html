@@ -1,0 +1,213 @@
+<div style="background-color: #dadada;">
+  <div class="container-fluid">
+    <div class="space50"></div>
+    <div [hidden]="!isLoading" class="text-center" style="min-height: 800px">
+      <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+      <h5>
+        Loading Please Wait..
+      </h5>
+      <span class="sr-only"></span>
+    </div>
+    <div *ngIf="!isLoading" class="row content">
+      <div class="col-lg-1"></div>
+      <div class="col-md-3 col-lg-2 col-sm-3 sidenav">
+        <h4 class="title btn-group-xs">
+          <b>Filtered By</b>
+          <!-- <div class="btn-group-xs"> -->
+          <button style="height: 33px;width: 90px;margin-top: -8px;font-size: 16px" class="btn btn-success pull-right" (click)="onSubmit()"><b>Apply</b></button>
+          <!-- </div> -->
+        </h4>
+        <form [formGroup]="FilterSideFrm">
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="matTile">Training Type</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-checkbox *ngFor="let TrainingMode of TrainingModeList;let i = index;" formControlName="triningType" [value]="TrainingMode.TrainingModeId"
+                (change)="onFilterchange($event,FilterSideFrm, TrainingMode,i)">{{TrainingMode.TrainingName}}</mat-checkbox>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <!-- <div class="space10"></div> -->
+          <!-- <mat-accordion>
+                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title class="matTile">Time Zone</mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div>
+                        <mat-checkbox>Country</mat-checkbox>
+                      </div>
+                      <div>
+                        <mat-checkbox>Any Time Zone</mat-checkbox>
+                      </div>
+                      <div>
+                        <mat-checkbox>Specific Time Zone</mat-checkbox>
+                      </div>
+                    </mat-expansion-panel> 
+            </mat-accordion>-->
+          <div class="space10"></div>
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="matTile">Gender</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-checkbox *ngFor="let Gender of Genderlist" formControlName="gender" [value]="Gender.GenderId" (change)="onFilterchange($event,FilterSideFrm, Gender,i)">{{Gender.GenderName}}</mat-checkbox>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <div class="space10"></div>
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="matTile">Training Frequency</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-checkbox *ngFor="let Training of TrainingFrequencyList" formControlName="triningFrequecy" [value]="Training.TrainingFrequencyId"
+                (change)="onFilterchange($event,FilterSideFrm, Training,i)">{{Training.FrequencyType}}</mat-checkbox>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <div class="space10"></div>
+          <mat-accordion>
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="matTile">Skills Level</mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-checkbox *ngFor="let skillsSet of SupportedSkillsList" formControlName="skillsSet" [value]="skillsSet.SkillsId" (change)="onFilterchange($event,FilterSideFrm, skillsSet,i)">{{skillsSet.SkillsName}}</mat-checkbox>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </form>
+      </div>
+      <div class="col-md-9 col-lg-9 col-sm-9">
+        <!-- <div *ngIf="isDataLoading" class="row content"></div>         -->
+        <form [formGroup]="FilterFrm">
+          <div class="input-group">
+            <select class="form-control" formControlName="courseid" [(ngModel)]="selectedCourse" placeholder="Search">
+              <!-- <option value="" selected disabled>Select Technology or Course Name</option> -->
+              <option *ngFor="let course of courselist" [value]="course.CourseName">{{course.CourseName}}</option>
+            </select>
+            <span class="input-group-btn">
+              <button class="btn btn-default btn-lg" type="button" style="color: #0c79b4" (click)="searchbtn(selectedCourse)">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </span>
+          </div>
+          <!-- <mat-form-field>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+                  </mat-form-field> -->
+          <!-- <mat-form-field>
+                    <mat-select placeholder="Select a Course" formControlName="courseid" [(ngModel)]="selectedCourse">
+                      <mat-option [value]="null">None</mat-option>
+                      <mat-option *ngFor="let course of courselist" [value]="course.CourseName">
+                        <img *ngIf="" src="{{course.ImageUrl}}" style="height: 20px;width: 30px" />&nbsp; {{course.CourseName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field> -->
+          <!-- <div class="col-xs-6 col-lg-1 col-sm-4" style="padding-top: 5px">
+                    <button id="btn-search" class="btn btn-info" (click)="searchbtn(selectedCourse)" type="button">
+                      <i class="fa fa-search fa-fw"></i>Search</button>
+                  </div> -->
+        </form>
+        <div class="space10"></div>
+        <mat-card *ngFor="let tutor of FilteredList">
+          <!-- <mat-card-content *ngIf="userDetails==tutor.TutorID"> -->
+          <mat-card-content>
+            <div class="row">
+              <div class="col-sm-2 col-md-2">
+                <a [routerLink]="['/viewTutorProfile',tutor.TutorID]">
+                  <img class="img-circle" src={{tutor.ImageUrl}} style="height: 90px;width: 90px">
+                </a>
+              </div>
+              <div class="col-md-6">
+                <h4>
+                  <a [routerLink]="['/viewTutorProfile',tutor.TutorID]">{{tutor.FirstName}} {{tutor.LastName}}</a>
+                </h4>
+                <h5>
+                  <b>Tutor for</b> -&nbsp;&nbsp;
+                  <b style="color: #0c79b4">{{tutor.CourseName}}</b>
+                </h5>
+                <h5>
+                  <b>Training Type</b> - {{tutor.TrainingName}}
+                </h5>
+                <h5>
+                  <b>Gender</b> - {{tutor.GenderName}}
+                </h5>
+                <h5>
+                  <b>Training Frequency</b> - {{tutor.DayAvilableName}}
+                </h5>
+                <h5>
+                  <b>Skills Level</b> - {{tutor.SkillsName}}
+                </h5>
+                <h5 style="color: gray">{{tutor.AboutMe}} </h5>
+              </div>
+              <div class="col-md-3">
+                <h5>
+                  <b>Email</b> - {{tutor.EmailId}}</h5>
+                <h5>
+                  <b>Phone</b> - {{tutor.PhoneNumber}}</h5>
+                <h5>
+                  <b>Whatsapp</b> - </h5>
+                <h5>
+                  <b>Skype</b> - {{tutor.SkypeID}}</h5>
+                <h5>
+                  <b>Linkedin</b> - {{tutor.LinkedIn| slice:0:40}}</h5>
+                <!-- <h6 *ngIf="tutor.Blog!=null||undefined">
+                          <i class="fa fa-rss-square"></i>&nbsp;&nbsp;{{tutor.Blog}}</h6>
+                        <h6 *ngIf="tutor.Hangout!=null||undefined">
+                          <i class="fa fa-quote-right" style="color: rgb(5, 77, 5)"></i>&nbsp;&nbsp;{{tutor.Hangout}}</h6>
+                        <h6 *ngIf="tutor.SkypeID!=null||undefined">
+                          <i class="fab fa-skype" style="color: rgb(13, 174, 238)"></i>&nbsp;&nbsp;{{tutor.SkypeID}}</h6>
+                        <h6 *ngIf="tutor.LinkedIn!=null||undefined">
+                          <i class="fa fa-linkedin" style="color: rgb(30, 98, 245)"></i>&nbsp;&nbsp;{{tutor.LinkedIn}}</h6>
+                        <h6 *ngIf="tutor.YouTube!=null||undefined">
+                          <i class="fab fa-youtube" style="color: red"></i>&nbsp;&nbsp;{{tutor.YouTube}}</h6> -->
+              </div>
+
+              <!-- <div class="column left">
+                        <a [routerLink]="['/viewTutorProfile',tutor.TutorID]">
+                          <img class="img-rounded" src="{{defaultImage}}" alt="Photo of a Shiba Inu" style="height: 120px;border-radius: 10%">
+                        </a>
+                      </div>
+                      <div class="column right" style="width: 497px">
+                        <div class="col-lg-6" style="overflow: hidden;">
+                          <h4 class="text-left">
+                            <a [routerLink]="['/viewTutorProfile',tutor.TutorID]">{{tutor.TutorName}} {{tutor.LastName}}</a>
+                          </h4>
+                          <h6>
+                            <i class="fa fa-map-marker fa-lg"></i>&nbsp;&nbsp;{{tutor.Country}}</h6>
+                          <h6 *ngIf="value!=null||undefined">
+                            <b>Classes:</b> {{value}}</h6>
+                          <h6 *ngIf="value==null||undefined">
+                            <b>Classes:
+                              {{tutor.CourseName}}
+                            </b>
+                          </h6>
+                          <h6>
+                            <i class="fa fa-briefcase fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;{{tutor.WorkExperience}} Yrs. of Experience
+                          </h6>
+                          <h6>
+                            <i class="fa fa-phone-square"></i>&nbsp;&nbsp;{{tutor.PhoneNumber}}</h6>
+                          <h6>
+                            <i class="fa fa-language"></i>&nbsp;&nbsp;{{tutor.LanguageName}}</h6>
+                          <h6>{{tutor.WorkDescription}}</h6>
+                        </div>
+                        <div class="col-lg-6" style="overflow: hidden;">
+                          <h6 *ngIf="tutor.Blog!=null||undefined">
+                            <i class="fa fa-rss-square"></i>&nbsp;&nbsp;{{tutor.Blog}}</h6>
+                          <h6 *ngIf="tutor.Hangout!=null||undefined">
+                            <i class="fa fa-quote-right" style="color: rgb(5, 77, 5)"></i>&nbsp;&nbsp;{{tutor.Hangout}}</h6>
+                          <h6 *ngIf="tutor.SkypeID!=null||undefined">
+                            <i class="fab fa-skype" style="color: rgb(13, 174, 238)"></i>&nbsp;&nbsp;{{tutor.SkypeID}}</h6>
+                          <h6 *ngIf="tutor.LinkedIn!=null||undefined">
+                            <i class="fa fa-linkedin" style="color: rgb(30, 98, 245)"></i>&nbsp;&nbsp;{{tutor.LinkedIn}}</h6>
+                          <h6 *ngIf="tutor.YouTube!=null||undefined">
+                            <i class="fab fa-youtube" style="color: red"></i>&nbsp;&nbsp;{{tutor.YouTube}}</h6>
+                        </div>
+                      </div> -->
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="FilteredList?.length ==0">
+          <mat-card-content style="text-align: center;">
+            No Records Found
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

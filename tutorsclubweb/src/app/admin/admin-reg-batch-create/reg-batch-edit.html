@@ -1,0 +1,296 @@
+<div class="bgcolor">
+    <div class="bcrumbs">
+        <h2>Edit Regular Batch Session
+        </h2>
+    </div>
+    <div style="min-height: 1000px">
+        <div class="container">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8" style="height: auto;border:2px white solid;width:auto; max-width: 700px;margin-top: 50px;background-color: #e6f2ff;border-top-right-radius: 25px;border-top-left-radius: 25px;box-shadow:0px 0px 60px white">
+                <div class="dialog-header" style="text-align: center;margin-left: -15px;margin-right: -15px;background-color: #0c79b4;border-top-right-radius: 25px;border-top-left-radius: 25px;">
+                    <h2>Edit Regular Session</h2>
+                </div>
+                <div>
+                    <form [formGroup]="upcomingRegcoursesFrm" style="margin-top: 10px;">
+
+                        <div class="col-lg-12 col-sm-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Tutor Name" formControlName="tutor" [(ngModel)]="RegularBatchDetails.TutorID" (ngModelChange)="onTutorSelect($event)"
+                                    required [disabled]="true">
+                                    <mat-option *ngFor="let tutor of tutorslist.data" [value]="tutor.tutorID">{{tutor.start}} {{tutor.End}}</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <span *ngIf="!upcomingRegcoursesFrm.get('tutor').valid || upcomingRegcoursesFrm.get('tutor').touched ||  upcomingRegcoursesFrm.get('tutor').dirty">
+                                        <span *ngIf="upcomingRegcoursesFrm.controls['tutor'].hasError('required') ">
+                                            {{'Please Select One'}}
+                                        </span>
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Course" formControlName="course" [(ngModel)]="RegularBatchDetails.CourseId" [disabled]="true" required>
+                                    <mat-option *ngFor="let course of courselist.data" [value]="course.CourseId">{{course.CourseName}}</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <span *ngIf="!upcomingRegcoursesFrm.get('course').valid || upcomingRegcoursesFrm.get('course').touched ||  upcomingRegcoursesFrm.get('course').dirty">
+                                        <span *ngIf="upcomingRegcoursesFrm.controls['course'].hasError('required') ">
+                                            {{'Please Select One'}}
+                                        </span>
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12">
+                            <mat-form-field class="example-full-width">
+                                <input matInput [matDatepicker]="picker" formControlName="startdate" [(ngModel)]="RegularBatchDetails.StartDate" [min]="minDate"
+                                    placeholder="Start Date">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error *ngIf="upcomingRegcoursesFrm.controls['startdate'].hasError('required')">Start Date is required</mat-error>
+                                <!-- <mat-error>
+                                    <span *ngIf="!upcomingRegcoursesFrm.get('startdate').valid || upcomingRegcoursesFrm.get('startdate').touched ||  upcomingRegcoursesFrm.get('startdate').dirty">
+                                        <span *ngIf="upcomingRegcoursesFrm.controls['startdate'].hasError('required')">
+                                            {{'Date should be less than current date'}}
+                                        </span>
+                                    </span>
+                                </mat-error> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <mat-form-field class="example-full-width">
+                                <input matInput [matDatepicker]="picker1" formControlName="enddate" [(ngModel)]="RegularBatchDetails.EndDate" [min]="minDate"
+                                    placeholder="End Date">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                                <mat-error *ngIf="upcomingRegcoursesFrm.controls['enddate'].hasError('required')">End Date is required</mat-error>
+                                <!-- <mat-error>
+                                        <span *ngIf="!upcomingRegcoursesFrm.get('enddate').valid || upcomingRegcoursesFrm.get('enddate').touched ||  upcomingRegcoursesFrm.get('startdate').dirty">
+                                            <span *ngIf="upcomingRegcoursesFrm.controls['enddate'].hasError('required')">
+                                                {{'Date should be less than current date'}}
+                                            </span>
+                                        </span>
+                                    </mat-error> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <mat-form-field>
+                                <input [(ngModel)]="RegularBatchDetails.Time" oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');"
+                                    formControlName="time" matInput [owlDateTimeTrigger]="time" placeholder="{{'Timing'}}" [owlDateTime]="time"
+                                    #time/>
+                                <owl-date-time #time [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                                <mat-error>
+                                    <span *ngIf="!upcomingRegcoursesFrm.get('time').valid || upcomingRegcoursesFrm.get('time').touched ||  upcomingRegcoursesFrm.get('time').dirty">
+                                        <span *ngIf="upcomingRegcoursesFrm.controls['time'].hasError('required') ">
+                                            {{'Please Select One'}}
+                                        </span>
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Training Mood" [(ngModel)]="RegularBatchDetails.Trainingtype" (ngModelChange)="onShiftChange($event)"
+                                    formControlName="trainingmood" required>
+                                    <!-- <mat-option value="false">Offline</mat-option>
+                                    <mat-option value="true">Online</mat-option> -->
+                                    <mat-option *ngFor="let trainings of trainingType.data" [value]="trainings.TrainingModeId">{{trainings.TrainingName}}</mat-option>
+
+                                </mat-select>
+                                <mat-error>
+                                    <span *ngIf="!upcomingRegcoursesFrm.get('trainingmood').valid || upcomingRegcoursesFrm.get('trainingmood').touched ||  upcomingRegcoursesFrm.get('trainingmood').dirty">
+                                        <span *ngIf="upcomingRegcoursesFrm.controls['trainingmood'].hasError('required') ">
+                                            {{'Please Select One'}}
+                                        </span>
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-12 col-sm-12" *ngIf="TypesVisible">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Training Types" [(ngModel)]="RegularBatchDetails.TrainingMode" formControlName="trainingtype">
+                                    <mat-option *ngFor="let training of traininglist.data" [value]="training.TrainingMode">{{training.TrainingModeName}}</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <span *ngIf="!upcomingRegcoursesFrm.get('trainingtype').valid || upcomingRegcoursesFrm.get('trainingtype').touched ||  upcomingRegcoursesFrm.get('trainingtype').dirty">
+                                        <span *ngIf="upcomingRegcoursesFrm.controls['trainingtype'].hasError('required') ">
+                                            {{'Please Select One'}}
+                                        </span>
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Session Type" [(ngModel)]="RegularBatchDetails.SessionTypeId" formControlName="sessionType" required>
+                                    <!-- <mat-option value="false">Offline</mat-option>
+                                        <mat-option value="true">Online</mat-option> -->
+                                    <mat-option *ngFor="let trainings of sessionType" [value]="trainings.sessionTypeId">{{trainings.SessionType}}</mat-option>
+
+                                </mat-select>
+                                <mat-error>
+                                    <span *ngIf="!upcomingRegcoursesFrm.get('sessionType').valid || upcomingRegcoursesFrm.get('sessionType').touched ||  upcomingRegcoursesFrm.get('sessionType').dirty">
+                                        <span *ngIf="upcomingRegcoursesFrm.controls['sessionType'].hasError('required') ">
+                                            {{'Please Select One'}}
+                                        </span>
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <!-- <div class="col-lg-12 col-sm-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Is paid Demo Session?" (ngModelChange)="onFeesChange($event)" formControlName="paiddemo" required>
+                                    <mat-option value="true">Yes</mat-option>
+                                    <mat-option value="false">No</mat-option>
+    
+                                </mat-select>
+                                <mat-error>
+                                    <span *ngIf="!upcomingRegcoursesFrm.get('paiddemo').valid || upcomingRegcoursesFrm.get('paiddemo').touched ||  upcomingRegcoursesFrm.get('paiddemo').dirty">
+                                        <span *ngIf="upcomingRegcoursesFrm.controls['paiddemo'].hasError('required') ">
+                                            {{'Please Select One'}}
+                                        </span>
+                                    </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div> -->
+                        <div class="col-lg-12 col-sm-12">
+                            <mat-form-field class="example-full-width">
+                                <input matInput type="number" [(ngModel)]="Fee" placeholder="Price" formControlName="Fees" />
+                                <!-- <label for="DURATION">Demo Duration in Hours</label>
+                                    <input type="number" formControlName="duration" class="form-control" id="DURATION" aria-describedby="DURATION" placeholder="Enter Duration" required> -->
+
+                                <!-- <mat-error>
+                            <span *ngIf="!upcomingRegcoursesFrm.get('duration').valid || upcomingRegcoursesFrm.get('duration').touched ||  upcomingRegcoursesFrm.get('duration').dirty">
+                              <span *ngIf="upcomingRegcoursesFrm.controls['duration'].hasError('required') ">
+                                {{'Please Enter Last Name'}}
+                              </span>
+            
+                              <span *ngIf="upcomingRegcoursesFrm.controls['lastName'].hasError('minlength') ">
+                                {{'Min Length Should Be 4 Characters'}}
+                              </span>
+                            </span>
+                          </mat-error> -->
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-select placeholder="Select a Currency" [(ngModel)]="currencys" (ngModelChange)="onCurrencyChange($event)" formControlName="currency"
+                                    required>
+                                    <mat-option *ngFor="let trainings of currenies" [value]="trainings.code">{{trainings.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-12 col-sm-12">
+                            <label class="example-margin">Price:</label>
+                            <mat-radio-group [(ngModel)]="RegularBatchDetails.FeeTypeId" class="example-radio-group" formControlName="pricetype">
+                                <mat-radio-button class="example-radio-button" *ngFor="let fees of feeType" [value]="fees.FeeTypeId">
+                                    {{fees.FeeType}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <!-- <mat-form-field class="example-full-width"> -->
+                            <div class="col-md-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="Select Hours" [(ngModel)]="hrs" formControlName="Inhours">
+                                        <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                            {{hour.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field>
+                                    <mat-select placeholder="Select Minutes" [(ngModel)]="duration" formControlName="Inminutes">
+                                        <mat-option *ngFor="let minute of minutes" [value]="minute.value">
+                                            {{minute.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <!-- <input matInput type="number" placeholder="Session Duration in Hours" formControlName="duration" required/> -->
+                            <!-- <mat-error>
+                                        <span *ngIf="!upcomingRegcoursesFrm.get('duration').valid || upcomingRegcoursesFrm.get('duration').touched ||  upcomingRegcoursesFrm.get('duration').dirty">
+                                            <span *ngIf="upcomingRegcoursesFrm.controls['duration'].hasError('required') ">
+                                                {{'Please Enter Duration'}}
+                                            </span>
+                                        </span>
+                                    </mat-error> -->
+                            <!-- </mat-form-field> -->
+                        </div>
+
+                        <div class="row" style="margin-left: 0px">
+                            <div class="col-lg-8 col-sm-12 col-md-6">
+                                <label style="font-weight: 400">Select A TimeZone
+                                </label>
+                                <ng2-timezone-picker style="width: 100%" (change)="ChangeTimeZone($event)" placeholder="Select Timezone" showOffset="false"
+                                    guess="true">
+                                </ng2-timezone-picker>
+                            </div>
+                            <div class="col-lg-4 col-sm-12 col-md-6">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="TimeZone" [(ngModel)]="RegularBatchDetails.Timezone" formControlName="timezone" required readonly/>
+                                    <mat-error>
+                                        <span *ngIf="!upcomingRegcoursesFrm.get('timezone').valid || upcomingRegcoursesFrm.get('timezone').touched ||  upcomingRegcoursesFrm.get('timezone').dirty">
+                                            <span *ngIf="upcomingRegcoursesFrm.controls['timezone'].hasError('required') ">
+                                                {{'Please Select A Time Zone'}}
+                                            </span>
+                                        </span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+
+                        </div>
+                        <!-- <div class="col-lg-12">
+                <div mat-dialog-actions class="pull-right">
+                    <button mat-raised-button (click)="AddDemoCourseForm()" [disabled]="!upcomingRegcoursesFrm.valid" color="primary" cdkFocusInitial>Create</button>
+                    <button mat-button (click)="onNoClick()" style="background: orange;color: whitesmoke">Cancel</button>
+                </div>
+            </div> -->
+                        <div class="col-lg-12" style="margin-top: 10px;text-align: center">
+                            <button class="btn btn-warning" [disabled]="btnDisable" (click)="AddDemoCourseForm()" style="width: 275px;background-color: #118aef"
+                                cdkFocusInitial>Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+        <!-- <div class="container">
+        <div>
+            <div class="col-md-3">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Enter Money" value="123">
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-radio-group class="example-radio-group">
+                    <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
+                        {{season}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field>
+                <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" matInput [owlDateTimeTrigger]="time"
+                    placeholder="{{'Timing'}}" [owlDateTime]="time" #time/>
+                <owl-date-time #time [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+            </mat-form-field>
+        </div>
+        <div class="space50"></div>
+        <button class="pull-right" mat-raised-button color="primary">Create Regular Batch</button>
+    </div> -->
+
+    </div>
+</div>

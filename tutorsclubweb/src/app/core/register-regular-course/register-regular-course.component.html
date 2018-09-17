@@ -1,0 +1,23 @@
+<!-- <h1 mat-dialog-title style="background-color: deepskyblue;width: 100%;text-align: center;color: white;text-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px deepskyblue;">Registration For Demo Course</h1>
+<div mat-dialog-content>
+  <h3>Do you wanna Register to this course?</h3>
+  <div class="col-lg-12">
+    <div mat-dialog-actions class="pull-right">
+      <button mat-raised-button (click)="DemoRegistrationSubmit()" color="primary" cdkFocusInitial>Register</button>
+      <button mat-button (click)="onNoClick()" style="background: orange;color: whitesmoke">Cancel</button>
+    </div>
+  </div>
+</div> -->
+
+<div class="dialog-header font">
+    <h2 mat-dialog-title>Decision</h2>
+  </div>
+  <mat-dialog-content>
+      <h3>Do you want to Register to this Regular Batch?</h3>
+  </mat-dialog-content>
+  <mat-dialog-actions class="pull-right">
+    <button mat-raised-button type="submit" color="primary" (click)="RegularRegistrationSubmit()">
+      <i class="fa fa-upload"></i>&nbsp;&nbsp;Register</button>
+    <button mat-raised-button type="reset" color="warn" (click)="onNoClick()">
+      <i class="fa fa-remove"></i>&nbsp;&nbsp;Cancel</button>
+  </mat-dialog-actions>

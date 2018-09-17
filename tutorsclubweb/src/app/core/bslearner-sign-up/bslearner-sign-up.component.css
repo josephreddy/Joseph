@@ -1,0 +1,13 @@
+.color{
+    color: white;
+}
+
+.inline{
+    display: inline;
+}
+
+#eye {
+    position:absolute;
+    right:10px;
+    top:6px;
+  }

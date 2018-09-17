@@ -1,0 +1,605 @@
+<!-- <section class="new-course-banner-bg">
+  <div class="container banner_container" style="margin-top: -20px;">
+    <div class="row">
+      <div class="main_outer_wrap course-wrap-wdth">
+        <div class="course-descrip-wraps col-md-8 col-sm-8 video-missing" id="">
+          <h1 class="light-40sp" ng-init="cpg.h1Text=&quot;Angular Training&quot;" style="color: white">Edit Tutor Profile</h1>
+          <div class="learners" itemscope="itemscope" itemtype="http://data-vocabulary.org/Review-aggregate">
+            <div class="rating_wrap default-cursor">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<div class="container" style="padding-bottom: 20px">
+  <div class="row" style="margin-top: 20px;">
+    <form [formGroup]="TutorFormGroup">
+      <input type="text" formControlName="TutorID" hidden/>
+      <input type="text" formControlName="CreatedBy" [(ngModel)]="CreatedBy" hidden/>
+      <input type="text" formControlName="DateCreated" [(ngModel)]="Datecreated" hidden/>
+      <input type="text" formControlName="active" [(ngModel)]="active" hidden/>
+      <input type="text" formControlName="password" [(ngModel)]="Password" hidden/>
+      <div class="col-lg-9">
+        <div class="row" style="margin-top: 5px;">
+          <div class="col-lg-10">
+            <mat-form-field class="example-full-width">
+              <input matInput type="text" placeholder="Title" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                maxlength="150" [(ngModel)]="titleValue" formControlName="title" required/>
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('title').valid || TutorFormGroup.get('title').touched ||  TutorFormGroup.get('title').dirty">
+                  <span *ngIf="TutorFormGroup.controls['title'].hasError('required') ">
+                    {{'Please Enter Title'}}
+                  </span>
+
+                  <span *ngIf="TutorFormGroup.controls['title'].hasError('minlength') ">
+                    {{'Title should be mininium 10 Characters'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-lg-5">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="First Name" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                [(ngModel)]="Firstname" maxlength="16" formControlName="firstName" required/>
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('firstName').valid || TutorFormGroup.get('firstName').touched ||  TutorFormGroup.get('firstName').dirty">
+                  <span *ngIf="TutorFormGroup.controls['firstName'].hasError('required') ">
+                    {{'Please Enter First Name'}}
+                  </span>
+
+                  <span *ngIf="TutorFormGroup.controls['firstName'].hasError('minlength') ">
+                    {{'Min Length Should Be 4 Characters'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-5">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Last Name" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                [(ngModel)]="Lastname" maxlength="16" formControlName="lastName" required/>
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('lastName').valid || TutorFormGroup.get('lastName').touched ||  TutorFormGroup.get('lastName').dirty">
+                  <span *ngIf="TutorFormGroup.controls['lastName'].hasError('required') ">
+                    {{'Please Enter Last Name'}}
+                  </span>
+
+                  <span *ngIf="TutorFormGroup.controls['lastName'].hasError('minlength') ">
+                    {{'Min Length Should Be 4 Characters'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-lg-10">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Email ID" [(ngModel)]="emailID" formControlName="emailid" readonly/>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 5px;">
+          <div class="col-lg-5">
+            <label style="color: steelblue;font-weight: 400">Phone Number
+              <input style="width: 450px;height: 48px;border-radius: 4px" placeholder="Phone Number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                formControlName="contactNumber" type="text" maxlength="10" [(ngModel)]="phoneNumber" minlength="3" ng2TelInput
+                (intlTelInputObject)="telInputObject($event)" (countryChange)="onCountryChange($event)" required/>
+              <!-- <int-phone-prefix placeholder="Phone Number" [locale]="'es'" [(ngModel)]="phoneNumber" formControlName="contactNumber" required></int-phone-prefix> -->
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('contactNumber').valid && TutorFormGroup.get('contactNumber').touched">
+                  <span *ngIf="TutorFormGroup.controls['contactNumber'].hasError('required') ">
+                    {{'Please Enter Your Mobile Number'}}
+                  </span>
+                  <span *ngIf="TutorFormGroup.controls['contactNumber'].hasError('minlength') ">
+                    {{'Please Enter valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="TutorFormGroup.controls['contactNumber'].hasError('maxlength') ">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="TutorFormGroup.controls['contactNumber'].hasError('required')&&TutorFormGroup.controls['contactNumber'].hasError('pattern')">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                </span>
+              </mat-error>
+            </label>
+          </div>
+
+          <div class="col-lg-5">
+            <label style="color: steelblue;font-weight: 400">Alternative Phone Number
+              <input style="width: 450px;height: 48px;border-radius: 4px" placeholder="Phone Number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                formControlName="AlternativeContactNumber" [(ngModel)]="AltPhoneNumber" type="text" maxlength="10" minlength="3"
+                ng2TelInput (intlTelInputObject)="telInputObject($event)" (countryChange)="onCountryChange($event)" required/>
+              <!-- <int-phone-prefix placeholder="Alternative Phone Number" [locale]="'es'" [(ngModel)]="AltPhoneNumber" formControlName="AlternativeContactNumber"></int-phone-prefix> -->
+              <mat-error>
+
+                <span *ngIf="!TutorFormGroup.get('AlternativeContactNumber').valid && TutorFormGroup.get('AlternativeContactNumber').touched">
+                  <span *ngIf="TutorFormGroup.controls['AlternativeContactNumber'].hasError('required')">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="TutorFormGroup.controls['AlternativeContactNumber'].hasError('minlength') ">
+                    {{'Please Enter valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="TutorFormGroup.controls['AlternativeContactNumber'].hasError('maxlength') ">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="TutorFormGroup.controls['AlternativeContactNumber'].hasError('pattern')">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                </span>
+              </mat-error>
+            </label>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-lg-5">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Select Courses" [(ngModel)]="courseselected" formControlName="course" multiple required>
+                <mat-option *ngFor="let demo of demolist.data" [value]="demo.CourseId">{{demo.CourseName}}</mat-option>
+              </mat-select>
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('course').valid || TutorFormGroup.get('course').touched ||  TutorFormGroup.get('course').dirty">
+                  <span *ngIf="TutorFormGroup.controls['course'].hasError('required') ">
+                    {{'Please Select One'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-5">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Highest Education" [(ngModel)]="educationSelected" formControlName="education" required>
+                <mat-option *ngFor="let Education of Educationlist.data" [value]="Education.EduID">{{Education.EducationName}}</mat-option>
+              </mat-select>
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('education').valid || TutorFormGroup.get('education').touched ||  TutorFormGroup.get('education').dirty">
+                  <span *ngIf="TutorFormGroup.controls['education'].hasError('required') ">
+                    {{'Please Select One'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 5px;">
+          <div class="col-lg-10">
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Explain About Work Experience?" [(ngModel)]="WorkDesc" formControlName="workExp" rows="3"
+                required></textarea>
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('workExp').valid || TutorFormGroup.get('workExp').touched ||  TutorFormGroup.get('workExp').dirty">
+                  <span *ngIf="TutorFormGroup.controls['workExp'].hasError('required') ">
+                    {{'Please Enter Experience'}}
+                  </span>
+
+                  <span *ngIf="TutorFormGroup.controls['workExp'].hasError('minlength') ">
+                    {{'Min Length Should Be 10 Characters'}}
+                  </span>
+
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-lg-10 panel" style="margin-left: 3px;margin-top: 10px;background-color: azure;">
+          <div class="col-lg-2 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <!-- <mat-select placeholder="Shifts" formControlName="shifts" (ngModelChange)="onShiftChange($event)" [(ngModel)]="uniquearray"  multiple > -->
+              <mat-select placeholder="Shifts" formControlName="shifts" [(ngModel)]="uniquearray" multiple>
+                <!-- [(ngModel)]="uniquearray" -->
+                <mat-option *ngFor="let shift of PrefferrableShiftList" [value]="shift.ShiftID">{{shift.ShiftName}}</mat-option>
+              </mat-select>
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('shifts').valid || TutorFormGroup.get('shifts').touched ||  TutorFormGroup.get('shifts').dirty">
+                  <span *ngIf="TutorFormGroup.controls['shifts'].hasError('required') ">
+                    {{'Please Select One'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row" style="margin-top: 5px;">
+            <div class="col-lg-2 col-sm-3" *ngIf="MorningTimeVisible">
+              <mat-form-field>
+                <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="MorningStartTime"
+                  [min]="Morningmin" [max]="Morningmax" matInput [owlDateTimeTrigger]="Mopentime" placeholder="{{'Morning Start Time'}}"
+                  formControlName="Mopentime" [owlDateTime]="Mopentime" #Mopentime/>
+                <owl-date-time #Mopentime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                <mat-error>
+                  <span *ngIf="!TutorFormGroup.get('Mopentime').valid || TutorFormGroup.get('Mopentime').touched ||  TutorFormGroup.get('Mopentime').dirty">
+                    <span *ngIf="TutorFormGroup.controls['Mopentime'].hasError('required') ">
+                      {{'Please Select One'}}
+                    </span>
+                  </span>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="MorningEndTime" [min]="Morningmin"
+                  [max]="Morningmax" matInput [owlDateTimeTrigger]="Mclosetime" placeholder="{{'Morning End Time'}}" formControlName="Mclosetime"
+                  [owlDateTime]="Mclosetime" #Mclosetime/>
+                <owl-date-time #Mclosetime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                <mat-error>
+                  <span *ngIf="!TutorFormGroup.get('Mclosetime').valid || TutorFormGroup.get('Mclosetime').touched ||  TutorFormGroup.get('Mclosetime').dirty">
+                    <span *ngIf="TutorFormGroup.controls['Mclosetime'].hasError('required') ">
+                      {{'Please Select One'}}
+                    </span>
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2 col-sm-3" *ngIf="AfternoonTimeVisible">
+              <mat-form-field>
+                <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="AfterNoonStartTime"
+                  [min]="Afternoonmin" [max]="Afternoonmax" matInput [owlDateTimeTrigger]="Aopentime" placeholder="{{'Afternoon Start Time'}}"
+                  formControlName="Aopentime" [owlDateTime]="Aopentime" #Aopentime/>
+                <owl-date-time #Aopentime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                <mat-error>
+                  <span *ngIf="!TutorFormGroup.get('Aopentime').valid || TutorFormGroup.get('Aopentime').touched ||  TutorFormGroup.get('Aopentime').dirty">
+                    <span *ngIf="TutorFormGroup.controls['Aopentime'].hasError('required') ">
+                      {{'Please Select One'}}
+                    </span>
+                  </span>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="AfterNoonEndTime"
+                  [min]="Afternoonmin" [max]="Afternoonmax" matInput [owlDateTimeTrigger]="Aclosetime" placeholder="{{'Afternoon End Time'}}"
+                  formControlName="Aclosetime" [owlDateTime]="Aclosetime" #Aclosetime/>
+                <owl-date-time #Aclosetime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                <mat-error>
+                  <span *ngIf="!TutorFormGroup.get('Aclosetime').valid || TutorFormGroup.get('Aclosetime').touched ||  TutorFormGroup.get('Aclosetime').dirty">
+                    <span *ngIf="TutorFormGroup.controls['Aclosetime'].hasError('required') ">
+                      {{'Please Select One'}}
+                    </span>
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2 col-sm-3" *ngIf="EveningTimeVisible">
+              <mat-form-field>
+                <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="EveningStartTime"
+                  [min]="Eveningmin" [max]="Eveningmax" matInput [owlDateTimeTrigger]="Eopentime" placeholder="{{'Evening Start Time'}}"
+                  formControlName="Eopentime" [owlDateTime]="Eopentime" #Eopentime/>
+                <owl-date-time #Eopentime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                <mat-error>
+                  <span *ngIf="!TutorFormGroup.get('Eopentime').valid || TutorFormGroup.get('Eopentime').touched ||  TutorFormGroup.get('Eopentime').dirty">
+                    <span *ngIf="TutorFormGroup.controls['Eopentime'].hasError('required') ">
+                      {{'Please Select One'}}
+                    </span>
+                  </span>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="EveningEndTime" [min]="Eveningmin"
+                  [max]="Eveningmax" matInput [owlDateTimeTrigger]="Eclosetime" placeholder="{{'Evening End Time'}}" formControlName="Eclosetime"
+                  [owlDateTime]="Eclosetime" #Eclosetime/>
+                <owl-date-time #Eclosetime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                <mat-error>
+                  <span *ngIf="!TutorFormGroup.get('Eclosetime').valid || TutorFormGroup.get('Eclosetime').touched ||  TutorFormGroup.get('Eclosetime').dirty">
+                    <span *ngIf="TutorFormGroup.controls['Eclosetime'].hasError('required') ">
+                      {{'Please Select One'}}
+                    </span>
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-2 col-sm-3" *ngIf="NightTimeVisible">
+              <mat-form-field>
+                <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="NightStartTime" [min]="Nightmin"
+                  [max]="Nightmax" matInput [owlDateTimeTrigger]="Nopentime" placeholder="{{'Evening Start Time'}}" formControlName="Nopentime"
+                  [owlDateTime]="Nopentime" #Nopentime/>
+                <owl-date-time #Nopentime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                <mat-error>
+                  <span *ngIf="!TutorFormGroup.get('Nopentime').valid || TutorFormGroup.get('Nopentime').touched ||  TutorFormGroup.get('Nopentime').dirty">
+                    <span *ngIf="TutorFormGroup.controls['Nopentime'].hasError('required') ">
+                      {{'Please Select One'}}
+                    </span>
+                  </span>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="NightEndTime" [min]="Nightmin"
+                  [max]="Nightmax" matInput [owlDateTimeTrigger]="Nclosetime" placeholder="{{'Evening End Time'}}" formControlName="Nclosetime"
+                  [owlDateTime]="Nclosetime" #Nclosetime/>
+                <owl-date-time #Nclosetime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                <mat-error>
+                  <span *ngIf="!TutorFormGroup.get('Nclosetime').valid || TutorFormGroup.get('Nclosetime').touched ||  TutorFormGroup.get('Nclosetime').dirty">
+                    <span *ngIf="TutorFormGroup.controls['Nclosetime'].hasError('required') ">
+                      {{'Please Select One'}}
+                    </span>
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 5px;">
+          <div class="col-lg-5">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Weekends Available" [(ngModel)]="weekendSelected" formControlName="weekendAvailable" required>
+                <mat-option value="true">Yes</mat-option>
+                <mat-option value="false">No</mat-option>
+              </mat-select>
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('weekendAvailable').valid || TutorFormGroup.get('weekendAvailable').touched ||  TutorFormGroup.get('weekendAvailable').dirty">
+                  <span *ngIf="TutorFormGroup.controls['weekendAvailable'].hasError('required') ">
+                    {{'Please Select One'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-5">
+            <mat-form-field class="example-full-width">
+              <input type="number" matInput placeholder="Experience" [(ngModel)]="experienceSelected" formControlName="experience" min="0"
+                required/>
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('experience').valid || TutorFormGroup.get('experience').touched ||  TutorFormGroup.get('experience').dirty">
+                  <span *ngIf="TutorFormGroup.controls['experience'].hasError('required') ">
+                    {{'Please Enter Experience'}}
+                  </span>
+
+                  <span *ngIf="TutorFormGroup.controls['experience'].hasError('min') ">
+                    {{'Should have minimum 1 year experience'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 5px;">
+          <div class="col-lg-3">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Blog" [(ngModel)]="blogValue" formControlName="blog" />
+              <mat-error>
+                <span *ngIf="TutorFormGroup.controls['blog'].hasError('pattern')">
+                  {{'Invalid Blog URL'}}
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="LinkedIn Profile" [(ngModel)]="linkedValue" formControlName="linked" />
+              <mat-error>
+                <span *ngIf="TutorFormGroup.controls['linked'].hasError('pattern')">
+                  {{'Invalid linked URL'}}
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="HangOut" [(ngModel)]="HangoutValue" formControlName="hangout" />
+              <mat-error>
+                <span *ngIf="TutorFormGroup.controls['hangout'].hasError('pattern')">
+                  {{'Invalid HangOut URL'}}
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="YouTubeLink" [(ngModel)]="youtubeValue" formControlName="youtube" />
+              <mat-error>
+                <span *ngIf="TutorFormGroup.controls['youtube'].hasError('pattern')">
+                  {{'Invalid YouTube URL'}}
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Skype ID" [(ngModel)]="SkypeValue" formControlName="skype" />
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('skype').valid || TutorFormGroup.get('skype').touched ||  TutorFormGroup.get('skype').dirty">
+
+                  <span *ngIf="TutorFormGroup.controls['skype'].hasError('minlength') ">
+                    {{'Min Length Should Be 4 Characters'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 5px;">
+          <div class="col-lg-10">
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Address" [(ngModel)]="AddressValue" formControlName="address" rows="3" required></textarea>
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('address').valid || TutorFormGroup.get('address').touched ||  TutorFormGroup.get('address').dirty">
+                  <span *ngIf="TutorFormGroup.controls['address'].hasError('required') ">
+                    {{'Please Enter Address'}}
+                  </span>
+
+                  <span *ngIf="TutorFormGroup.controls['address'].hasError('minlength') ">
+                    {{'Address contain mininium 10 and maximum 200 Characters'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 5px;">
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Country" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                [(ngModel)]="countryValue" formControlName="country" required />
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('country').valid || TutorFormGroup.get('country').touched ||  TutorFormGroup.get('country').dirty">
+                  <span *ngIf="TutorFormGroup.controls['country'].hasError('required') ">
+                    {{'Please Enter State'}}
+                  </span>
+
+                  <span *ngIf="TutorFormGroup.controls['country'].hasError('minlength') ">
+                    {{'Min Length Should Be 4 Characters'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="State" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                [(ngModel)]="stateValue" formControlName="state" required />
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('state').valid || TutorFormGroup.get('state').touched ||  TutorFormGroup.get('state').dirty">
+                  <span *ngIf="TutorFormGroup.controls['state'].hasError('required') ">
+                    {{'Please Enter State'}}
+                  </span>
+                  <span *ngIf="TutorFormGroup.controls['state'].hasError('minlength') ">
+                    {{'Min Length Should Be 4 Characters'}}
+                  </span>
+
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="City" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                [(ngModel)]="cityValue" formControlName="city" required />
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('city').valid || TutorFormGroup.get('city').touched ||  TutorFormGroup.get('city').dirty">
+                  <span *ngIf="TutorFormGroup.controls['city'].hasError('required') ">
+                    {{'Please Enter City'}}
+                  </span>
+
+                  <span *ngIf="TutorFormGroup.controls['city'].hasError('minlength') ">
+                    {{'Min Length Should Be 4 Characters'}}
+                  </span>
+
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px">
+          <div class="col-lg-4 col-sm-12">
+            <label style="color: steelblue;font-weight: 400">
+              <ng2-timezone-picker style="width: 255px;height: 40px" [timezone]="ChangeZone" (change)="ChangeTimeZone($event)" placeholder="Select timezone"
+                showOffset="true" guess="true">
+              </ng2-timezone-picker>
+            </label>
+          </div>
+          <div class="col-lg-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="TimeZone" [(ngModel)]="ChangeZone" formControlName="time" readonly />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4 col-sm-12">
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Preffered Language" [(ngModel)]="preferedlanguagesvalue" formControlName="PrefferLanguage" multiple
+                required>
+                <mat-option *ngFor="let language of Languagelist" [value]="language.LangID">{{language.LanguageName}}</mat-option>
+              </mat-select>
+              <mat-error>
+                <span *ngIf="!TutorFormGroup.get('PrefferLanguage').valid || TutorFormGroup.get('PrefferLanguage').touched ||  TutorFormGroup.get('PrefferLanguage').dirty">
+                  <span *ngIf="TutorFormGroup.controls['PrefferLanguage'].hasError('required') ">
+                    {{'Please Select One'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 5px;">
+
+          <div class="col-lg-10">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Explain About Yourself?" [(ngModel)]="aboutMeValue" formControlName="aboutMe" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <img src="{{Image}}" style=" width: 150px;height: 150px;">
+        <div class="col-lg-12 col-sm-12">
+          <label style="color: steelblue;font-weight: 400">Edit Photo
+            <div class="actions">
+              <input #_fileInput type="file" formControlName="filename" (change)="cropping.selectInputEvent($event)" accept="image/*" hidden>
+            </div>
+            <div class="col-lg-12">
+              <div class="col-lg-12">
+                <div class="resize-image">
+                  <ly-cropping #cropping [config]="myConfig" (loaded)="onloaded()" (error)="onerror()">
+                  </ly-cropping>
+                  <button *ngIf="cropping.isLoaded" color="accent" (click)="crop()" ly-button>crop</button>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <img *ngIf="cropping.isCropped" [src]="cropping.result">
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+
+      <div class="col-lg-10">
+        <div mat-dialog-actions class="pull-left">
+          <button mat-raised-button color="primary" (click)="TutorEdit()" [disabled]="!TutorFormGroup.valid ||!TutorFormGroup.dirty">Save</button>
+          <!-- <button mat-button style="background: skyblue;color: whitesmoke" (click)="TutorEdit()" [disabled]="!TutorFormGroup.valid">Save</button> -->
+          <button mat-button style="margin-left: 5px;background: orange;color: whitesmoke">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+<style>
+  .navbar-nav>li>a:hover {
+    color: black
+  }
+
+  .navbar-inverse .navbar-nav>.active>a {
+    background-color: deepskyblue
+  }
+
+  h2.courepage-intro-text {
+    clear: both;
+    color: rgba(0, 0, 0, .5);
+    font-size: 14px;
+    line-height: 1.57;
+    padding: 0 0 15px;
+    display: inline-block;
+    font-weight: 400;
+  }
+
+  .textsize {
+    clear: both;
+    font-size: 14px;
+    line-height: 1.57;
+    display: inline-block;
+  }
+
+  @media (min-width: 768px) {
+    section.new-course-banner-bg {
+      background: url() center center/cover no-repeat steelblue;
+    }
+
+    @media (min-width: 768px) {}
+    .new-course-wraper .course-banner .course-rate,
+    .new-course-wraper .course-banner h1,
+    h2.courepage-intro-text {
+      color: #fff;
+    }
+    .mat-raised-button {
+      line-height: 35px;
+    }
+  }
+</style>

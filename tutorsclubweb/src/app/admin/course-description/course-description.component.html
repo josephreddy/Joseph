@@ -1,0 +1,391 @@
+<div class="bgcolor">
+  <div class="bcrumbs" *ngIf="!isNew">
+    <h3>Edit Description ({{course}})</h3>
+  </div>
+  <div class="container" *ngIf="!isNew">
+    <button [routerLink]="['/CourseExplanation',courseDescId]" class="pull-right" mat-raised-button color="primary">Go Back</button>
+  </div>
+  <div class="container" style="min-height: 700px" *ngIf="!isNew">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+      <!-- <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>About The Course</ng-template>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">About Training Course</label>
+          <ck-editor [config]="Config" name="editor1" [(ngModel)]="AboutTrainingCourse" formControlName="AboutTrainingCourse" id="exampleFormControlTextarea1"></ck-editor>
+        <mat-error *ngIf="firstFormGroup.get('AboutTrainingCourse').touched">
+            <span *ngIf="!firstFormGroup.get('AboutTrainingCourse').valid || firstFormGroup.get('AboutTrainingCourse').touched ||  firstFormGroup.get('AboutTrainingCourse').dirty">
+              <span *ngIf="firstFormGroup.controls['AboutTrainingCourse'].hasError('required') ">
+                Please Enter Text
+              </span>
+              <span *ngIf="firstFormGroup.controls['AboutTrainingCourse'].hasError('minlength') ">
+                {{'Min Length Should Be 4 Characters'}}
+              </span>
+              <span *ngIf="firstFormGroup.controls['AboutTrainingCourse'].hasError('maxlength') ">
+                {{'Min Length Should Be 4 Characters'}}
+              </span>
+            </span>
+          </mat-error>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">What You Will Learn In This Course</label>
+          <ck-editor [config]="Config" name="editor1" [(ngModel)]="WhatYouWillLearn" formControlName="WhatYouWillLearn" id="exampleFormControlTextarea1"></ck-editor>
+         
+          <mat-error *ngIf="firstFormGroup.get('WhatYouWillLearn').touched">
+            <span *ngIf="!firstFormGroup.get('WhatYouWillLearn').valid || firstFormGroup.get('WhatYouWillLearn').touched ||  firstFormGroup.get('WhatYouWillLearn').dirty">
+              <span *ngIf="firstFormGroup.controls['WhatYouWillLearn'].hasError('required') ">
+                Please Enter Text
+              </span>
+
+              <span *ngIf="firstFormGroup.controls['WhatYouWillLearn'].hasError('minlength') ">
+                {{'Min Length Should Be 4 Characters'}}
+              </span>
+            </span>
+          </mat-error>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Why you should Take This Course</label>
+          <ck-editor [config]="Config" name="editor1" [(ngModel)]="WhyYouShouldTake" formControlName="WhyYouShouldTake" id="exampleFormControlTextarea1"></ck-editor>
+       
+          <mat-error *ngIf="firstFormGroup.get('WhyYouShouldTake').touched">
+            <span *ngIf="!firstFormGroup.get('WhyYouShouldTake').valid || firstFormGroup.get('WhyYouShouldTake').touched ||  firstFormGroup.get('WhyYouShouldTake').dirty">
+              <span *ngIf="firstFormGroup.controls['WhyYouShouldTake'].hasError('required') ">
+                Please Enter Text
+              </span>
+
+              <span *ngIf="firstFormGroup.controls['WhyYouShouldTake'].hasError('minlength') ">
+                {{'Min Length Should Be 4 Characters'}}
+              </span>
+            </span>
+          </mat-error>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Who Should Learn This Course</label>
+          <ck-editor [config]="Config" name="editor1" [(ngModel)]="WhoShouldTake" formControlName="WhoShouldTake" id="exampleFormControlTextarea1"></ck-editor>
+       
+          <mat-error *ngIf="firstFormGroup.get('WhoShouldTake').touched">
+            <span *ngIf="!firstFormGroup.get('WhoShouldTake').valid || firstFormGroup.get('WhoShouldTake').touched ||  firstFormGroup.get('WhoShouldTake').dirty">
+              <span *ngIf="firstFormGroup.controls['WhoShouldTake'].hasError('required') ">
+                Please Enter Text
+              </span>
+
+              <span *ngIf="firstFormGroup.controls['WhoShouldTake'].hasError('minlength') ">
+                {{'Min Length Should Be 4 Characters'}}
+              </span>
+            </span>
+          </mat-error>
+        </div>
+        <div class="pull-right">
+          <button mat-raised-button color="primary" mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step> -->
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Course Description</ng-template>
+          <div class="col-md-12" style="min-height: 500px">
+            <div class="col-md-4">
+              <table class="table table-striped table-bordered col-lg-4">
+                <!-- <caption><i>Add/remove textbox and chip dynamically in Angular 6</i></caption> -->
+                <thead>
+                  <tr>
+                    <th>Menu Name
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let field of fieldArray; let i = index">
+                    <td>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div (click)="deleteFieldValue(i)" class="input-group-text">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </div>
+                          <!-- <div (click)="deleteFieldValue(i)" class="input-group-text"><i class="mdi mdi-close mdi-18px"></i></div> -->
+                        </div>
+                        <input class="col-md-12 col-sm-12" [(ngModel)]="field.SubMenuName" class="form-control" type="text" name="{{field.SubMenuName}}"
+                          placeholder="Menu Name" [ngModelOptions]="{standalone: true}">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <button *ngIf="fieldArray.length <= 10" class="btn btn-success btn-sm" type="button" (click)="addFieldValue()" style="margin-right:10px">Add More Menu's</button>
+                      <!-- <button (click)="onSaveClick('edit')" class="btn btn-primary btn-sm" type="button">Save Menu('s)</button> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-8">
+              <table class="table table-striped table-bordered col-lg-4" style="margin-left:20px">
+                <thead>
+                  <tr>
+                    <th>Menu Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let field of fieldArray; let i = index">
+                    <td>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                        </div>
+                        <textarea rows="10" cols="50" style="width:660px;height: 100px" class="col-md-12 col-sm-12" [(ngModel)]="field.CourseDescription"
+                          class="form-control" type="text" name="{{field.CourseDescription}} " placeholder="Description for {{field.SubMenuName}}"
+                          [ngModelOptions]="{standalone: true}"></textarea>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="pull-right">
+            <button mat-raised-button color="primary" mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <form [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>Certification</ng-template>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Certification Details</label>
+            <ck-editor [config]="Config" name="editor1" [(ngModel)]="Certification" formControlName="Certification" id="exampleFormControlTextarea1"></ck-editor>
+            <!-- <app-ngx-editor matInput [(ngModel)]="Certification" formControlName="Certification" id="exampleFormControlTextarea1" maxlength="2500"
+            rows="3"></app-ngx-editor> -->
+            <!-- <textarea class="form-control" [(ngModel)]="Certification" formControlName="Certification" id="exampleFormControlTextarea1"
+            maxlength="2500" rows="3"></textarea> -->
+            <mat-error *ngIf="thirdFormGroup.get('Certification').touched">
+              <span *ngIf="!thirdFormGroup.get('Certification').valid || thirdFormGroup.get('Certification').touched ||  thirdFormGroup.get('Certification').dirty">
+                <span *ngIf="thirdFormGroup.controls['Certification'].hasError('required') ">
+                  Please Enter Text
+                </span>
+
+                <span *ngIf="thirdFormGroup.controls['Certification'].hasError('minlength') ">
+                  {{'Min Length Should Be 4 Characters'}}
+                </span>
+              </span>
+            </mat-error>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Validity</label>
+            <ck-editor [config]="Config" name="editor1" [(ngModel)]="Validity" formControlName="Validity" id="exampleFormControlTextarea1"></ck-editor>
+            <!-- <app-ngx-editor matInput [(ngModel)]="Validity" formControlName="Validity" id="exampleFormControlTextarea1" maxlength="2500"
+            rows="3"></app-ngx-editor> -->
+            <!-- <textarea class="form-control" [(ngModel)]="Validity" formControlName="Validity" id="exampleFormControlTextarea1" maxlength="2500"
+            rows="3"></textarea> -->
+            <mat-error *ngIf="thirdFormGroup.get('Validity').touched">
+              <span *ngIf="!thirdFormGroup.get('Validity').valid || thirdFormGroup.get('Validity').touched ||  thirdFormGroup.get('Validity').dirty">
+                <span *ngIf="thirdFormGroup.controls['Validity'].hasError('required') ">
+                  Please Enter Text
+                </span>
+
+                <span *ngIf="thirdFormGroup.controls['Validity'].hasError('minlength') ">
+                  {{'Min Length Should Be 4 Characters'}}
+                </span>
+              </span>
+            </mat-error>
+          </div>
+          <div class="pull-right">
+            <button mat-raised-button color="primary" mat-button matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-raised-button color="primary" mat-button (click)="onSaveClick()">Submit</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+  <div class="bcrumbs" *ngIf="isNew">
+    <h3>Add Description ({{course}})</h3>
+  </div>
+  <div class="container" *ngIf="isNew">
+    <button [routerLink]="['/CourseExplanation',courseDescId]" class="pull-right" mat-raised-button color="primary">Go Back</button>
+  </div>
+  <div class="container" style="min-height: 700px" *ngIf="isNew">
+    <!-- <h3>Add Description ({{course}})</h3> -->
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+      <!-- <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>About The Course</ng-template>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">About Training Course</label>
+          <ck-editor [config]="Config" name="editor1" formControlName="AboutTrainingCourse" id="exampleFormControlTextarea1"></ck-editor>
+          <mat-error *ngIf="firstFormGroup.get('AboutTrainingCourse').touched">
+            <span *ngIf="!firstFormGroup.get('AboutTrainingCourse').valid || firstFormGroup.get('AboutTrainingCourse').touched ||  firstFormGroup.get('AboutTrainingCourse').dirty">
+              <span *ngIf="firstFormGroup.controls['AboutTrainingCourse'].hasError('required') ">
+                Please Enter Text
+              </span>
+              <span *ngIf="firstFormGroup.controls['AboutTrainingCourse'].hasError('minlength') ">
+                {{'Min Length Should Be 4 Characters'}}
+              </span>
+              <span *ngIf="firstFormGroup.controls['AboutTrainingCourse'].hasError('maxlength') ">
+                {{'Min Length Should Be 4 Characters'}}
+              </span>
+            </span>
+          </mat-error>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">What You Will Learn In This Course</label>
+          <ck-editor [config]="Config" name="editor1" formControlName="WhatYouWillLearn" id="exampleFormControlTextarea1"></ck-editor>
+          <mat-error *ngIf="firstFormGroup.get('WhatYouWillLearn').touched">
+            <span *ngIf="!firstFormGroup.get('WhatYouWillLearn').valid || firstFormGroup.get('WhatYouWillLearn').touched ||  firstFormGroup.get('WhatYouWillLearn').dirty">
+              <span *ngIf="firstFormGroup.controls['WhatYouWillLearn'].hasError('required') ">
+                Please Enter Text
+              </span>
+
+              <span *ngIf="firstFormGroup.controls['WhatYouWillLearn'].hasError('minlength') ">
+                {{'Min Length Should Be 4 Characters'}}
+              </span>
+            </span>
+          </mat-error>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Why you should Take This Course</label>
+          <ck-editor [config]="Config" name="editor1" formControlName="WhyYouShouldTake" id="exampleFormControlTextarea1"></ck-editor>
+          <mat-error *ngIf="firstFormGroup.get('WhyYouShouldTake').touched">
+            <span *ngIf="!firstFormGroup.get('WhyYouShouldTake').valid || firstFormGroup.get('WhyYouShouldTake').touched ||  firstFormGroup.get('WhyYouShouldTake').dirty">
+              <span *ngIf="firstFormGroup.controls['WhyYouShouldTake'].hasError('required') ">
+                Please Enter Text
+              </span>
+
+              <span *ngIf="firstFormGroup.controls['WhyYouShouldTake'].hasError('minlength') ">
+                {{'Min Length Should Be 4 Characters'}}
+              </span>
+            </span>
+          </mat-error>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Who Should Learn This Course</label>
+          <ck-editor [config]="Config" name="editor1" formControlName="WhoShouldTake" id="exampleFormControlTextarea1"></ck-editor>
+          <mat-error *ngIf="firstFormGroup.get('WhoShouldTake').touched">
+            <span *ngIf="!firstFormGroup.get('WhoShouldTake').valid || firstFormGroup.get('WhoShouldTake').touched ||  firstFormGroup.get('WhoShouldTake').dirty">
+              <span *ngIf="firstFormGroup.controls['WhoShouldTake'].hasError('required') ">
+                Please Enter Text
+              </span>
+
+              <span *ngIf="firstFormGroup.controls['WhoShouldTake'].hasError('minlength') ">
+                {{'Min Length Should Be 4 Characters'}}
+              </span>
+            </span>
+          </mat-error>
+        </div>
+        <div class="pull-right">
+          <button mat-raised-button color="primary" mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step> -->
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Course Description</ng-template>
+          <div class="col-md-12" style="min-height: 500px">
+            <div class="col-md-4">
+              <table class="table table-striped table-bordered col-lg-4">
+                <!-- <caption><i>Add/remove textbox and chip dynamically in Angular 6</i></caption> -->
+                <thead>
+                  <tr>
+                    <th>Menu Name
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let field of fieldArray; let i = index">
+                    <td>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div (click)="deleteFieldValue(i)" class="input-group-text">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                        <input class="col-md-12 col-sm-12" [(ngModel)]="field.SubMenuName" class="form-control" type="text" name="{{field.SubMenuName}}"
+                          placeholder="Menu Name" [ngModelOptions]="{standalone: true}">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="right">
+                      <button *ngIf="fieldArray.length <= 10" class="btn btn-success btn-sm" type="button" (click)="addFieldValue()" style="margin-right:10px">Add More Menu's</button>
+                      <!-- <button (click)="onSaveClick('add')" class="btn btn-primary btn-sm" type="button">Save Menu('s)</button> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-8">
+              <table class="table table-striped table-bordered col-lg-4" style="margin-left:20px">
+                <thead>
+                  <tr>
+                    <th>Menu Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let field of fieldArray; let i = index">
+                    <td>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                        </div>
+                        <textarea rows="10" cols="50" style="width:660px;height: 100px" class="col-md-12 col-sm-12" [(ngModel)]="field.CourseDescription"
+                          class="form-control" type="text" name="{{field.CourseDescription}} " placeholder="Description for {{field.SubMenuName}}"
+                          [ngModelOptions]="{standalone: true}"></textarea>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="pull-right">
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <form [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>Certification</ng-template>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Certification Details</label>
+            <ck-editor [config]="Config" name="editor1" formControlName="Certification" id="exampleFormControlTextarea1"></ck-editor>
+            <!-- <textarea class="form-control" formControlName="Certification" id="exampleFormControlTextarea1" maxlength="2500" rows="3"></textarea> -->
+            <mat-error *ngIf="thirdFormGroup.get('Certification').touched">
+              <span *ngIf="!thirdFormGroup.get('Certification').valid || thirdFormGroup.get('Certification').touched ||  thirdFormGroup.get('Certification').dirty">
+                <span *ngIf="thirdFormGroup.controls['Certification'].hasError('required') ">
+                  Please Enter Text
+                </span>
+
+                <span *ngIf="thirdFormGroup.controls['Certification'].hasError('minlength') ">
+                  {{'Min Length Should Be 4 Characters'}}
+                </span>
+              </span>
+            </mat-error>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Validity</label>
+            <ck-editor [config]="Config" name="editor1" formControlName="Validity" id="exampleFormControlTextarea1"></ck-editor>
+            <!-- <textarea class="form-control" formControlName="Validity" id="exampleFormControlTextarea1" maxlength="2500" rows="3"></textarea> -->
+            <mat-error *ngIf="thirdFormGroup.get('Validity').touched">
+              <span *ngIf="!thirdFormGroup.get('Validity').valid || thirdFormGroup.get('Validity').touched ||  thirdFormGroup.get('Validity').dirty">
+                <span *ngIf="thirdFormGroup.controls['Validity'].hasError('required') ">
+                  Please Enter Text
+                </span>
+
+                <span *ngIf="thirdFormGroup.controls['Validity'].hasError('minlength') ">
+                  {{'Min Length Should Be 4 Characters'}}
+                </span>
+              </span>
+            </mat-error>
+          </div>
+          <div class="pull-right">
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <!-- <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button> -->
+            <button mat-raised-button color="primary" (click)="onSaveClick()">Submit</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>

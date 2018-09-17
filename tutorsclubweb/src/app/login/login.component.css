@@ -1,0 +1,53 @@
+/* 
+.dialog-header{
+    display: block;
+    margin: -24px -24px 24px -24px;
+    padding: 5px 23px 0px 97px;
+ 
+    max-height: 65vh;
+    overflow: auto;
+    color: white; 
+    backface-visibility: hidden;
+    background-color: #07486b; 
+}
+
+.invalid{
+    color: red;
+    font-size: 12px;
+}*/
+.mat-dialog-title{
+  margin: 0 0 8px;
+  display: block;
+  font-family: inherit;
+} 
+
+.info, .success, .warning, .error, .validation {
+  /* -webkit-animation: seconds 1.0s forwards; */
+  /* -webkit-animation-iteration-count: 1; */
+  /* -webkit-animation-delay: 5s; */
+  /* animation: seconds 1.0s forwards; */
+  /* animation-iteration-count: 1; */
+  /* animation-delay: 5s; */
+  position: relative;
+    
+}
+@-webkit-keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px; 
+    position: absolute;   
+  }
+}
+@keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px;
+    position: absolute;     
+  }
+}

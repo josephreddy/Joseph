@@ -1,0 +1,17 @@
+<!-- <h1 mat-dialog-title style="background-color: deepskyblue;width: 100%;text-align: center;color: white;text-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px deepskyblue;">
+    Delete Demo Session</h1> -->
+    <div class="dialog-header">
+            <h2 mat-dialog-title>Delete Demo Session</h2>
+            <i class="fa fa-times pull-right" (click)="onNoClick()"  style="cursor: pointer;font-size: 17px;margin-top: -33px"></i>
+        </div>
+<span>&nbsp;&nbsp;Are you sure you want to remove?</span>
+<div class="col-lg-12" style="margin-top: 15px;">
+    <ul class="list-inline" style="text-align: center;">
+        <li>
+            <input type="button" value="Delete" id="btnuserSave" (click)=Delete(data.TCDemoId) class="btn btn-danger" />
+        </li>
+        <li>
+            <input type="button" value="Cancel" id="btnuserCancel" (click)=onNoClick() class="btn" />
+        </li>
+    </ul>
+</div>

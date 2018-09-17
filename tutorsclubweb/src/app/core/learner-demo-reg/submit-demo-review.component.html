@@ -1,0 +1,84 @@
+<div class="dialog-header">
+    <h2 mat-dialog-title>Please Give the Feetback</h2>
+    <i class="fa fa-times pull-right" (click)="onNoClick()" style="cursor: pointer;font-size: 17px;margin-top: -33px"></i>
+</div>
+<mat-dialog-content>
+    <div class="row col-md-12">
+        <div class="col-md-12">
+            <h4>Communication :
+                <ngb-rating class="pull-right margin" [(rate)]="currentRate">
+                    <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                    </ng-template>
+                </ngb-rating>
+            </h4>
+        </div>
+        <div class="col-md-12">
+            <h4>Subject Knowledge :
+                <ngb-rating class="pull-right margin" [(rate)]="currentRate1">
+                    <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                    </ng-template>
+                </ngb-rating>
+            </h4>
+        </div>
+        <div class="col-md-12">
+            <h4>Language Proficiency :
+                <ngb-rating class="pull-right margin" [(rate)]="currentRate2">
+                    <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                    </ng-template>
+                </ngb-rating>
+            </h4>
+        </div>
+        <div class="col-md-12">
+            <h4>Time Maintainence :
+
+                <ngb-rating class="pull-right margin" [(rate)]="currentRate3">
+                    <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                    </ng-template>
+                </ngb-rating>
+            </h4>
+        </div>
+        <div class="col-md-12">
+            <h4>Over-All Rating :
+
+                <ngb-rating class="pull-right margin" [(rate)]="currentRate4">
+                    <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                    </ng-template>
+                </ngb-rating>
+            </h4>
+        </div>
+        <form class="col-md-12" [formGroup]="ReviewComment">
+            <mat-form-field class="example-full-width">
+                <input [(ngModel)]="Comment" formControlName="Comment" matInput placeholder="Give a Review">
+            </mat-form-field>
+        </form>
+        <h4 class="pull-right col-md-12">
+            <b>Rating Break Down</b>
+        </h4>
+        <div class="pull-right">
+            <h4>Worst :&nbsp;&nbsp;
+                <ngb-rating style="color: #070707" [rate]="1" [readonly]=true></ngb-rating>
+            </h4>
+            <h4>Bad :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <ngb-rating style="color: #070707" [rate]="2" [readonly]=true></ngb-rating>
+            </h4>
+            <h4>Decent :
+                <ngb-rating style="color: #070707" [rate]="3" [readonly]=true></ngb-rating>
+            </h4>
+            <h4>Good :&nbsp;&nbsp;
+                <ngb-rating style="color: #070707" [rate]="4" [readonly]=true></ngb-rating>
+            </h4>
+            <h4>Great :&nbsp;&nbsp;
+                <ngb-rating style="color: #070707" [rate]="5" [readonly]=true></ngb-rating>
+            </h4>
+        </div>
+    </div>
+</mat-dialog-content>
+<div class="dialog-footer">
+    <button class="btn btn-primary pull-right" (click)="onSubmit()">Submit</button>
+    <!-- <i class="fa fa-times pull-right" (click)="onNoClick()" style="cursor: pointer;font-size: 17px;margin-top: -33px"></i> -->
+</div>

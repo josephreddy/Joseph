@@ -1,0 +1,1365 @@
+<!-- <div class="container"> -->
+<div class="space bgcolor">
+    <div class="row profile font">
+        <div class="col-md-2">
+
+        </div>
+
+        <div class="col-md-2">
+            <article class="thumbnail" style="height: auto;">
+                <div class="profile-sidebar">
+                    <!-- SIDEBAR USERPIC -->
+                    <div class="profile-userpic">
+                        <img src="{{Image}}" class="img-responsive" alt="">
+
+                    </div>
+                    <!-- END SIDEBAR USERPIC -->
+                    <!-- SIDEBAR USER TITLE -->
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name">
+                            <span>{{FirstName}} {{LastName}}</span> &nbsp;&nbsp;
+                            <i class="fa fa-edit" style="color: #083f6f;" *ngIf="currentUser?.RoleID==2" [routerLink]="['/registration',currentUser?.TutorID]"></i>
+                        </div>
+                        <div class="profile-usertitle-job">
+                            <button class="btn btn-primary " type="button" style="color:white;border-color:#8bc34a; background-color:#8bc34a;width: 100%;overflow: hidden;">
+                                <i class="fa fa-envelope"></i>&nbsp;&nbsp; Send Message {{EmailID | slice:0:20}}
+                            </button>
+                        </div>
+                    </div>
+                    <!-- END SIDEBAR USER TITLE -->
+                    <!-- SIDEBAR BUTTONS -->
+                    <!-- <div class="profile-userbuttons">
+                                                        <button type="button" class="btn btn-success btn-sm">Follow</button>
+                                                        <button type="button" class="btn btn-danger btn-sm">Message</button>
+                                                    </div> -->
+                    <!-- END SIDEBAR BUTTONS -->
+                    <!-- SIDEBAR MENU -->
+                    <div class="profile-usermenu" style="background-color: rgba(232, 226, 226, 0.12)">
+                        <ul class="nav">
+                            <li [ngClass]="{'ProfileClasses': isProfileClassesVisible }">
+                                <a style="cursor: pointer" (click)="openCity('1');isProfileClassesVisible=true;isSessionClassesVisible=false;isreviewRatingClassesVisible=false;isQueAnsClassesVisible=false;isSamTipsClassesVisible=false;">
+                                    <b> Profile</b>
+                                    <b class="pull-right">
+                                        <i class="fa fa-angle-double-right"></i>
+                                    </b>
+                                </a>
+                                <!-- <i class="glyphicon glyphicon-home"></i> -->
+
+                            </li>
+                            <li [ngClass]="{'SessionClasses': isSessionClassesVisible }">
+                                <a style="cursor: pointer" (click)="openCity('2');isSessionClassesVisible=true;isProfileClassesVisible=false;isreviewRatingClassesVisible=false;isQueAnsClassesVisible=false;isSamTipsClassesVisible=false;">
+                                    <!-- <i class="glyphicon glyphicon-user"></i> -->
+                                    <b> Up Coming Sessions</b>
+                                    <b class="pull-right">
+                                        <i class="fa fa-angle-double-right"></i>
+                                    </b>
+                                </a>
+                            </li>
+                            <li [ngClass]="{'reviewRatingClasses': isreviewRatingClassesVisible }">
+                                <a style="cursor: pointer" (click)="openCity('3');isreviewRatingClassesVisible=true;isProfileClassesVisible=false;isSessionClassesVisible=false;isQueAnsClassesVisible=false;isSamTipsClassesVisible=false;">
+                                    <!-- <i class="glyphicon glyphicon-ok"></i> -->
+                                    <b> Reviews ({{1}})& Ratings </b>
+                                    <b class="pull-right">
+                                        <i class="fa fa-angle-double-right"></i>
+                                    </b>
+                                </a>
+                            </li>
+                            <li [ngClass]="{'questionAnswerClasses': isQueAnsClassesVisible }">
+                                <a style="cursor: pointer" (click)="openCity('4');isQueAnsClassesVisible=true;isProfileClassesVisible=false;isSessionClassesVisible=false;isreviewRatingClassesVisible=false;isSamTipsClassesVisible=false;">
+                                    <!-- <i class="glyphicon glyphicon-flag"></i> -->
+                                    <b> Q & A(13) </b>
+                                    <b class="pull-right">
+                                        <i class="fa fa-angle-double-right"></i>
+                                    </b>
+                                </a>
+                            </li>
+
+                            <li [ngClass]="{'sampleTipsClasses': isSamTipsClassesVisible }">
+                                <a style="cursor: pointer" (click)="openCity('4');isSamTipsClassesVisible=true;isProfileClassesVisible=false;isSessionClassesVisible=false;isreviewRatingClassesVisible=false;isQueAnsClassesVisible=false;">
+                                    <!-- <i class="glyphicon glyphicon-flag"></i> -->
+                                    <b> Samples & Tips </b>
+                                    <b class="pull-right">
+                                        <i class="fa fa-angle-double-right"></i>
+                                    </b>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <!-- END MENU -->
+                </div>
+            </article>
+        </div>
+        <div class="col-md-6">
+            <!-- <div class="container" > -->
+            <div class="profile-content">
+                <!-- <button *ngIf="currentUser?.RoleID==2" class="pull-right btn btn-primary" [routerLink]="['/registration',currentUser?.TutorID]"
+                                            type="button">Edit</button> -->
+                <div *ngIf="first==true" class="tabcontent">
+                    <div>
+                    </div>
+                    <div>
+                        <strong style="color :black ;font-size: 16px;">{{FirstName}} {{LastName}}</strong>
+                    </div>
+                    <div>
+                        <h5>{{City}}, {{StateName}}</h5>
+                    </div>
+                    <hr>
+
+                    <div>
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-xs-6 col-sm-6 col-md-3">
+                                <b style="font-size: 16px">About Tutor</b>
+
+                            </div>
+                        </div>
+                        <div>
+                            <span class="profile-font">{{AboutMe}}</span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-xs-6 col-sm-6 col-md-3">
+                            <b class="profile-size">Tutoring Subjects</b>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px" *ngIf="display!=''">
+                        <ul class="listsubject">
+                            <li class="list" *ngFor="let subjects of Courselist">
+                                {{subjects.CourseName}}
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <!-- <div style="margin-top: 10px" >
+                                                 <ul class="subject">
+                                                        <li *ngFor="let subjects of Courselist" class="list-group-item special-hover" style="background-color:#ccc6c647 ; padding: 10px;font-size:15px">
+                                                           {{subjects.CourseName}}
+                                                       </li> 
+                                                 </ul>
+                                                 
+                                             </div>      -->
+
+                    <!-- <table mat-table [dataSource]="DemoList" matSort>
+                                                <ng-container matColumnDef="ImageUrl">
+                                                    <th mat-header-cell *matHeaderCellDef> </th>
+                                                    <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">
+                                                        <a [routerLink]="['/CourseExplanation',row.CourseId]" title="View Course">
+                                                            <img class="img-circle" src="{{row.ImageUrl}}" style="height: 30px;width: 40px;" />
+                                                        </a>
+                                                    </td>
+                                                </ng-container>
+                                                <ng-container matColumnDef="CourseName">
+                                                    <th mat-header-cell *matHeaderCellDef>Course Name</th>
+                        
+                                                    <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">
+                                                        <a [routerLink]="['/CourseExplanation',row.CourseId]" title="View Course">{{row.CourseName}}</a>
+                                                        
+                                                </ng-container>
+                        
+                        
+                                                <ng-container matColumnDef="Tutor Name">
+                                                    <th mat-header-cell *matHeaderCellDef>Tutor Name</th>
+                                                    <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.TutorName }} </td>
+                                                </ng-container>
+                        
+                                                <ng-container matColumnDef="StartDate">
+                                                    <th mat-header-cell *matHeaderCellDef> Start Date</th>
+                                                    <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff" [style.color]="row.StartDate"> {{row.StartDate |date:"dd/MM/yyyy hh:mm a"}} </td>
+                                                </ng-container>
+                        
+                                                <ng-container matColumnDef="Timezone">
+                                                    <th mat-header-cell *matHeaderCellDef>Time Zone</th>
+                                                    <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.Timezone }} </td>
+                                                </ng-container>
+                                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                                                </tr>
+                                            </table> -->
+
+                    <!-- <h5 style="margin-left: 10px;">
+                                                <b> Class Availability Schedule </b>
+                        
+                                            </h5>
+                        
+                                            <div class="marginTop8 timingSection">
+                                                <div class="availabilityLabel">7am to 9am</div>
+                                                <div class="availabilityDays">
+                                                    <span class="checked">Monday</span>
+                                                    <span class="checked">Tuesday</span>
+                                                    <span class="checked">Wednesday</span>
+                                                    <span class="checked">Thursday</span>
+                                                    <span class="checked">Friday</span>
+                                                    <span class="checked">Saturday</span>
+                                                    <span class="checked">Sunday</span>
+                                                </div>
+                                            </div>
+                                            <div class="marginTop8 timingSection">
+                                                <div class="availabilityLabel">11am to 1pm</div>
+                                                <div class="availabilityDays">
+                                                    <span class="checked">Monday</span>
+                                                    <span class="checked">Tuesday</span>
+                                                    <span class="checked">Wednesday</span>
+                                                    <span class="checked">Thursday</span>
+                                                    <span class="checked">Friday</span>
+                                                    <span class="checked">Saturday</span>
+                                                    <span class="checked">Sunday</span>
+                                                </div>
+                                            </div>
+                                            <div class="marginTop8 timingSection">
+                                                <div class="availabilityLabel">3pm to 5pm</div>
+                                                <div class="availabilityDays">
+                                                    <span class="checked">Monday</span>
+                                                    <span class="checked">Tuesday</span>
+                                                    <span class="checked">Wednesday</span>
+                                                    <span class="checked">Thursday</span>
+                                                    <span class="checked">Friday</span>
+                                                    <span class="checked">Saturday</span>
+                                                    <span class="checked">Sunday</span>
+                                                </div>
+                                            </div>
+                                            <div class="marginTop8 timingSection">
+                                                <div class="availabilityLabel">7pm to 9pm</div>
+                                                <div class="availabilityDays">
+                                                    <span class="checked">Monday</span>
+                                                    <span class="checked">Tuesday</span>
+                                                    <span class="checked">Wednesday</span>
+                                                    <span class="checked">Thursday</span>
+                                                    <span class="checked">Friday</span>
+                                                    <span class="checked">Saturday</span>
+                                                    <span class="checked">Sunday</span>
+                                                </div>
+                                            </div> -->
+
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-xs-6 col-sm-6 col-md-3">
+                            <b style="font-size: 16px">Speaks</b>
+                            <!-- <b class="pull-right">:</b> -->
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="profile-font">{{langName}}</span>
+                    </div>
+
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-xs-6 col-sm-6 col-md-3">
+                            <b style="font-size: 16px">WorkExperience</b>
+                            <!-- <b class="pull-right">:</b> -->
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="profile-font">{{WorkExperience}} Yrs Of Experience</span>
+                    </div>
+
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-xs-6 col-sm-6 col-md-3">
+                            <b style="font-size: 16px">Address</b>
+                            <!-- <b class="pull-right">:</b> -->
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="profile-font">{{City}}, {{StateName}}, {{Country}}- {{ZipCode}}</span>
+                    </div>
+                    <br>
+                    <div>
+                        <strong style="color :black ;font-size: 18px;">Reviews & Ratings</strong>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4">
+                                <div class="rating-block">
+                                    <h4>Average user rating</h4>
+                                    <h2 class="bold padding-bottom-7">{{totalRating}}
+                                    <!-- <h2 class="bold padding-bottom-7">4.5 -->
+                                        <small>/ 5</small>
+                                    </h2>
+                                    <ng-template #t let-fill="fill">
+                                        <span class="star" [class.full]="fill === 100">
+                                            <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                                        </span>
+                                    </ng-template>
+                                    <h4>Communication :
+                                        <ngb-rating class="pull-right margin" [(rate)]="communication" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                                    </h4>
+                                    <h4>Subject Knowledge :
+                                        <ngb-rating class="pull-right margin" [(rate)]="SubjectKnowledge" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                                    </h4>
+                                    <h4>Language Proficiency :
+                                        <ngb-rating class="pull-right margin" [(rate)]="Proficiency" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                                    </h4>
+                                    <h4>Time Maintainence :
+                                        <ngb-rating class="pull-right margin" [(rate)]="TimeMaintenance" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                                    </h4>
+
+                                    <!-- <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    </button> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <h4>Rating breakdown</h4>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">5
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: 1000%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">{{fivestarRating}}</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">4
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: 80%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">{{fourstarRating}}</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">3
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: 60%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">{{threestarRating}}</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">2
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: 40%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">{{twostarRating}}</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">1
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: 20%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">{{onestarRating}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="col-sm-7">
+                                <hr/>
+                                <div class="review-block">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                                            <div class="review-block-name">
+                                                <a href="#">nktailor</a>
+                                            </div>
+                                            <div class="review-block-date">January 29, 2016
+                                                <br/>1 day ago</div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-title">this was nice in buy</div>
+                                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice
+                                                in buy this was nice in buy this was nice in buy this was nice in buy this
+                                                was nice in buy</div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                                            <div class="review-block-name">
+                                                <a href="#">nktailor</a>
+                                            </div>
+                                            <div class="review-block-date">January 29, 2016
+                                                <br/>1 day ago</div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-title">this was nice in buy</div>
+                                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice
+                                                in buy this was nice in buy this was nice in buy this was nice in buy this
+                                                was nice in buy</div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                                            <div class="review-block-name">
+                                                <a href="#">nktailor</a>
+                                            </div>
+                                            <div class="review-block-date">January 29, 2016
+                                                <br/>1 day ago</div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-title">this was nice in buy</div>
+                                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice
+                                                in buy this was nice in buy this was nice in buy this was nice in buy this
+                                                was nice in buy</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div>
+                    <!-- <div class="row" style="margin-top: 10px">
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <b style ="font-size: 16px" >Speaks</b>
+                                                    <b class="pull-right">:</b>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <span class ="profile-font">{{langName}}</span>
+                                                </div>
+                                            </div> -->
+
+                    <!-- <div class="row" style="margin-top: 10px">
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <b style ="font-size: 16px">WorkExperience</b>
+                                                    <b class="pull-right">:</b>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <span class= "profile-font">{{WorkExperience}} Yrs Of Experience</span>
+                                                </div>
+                                            </div> -->
+
+                    <!-- <div class="row" style="margin-top: 10px">
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <b style ="font-size: 16px"> Address</b>
+                                                    <b class="pull-right">:</b>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <span class="profile-size">{{Address}}</span>
+                                                </div>
+                                            </div> -->
+
+                    <!-- <div class="row" style="margin-top: 10px">
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <b style ="font-size: 16px"> Education</b>
+                                                    <b class="pull-right">:</b>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-3">
+                                                    <span style ="font-family:  Times New Roman, Times, serif; font-size: 14px; ">{{EducationName}}</span>
+                                                </div>
+                                            </div> -->
+
+                </div>
+
+                <div *ngIf="second==true" class="tabcontent">
+                    <div>
+                        <h3 class="form-header">Upcoming Live Demo Sessions</h3>
+                        <br>
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search For Demo">
+                        </mat-form-field>
+                    </div>
+                    <div class="mat-elevation-z8" style="overflow: auto;">
+                        <table mat-table [dataSource]="DemoList" matSort>
+
+                            <ng-container matColumnDef="ImageUrl">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Course Image</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">
+                                    <a [routerLink]="['/CourseExplanation',row.CourseId ? row.CourseId : undefined]" title="View Course">
+                                        <img class="img-circle" src="{{row.ImageUrl}}" style="height: 30px;width: 40px;" />
+                                    </a>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="CourseName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Course Name</th>
+
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">
+                                    <a [routerLink]="['/CourseExplanation',row.CourseId ? row.CourseId : undefined]" title="View Course">{{row.CourseName}}</a>
+                                    <!-- {{row.CourseName }} </td> -->
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="Tutor Name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tutor Name</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{ row.TutorName }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="StartDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff" [style.color]="row.StartDate"> {{row.StartDate |date:"dd/MM/yyyy"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Time">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.Time }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Timezone">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Time Zone</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.Timezone }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="SessionTypeName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sessions</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.SessionTypeName }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="TrainingName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Training Name</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.TrainingName }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="TrainingMode">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>TrainingMode</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.TrainingModeName }} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                            </tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+                    </div>
+                    <div>
+                        <h3 class="form-header">Upcoming Live Regular Batches</h3>
+                        <br>
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilterReg($event.target.value)" placeholder="Search For Regular Batch">
+                        </mat-form-field>
+                    </div>
+                    <div class="mat-elevation-z8" style="overflow: auto;">
+                        <table mat-table [dataSource]="RegularList" matSort>
+
+                            <ng-container matColumnDef="ImageUrl">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Course Image</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">
+                                    <a [routerLink]="['/CourseExplanation',row.CourseId ? row.CourseId : undefined]" title="View Course">
+                                        <img class="img-circle" src="{{row.ImageUrl}}" style="height: 30px;width: 40px;" />
+                                    </a>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="CourseName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Course Name</th>
+
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">
+                                    <a [routerLink]="['/CourseExplanation',row.CourseId ? row.CourseId : undefined]" title="View Course">{{row.CourseName}}</a>
+                                    <!-- {{row.CourseName }} </td> -->
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="Tutor Name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tutor Name</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{ row.TutorName }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="StartDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff" [style.color]="row.StartDate"> {{row.StartDate |date:"dd/MM/yyyy"}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Time">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.Time }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Timezone">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Time Zone</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.Timezone }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="SessionTypeName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sessions</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.SessionTypeName }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="TrainingName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Training Name</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.TrainingName }} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="TrainingMode">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>TrainingMode</th>
+                                <td mat-cell *matCellDef="let row" style="background-color:#f9f9ff">{{row.TrainingModeName }} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                            </tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+                    </div>
+                </div>
+
+
+                <div *ngIf="third==true" class="tabcontent">
+                    <div>
+                        <strong style="color :black ;font-size: 18px;">Reviews & Ratings</strong>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4">
+                                <div class="rating-block">
+                                    <h4>Average user rating</h4>
+                                    <h2 class="bold padding-bottom-7">{{totalRating}}
+                                        <small>/ 5</small>
+                                        <!-- <ngb-rating class="pull-right margin" [(rate)]="communication" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating> -->
+                                    </h2>
+                                    <ng-template #t let-fill="fill">
+                                        <span class="star" [class.full]="fill === 100">
+                                            <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                                        </span>
+                                    </ng-template>
+                                    <h4>Communication :
+                                        <ngb-rating class="pull-right margin" [(rate)]="communication" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                                    </h4>
+                                    <h4>Subject Knowledge :
+                                        <ngb-rating class="pull-right margin" [(rate)]="SubjectKnowledge" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                                    </h4>
+                                    <h4>Language Proficiency :
+                                        <ngb-rating class="pull-right margin" [(rate)]="Proficiency" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                                    </h4>
+                                    <h4>Time Maintainence :
+                                        <ngb-rating class="pull-right margin" [(rate)]="TimeMaintenance" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                                    </h4>
+
+                                    <!-- <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-sm" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-grey btn-sm" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </button> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <h4>Rating breakdown</h4>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">5
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5" style="width: 1000%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">{{fivestarRating}}</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">4
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="5" style="width: 80%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">{{fourstarRating}}</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">3
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5" style="width: 60%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">{{threestarRating}}</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">2
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="5" style="width: 40%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">{{twostarRating}}</div>
+                                </div>
+                                <div class="pull-left">
+                                    <div class="pull-left" style="width:35px; line-height:1;">
+                                        <div style="height:9px; margin:5px 0;">1
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left" style="width:180px;">
+                                        <div class="progress" style="height:9px; margin:8px 0;">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="5" style="width: 20%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-right" style="margin-left:10px;">{{onestarRating}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <hr/>
+                                <div class="review-block">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                                            <div class="review-block-name">
+                                                <a href="#">nktailor</a>
+                                            </div>
+                                            <div class="review-block-date">January 29, 2016
+                                                <br/>1 day ago</div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-title">this was nice in buy</div>
+                                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice
+                                                in buy this was nice in buy this was nice in buy this was nice in buy this
+                                                was nice in buy</div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                                            <div class="review-block-name">
+                                                <a href="#">nktailor</a>
+                                            </div>
+                                            <div class="review-block-date">January 29, 2016
+                                                <br/>1 day ago</div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-title">this was nice in buy</div>
+                                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice
+                                                in buy this was nice in buy this was nice in buy this was nice in buy this
+                                                was nice in buy</div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                                            <div class="review-block-name">
+                                                <a href="#">nktailor</a>
+                                            </div>
+                                            <div class="review-block-date">January 29, 2016
+                                                <br/>1 day ago</div>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-title">this was nice in buy</div>
+                                            <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice
+                                                in buy this was nice in buy this was nice in buy this was nice in buy this
+                                                was nice in buy</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /container -->
+
+                    <div class="row">
+                        <h3 class="col-md-12" style="margin-left: 20px">{{cmtcount}}&nbsp;Comments</h3>
+                        <div>
+                            <form [formGroup]="commentForm">
+                                <div class="col-sm-12">
+                                    <div style="margin-right:2%">
+                                        <!-- <img id="img" style="border-radius:50%;width:10%;margin-left:-2%;" class="style-scope yt-img-shadow col-md-1" [src]="sampleUserImage"> -->
+
+                                        <!-- <img id="img" style="border-radius:50%;width:10%;margin-left:-2%;" class="style-scope yt-img-shadow col-md-1" [src]="sampleUserImage"> -->
+                                        <img src="assets\Images\photo.jpg" style="border-radius:50%;width:10%;margin-left:-2%;height: 100%" class="style-scope yt-img-shadow col-md-1">
+                                        <!-- <img src="{{Image}}" class="img-responsive" alt=""> -->
+
+                                    </div>
+                                    <div class="example-container col-md-11">
+                                        <mat-form-field>
+                                            <input [(ngModel)]="Comment" type="text" matInput placeholder="Add a public comment" [ngModelOptions]="{standalone: true}">
+                                        </mat-form-field>
+                                    </div>
+                                    <div *ngIf="currentUser != null">
+                                        <div [hidden]="commentspinner" class="col-sm-12 text-center">
+                                            <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                                            <h5>
+                                                <b>Loading Please Wait..</b>
+                                            </h5>
+                                            <span class="sr-only"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="col-md-12">
+                                <a class="pull-right" style="margin-left: 10px">
+                                    <button [disabled]="Comment==null" mat-raised-button (click)="onSubmitComment()" style="background-color: #67aed3;color:white">
+                                        <span matTooltip="COMMENT">
+                                            <i class=""></i>COMMENT
+                                        </span>
+                                    </button>
+                                </a>
+                                &nbsp;
+                                <button mat-raised-button (click)="onSubmitComment()" style="background-color:peru;color:white" class="pull-right">
+                                    <span matTooltip="CANCEL">
+                                        <i class=""></i>CANCEL
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <div class="clearfix space20"></div>
+                        <div class="col-md-12" style="min-height:70vh">
+                            <div class="col-md-12" *ngFor="let item of parentitems">
+                                <div class="form-inline row-item" style="margin-top:4%">
+                                    <div class="col-md-11">
+
+                                        <img src="assets\Images\photo.jpg" style="border-radius:50%;width:10%;margin-left:-2%;height: 100%" class="style-scope yt-img-shadow col-md-1">
+                                        <label style="margin-left:2%">
+                                            {{item.CommentByUser}}
+                                            <br> {{item.Comment}}
+                                        </label>
+
+                                        <div style="margin-left:20%">
+                                            <b>
+                                                <a routerLink="." style="color:black" (click)="reply(item)">Reply</a>
+                                            </b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 pull-right" *ngIf="currentUser!=null &&( currentUser.RoleID==1 || currentUser.RoleID==2 || currentUser.RoleID==3)">
+                                        <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="(item.UserId==(currentUser.TutorID||currentUser.LearnerID))||currentUser.RoleID==1">
+                                            <mat-icon>more_vert</mat-icon>
+                                            <mat-menu #menu="matMenu">
+
+                                                <button mat-menu-item (click)="onItemEdit(item)"> Edit </button>
+
+                                                <button mat-menu-item (click)="onItemDelete(item)"> Delete</button>
+
+                                            </mat-menu>
+                                        </button>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <form [formGroup]="childCommentForm">
+                                        <div *ngIf="item.isCommentForm">
+                                            <div class="example-container col-md-11" style="margin-left:5%">
+                                                <!-- <img id="img" style="border-radius:50%;width:6%;margin-left:10%;" width="60" height="50" class="style-scope yt-img-shadow"
+                                                                                        [src]="item.userImage != null? item.userImage : sampleUserImage"> -->
+                                                <img src="assets\Images\photo.jpg" style="border-radius:50%;width:10%;margin-left:-2%;height: 100%" class="style-scope yt-img-shadow col-md-1">
+                                                <mat-form-field style="margin-left: 18%;margin-top: -7%;width:87%">
+                                                    <input type="text" matInput placeholder="Add a public comment" formControlName="Description" [(ngModel)]="itemDetails.comment"
+                                                        required>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="pull-right">
+                                                <b>
+                                                    <button mat-raised-button (click)="reseteditform(item)" [disabled]="!childCommentForm.get('Description').touched">&nbsp;&nbsp;CANCEL</button>
+
+                                                </b>
+                                                <button *ngIf="childCommentForm.get('Description').touched" mat-raised-button type="submit" (click)="onUpdateComment(item)"
+                                                    style="background-color: #67aed3;color:white">
+                                                    <span matTooltip="Update">
+                                                        <i class=""></i>Update
+                                                    </span>
+                                                </button>
+
+
+                                            </div>
+                                        </div>
+
+
+
+                                        <div *ngIf="item.isReplyCommentForm">
+                                            <div class="example-container col-md-11" style="margin-left:5%">
+
+                                                <img src="assets\Images\photo.jpg" style="border-radius:50%;width:10%;margin-left:-2%;height: 100%" class="style-scope yt-img-shadow col-md-1">
+                                                <mat-form-field style="margin-left: 18%;margin-top: -7%;width:87%">
+                                                    <input type="text" matInput placeholder="Add a public comment" formControlName="Description" required>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="pull-right">
+                                                <b>
+                                                    <button mat-raised-button (click)="reset(item)" [disabled]="!childCommentForm.valid">&nbsp;&nbsp;CANCEL</button>
+
+
+                                                </b>
+                                                <button *ngIf="childCommentForm.valid" mat-raised-button type="submit" (click)="onChildSubmitComment(item)" style="background-color: #67aed3;color:white">
+                                                    <span matTooltip="REPLY">
+                                                        <i class=""></i>REPLY
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div *ngFor="let childitem of childcomments" class="form-inline row-item" style="margin-top:4%">
+                                            <div *ngIf="item.TCommentId==childitem.ParentCommentId">
+                                                <div class="col-md-11" style="margin-left:10%;margin-top:2%">
+
+                                                    <img src="assets\Images\photo.jpg" style="border-radius:50%;width:10%;margin-left:-2%;height: 100%" class="style-scope yt-img-shadow col-md-1">
+                                                    <label style="margin-left:2%">
+                                                        {{childitem.CommentByUser}}
+                                                        <br> {{childitem.Comment}}
+                                                    </label>
+
+                                                    <div style="margin-left:20%">
+                                                        <b>
+                                                            <a routerLink="." style="color:black" (click)="childreply(childitem)">Reply</a>
+                                                        </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1 pull-right" style="margin-top: -9%;">
+                                                    <button mat-icon-button [matMenuTriggerFor]="menu" style="margin-left:-28%" *ngIf="(childitem.UserId==(currentUser.TutorID||currentUser.LearnerID))||currentUser.RoleID==1">
+                                                        <mat-icon>more_vert</mat-icon>
+                                                        <mat-menu #menu="matMenu">
+                                                            <button mat-menu-item (click)="onItemEdit(childitem)">Edit</button>
+                                                            <button mat-menu-item (click)="onItemDelete(childitem)">Delete</button>
+                                                        </mat-menu>
+                                                    </button>
+                                                </div>
+
+                                                <div *ngIf="childitem.isReplyCommentForm">
+
+                                                    <div class="example-container col-md-11" style="margin-left:5%">
+
+                                                        <img src="assets\Images\photo.jpg" style="border-radius:50%;width:10%;margin-left:-2%;height: 100%" class="style-scope yt-img-shadow col-md-1">
+                                                        <mat-form-field style="margin-left: 18%;margin-top: -7%;width:87%">
+                                                            <input type="text" matInput placeholder="Add a public comment" formControlName="Description" required>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <b>
+                                                            <button mat-raised-button routerLink="." (click)="resetchild(childitem)" [disabled]="!childCommentForm.valid">&nbsp;&nbsp;CANCEL</button>
+
+                                                        </b>
+                                                        <button *ngIf="childCommentForm.valid" mat-raised-button type="submit" (click)="onChildSubmitComment(item)" style="background-color: #67aed3;color:white">
+                                                            <span matTooltip="REPLY">
+                                                                <i class=""></i>REPLY
+                                                            </span>
+                                                        </button>
+
+
+                                                    </div>
+
+                                                </div>
+                                                <div *ngIf="childitem.isCommentForm">
+                                                    <div class="example-container col-md-11" style="margin-left:5%">
+
+                                                        <img src="assets\Images\photo.jpg" style="border-radius:50%;width:10%;margin-left:-2%;height: 100%" class="style-scope yt-img-shadow col-md-1">
+                                                        <mat-form-field style="margin-left: 18%;margin-top: -7%;width:87%">
+                                                            <input type="text" matInput placeholder="Add a public comment" formControlName="Description" [(ngModel)]="itemDetails.comment"
+                                                                required>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <b>
+                                                            <button mat-raised-button (click)="resetupdatechild(childitem)" [disabled]="!childCommentForm.get('Description').touched">&nbsp;&nbsp;CANCEL</button>
+
+                                                        </b>
+                                                        <button *ngIf="childCommentForm.get('Description').touched" mat-raised-button type="submit" (click)="onChildUpdateComment(childitem)"
+                                                            style="background-color: #67aed3;color:white">
+                                                            <span matTooltip="Update">
+                                                                <i class=""></i>Update
+                                                            </span>
+                                                        </button>
+                                                        <!-- <button *ngIf="!childCommentForm.get('Description').touched" mat-raised-button  type="submit" (click)="onChildUpdateComment(childitem)" style="background-color:none;color:white" [disabled]="!childCommentForm.get('Description').touched">
+                                                                                                <span matTooltip="Update">
+                                                                                                  <i class=""></i>Update
+                                                                                                </span>
+                                                                                              </button> -->
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- <div class="row">
+                                                        <div class="col-md-1 col-lg-1 col-sm-1">
+                                                            <div class="firstCharUI detailFirstLetter1">G</div>
+                                                        </div>
+                                    
+                                                        <div class="col-md-2 col-lg-2 col-sm-2">
+                                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1 col-lg-1 col-sm-1">
+                                    
+                                                        </div>
+                                                        <div class="col-md-2 col-lg-2 col-sm-2">
+                                                            - By Girish
+                                                        </div>
+                                    
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1 col-lg-1 col-sm-1">
+                                    
+                                                        </div>
+                                                        <div class="col-md-5 col-lg-5 col-sm-2">
+                                                            Posted on july 7 2017
+                                                        </div>
+                                    
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1 col-lg-1 col-sm-1">
+                                    
+                                                        </div>
+                                                        <div class="col-md-5 col-lg-5 col-sm-2" style="margin-top: 10px">
+                                                            "Manideep is certified tableau training and have immerse knowledge of tableau. His articulation and communication skills
+                                                            are good and demonstrates lot of patience while dealing with students of varied background. I will
+                                                            definitely recommend him for tableau trainings. "
+                                                        </div>
+                                    
+                                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                                    <div class="row">
+                                                        <div class="col-md-1 col-lg-1 col-sm-1">
+                                                            <div class="firstCharUI detailFirstLetter1">S</div>
+                                                        </div>
+                                    
+                                                        <div class="col-md-2 col-lg-2 col-sm-2">
+                                                      
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1 col-lg-1 col-sm-1">
+                                    
+                                                        </div>
+                                                        <div class="col-md-2 col-lg-2 col-sm-2">
+                                                            - By Suresh
+                                                        </div>
+                                    
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1 col-lg-1 col-sm-1">
+                                    
+                                                        </div>
+                                                        <div class="col-md-5 col-lg-5 col-sm-2">
+                                                            Posted on Auguest 25 2017
+                                                        </div>
+                                    
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-1 col-lg-1 col-sm-1">
+                                    
+                                                        </div>
+                                                        <div class="col-md-5 col-lg-5 col-sm-2" style="margin-top: 10px">
+                                                            "Manideep is certified tableau training and have immerse knowledge of tableau. His articulation and communication skills
+                                                            are good and demonstrates lot of patience while dealing with students of varied background. I will
+                                                            definitely recommend him for tableau trainings. "
+                                                        </div>
+                                    
+                                                    </div> -->
+
+
+
+
+                </div>
+
+
+                <div *ngIf="fourth==true" class="tabcontent">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-" style="margin-top: 10px ;font-size: 16px;">
+
+                            <b> "How do I add users to group in Tableau admin?" in IT Courses/Tableau </b>
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-" style="margin-top: 10px ;font-size: 16px;">
+
+                            Goto to Groups and then select the group if you added or create the group then you will have an option to add users until
+                            and unless you add users in the users page of tableau server site.
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-" style="margin-top: 10px ;font-size: 16px;">
+
+                            <b> "How do I add users to group in Tableau admin?" in IT Courses/Tableau </b>
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-" style="margin-top: 10px; font-size: 16px; ">
+
+                            Goto to Groups and then select the group if you added or create the group then you will have an option to add users until
+                            and unless you add users in the users page of tableau server site.
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-" style="margin-top: 10px ;font-size: 16px;">
+
+                            <b> "How do I add users to group in Tableau admin?" in IT Courses/Tableau </b>
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-" style="margin-top: 10px;font-size: 16px;">
+
+                            Goto to Groups and then select the group if you added or create the group then you will have an option to add users until
+                            and unless you add users in the users page of tableau server site.
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-" style="margin-top: 10px ;font-size: 16px;">
+                            <b> "How do I add users to group in Tableau admin?" in IT Courses/Tableau </b>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8 col-sm-" style="margin-top: 10px; font-size: 16px;">
+
+                            Goto to Groups and then select the group if you added or create the group then you will have an option to add users until
+                            and unless you add users in the users page of tableau server site.
+
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+<!-- </div> -->
+
+
+
+<!-- <div class="row">
+                                        <div  class="col-md-3">
+                                            <button class="tablinks" (click)="openCity('1')" id="defaultOpen">London</button>
+                                            <button class="tablinks" (click)="openCity('2')">Paris</button>
+                                            <button class="tablinks" (click)="openCity('3')">Tokyo</button>
+                                        </div>
+                                    <div class="col-md-9">
+                                            <div *ngIf="London==true" class="tabcontent">
+                                                    <h3>London</h3>
+                                                    <p>London is the capital city of England.</p>
+                                                </div>
+                                            
+                                                <div *ngIf="Paris==true" class="tabcontent">
+                                                    <h3>Paris</h3>
+                                                    <p>Paris is the capital of France.</p>
+                                                </div>
+                                            
+                                                <div *ngIf="Tokyo==true" class="tabcontent">
+                                                    <h3>Tokyo</h3>
+                                                    <p>Tokyo is the capital of Japan.</p>
+                                                </div>
+                                    </div>
+                                        
+                                    </div> -->

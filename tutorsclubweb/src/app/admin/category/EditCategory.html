@@ -1,0 +1,51 @@
+<!-- <h1 mat-dialog-title style="background-color: deepskyblue;width: 100%;text-align: center;color: white;text-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px deepskyblue;">
+        Edit Category</h1> -->
+
+
+
+<div class="dialog-header">
+    <h2 mat-dialog-title> Edit Category</h2>
+    <i class="fa fa-times pull-right" (click)="onNoClick()" style="cursor: pointer;font-size: 17px;margin-top: -33px"></i>
+</div>
+
+
+<div mat-dialog-content>
+    <!-- <div class="container"> -->
+    <div class="row">
+        <form [formGroup]="EditCategoryRegistrationrFrm" style="margin-top: 0px;">
+            <input type="text" formControlName="categoryID" [(ngModel)]="data.CategoryId" hidden/>
+            <div class="col-lg-12 col-sm-12">
+                <mat-form-field>
+                    <input matInput onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                        placeholder="Category Name" minlength="3" formControlName="category" [(ngModel)]="data.CategoryName"
+                        required/>
+                    <mat-error>
+                        <span *ngIf="!EditCategoryRegistrationrFrm.get('category').valid || EditCategoryRegistrationrFrm.get('category').touched ||  EditCategoryRegistrationrFrm.get('category').dirty">
+                            <span *ngIf="EditCategoryRegistrationrFrm.controls['category'].hasError('required') ">
+                                {{'Please Enter Category Name'}}
+                            </span>
+
+                            <span *ngIf="EditCategoryRegistrationrFrm.controls['category'].hasError('minlength') ">
+                                {{'Min Length Should Be A Characters'}}
+                            </span>
+                            <!-- <span *ngIf="EditCategoryRegistrationrFrm.controls['category'].hasError('maxlength') ">
+                                        {{'Max Length Should Be 100 Characters'}}
+                                    </span> -->
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <!-- <div class="col-lg-12">
+
+            </div> -->
+
+        </form>
+    </div>
+    <!-- </div> -->
+</div>
+<div mat-dialog-actions class="pull-right">
+    <button mat-raised-button (click)="EditCategoryLoginForm()" [disabled]="!EditCategoryRegistrationrFrm.valid ||!EditCategoryRegistrationrFrm.dirty || btnDisable "
+        color="primary" cdkFocusInitial>Save</button>
+    <button mat-button (click)="onNoClick()" style="background: orange;color: whitesmoke">Cancel</button>
+
+</div>

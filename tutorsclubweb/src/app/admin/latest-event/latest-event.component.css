@@ -1,0 +1,69 @@
+
+/* ly-cropping {
+  width: 500px;
+  height: 110px;
+  max-width: 5000px;
+  max-height: 110px;
+} */
+ly-cropping {
+    width: 380px;
+    height: 190px;
+    max-width: 380px;
+    max-height: 190px;
+  }
+  table {
+      width: 100%;
+    }
+    
+    .mat-form-field {
+      font-size: 14px;
+      width: 100%;
+    }
+    
+    td, th {
+      width: 100px;
+    }
+  
+    h2.courepage-intro-text {
+      clear: both;
+      color: rgba(0, 0, 0, .5);
+      font-size: 14px;
+      line-height: 1.57;
+      padding: 0 0 15px;
+      display: inline-block;
+      font-weight: 400;
+    }
+  
+    .textsize {
+      clear: both;
+      font-size: 14px;
+      line-height: 1.57;
+      display: inline-block;
+    }
+  
+    @media (min-width: 300px) {
+      section.new-course-banner-bg {
+        background: url() center center/cover no-repeat #4e9cff;
+      }
+  
+      @media (min-width: 300px) {}
+      .new-course-wraper .course-banner .course-rate,
+      .new-course-wraper .course-banner h1,
+      h2.courepage-intro-text {
+        color: #fff;
+      }
+    }
+  
+  
+   
+    .invalid{
+      color: red;
+      font-size: 12px;
+    }
+  
+    .mat-column-Actions {
+      width: 50px
+    }
+    .mat-column-Actions1 {
+      width: 50px
+    }

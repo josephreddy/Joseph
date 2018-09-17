@@ -1,0 +1,340 @@
+<div class="body">
+    <div class="ribbon_header" *ngIf="ribbib">
+        <div class="row">
+            <div class="col-xs-10 col-sm-offset-5 col-sm-5 col-md-11 col-md-offset-0">
+                <div class="ribbon_center">
+                    <!-- <p> Unlimited web, graphic &amp; video downloads !</p> -->
+                    <marquee behavior="scroll" direction="left" scrollamount="10">{{headerMessage}}</marquee>
+                    <!-- <marquee behavior="scroll" direction="left" scrollamount="10">Tutors Club Website launching soon with complete Online training and tutors community across the globe</marquee> -->
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-1 ribbon_close">
+                <img class="pull-right" src="assets/Images/icons/close.png" (click)="close(1)" style="height: 12px;" />
+                <!-- <div type="button" class="pull-right" (click)="close(1)">
+                    <i class="fa fa-close" style="color:white;font-size: 16px;"></i>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div style="height: 100px">
+        <header>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <!-- Logo -->
+
+                            <a class="navbar-brand hidden-xs" routerLink="/">
+                                <img src="assets/Images/logo/design5a.jpg" class="img-responsive" alt="">
+                            </a>
+                            <!-- <a class="navbar-brand visible-xs">  Tutors Club  </a>  style="padding-top: 9px;" -->
+                            <a class="navbar-brand heading visible-xs" style="padding-top: 9px;">
+                                Tutors
+                                <span>Club</span>
+                            </a>
+                            <button class="btn btn-primary btn-xs pull-right visible-xs" (click)="openLoginDialog()" type="button" data-toggle="tooltip"
+                                data-placement="left" title="Login" *ngIf="currentUser==null">
+                                <span>
+                                    <i class="fa fa-sign-in fa-2x"></i>&nbsp;&nbsp;</span>
+                            </button>
+                            <div class="tb_right  pull-right visible-xs" *ngIf="currentUser!=null" style="margin-top: -8px">
+                                <ul>
+                                    <li>
+                                        <div class="tbr-info">
+                                            <span>
+                                                <img class="img-circle" src="assets/Images/icons/user_32.png" alt=""> &nbsp;
+                                                <b style="text-transform: capitalize;color: black">{{currentUser.FirstName}}</b>
+                                                <b style="color: #556080" *ngIf="currentUser.RoleID==1">(A)</b>
+                                                <b style="color: #556080" *ngIf="currentUser.RoleID==2">(T)</b>
+                                                <b style="color: #556080" *ngIf="currentUser.RoleID==3">(L)</b>&nbsp;
+                                                <i class="fa fa-caret-down"></i>
+                                            </span>
+                                            <div class="tbr-inner">
+                                                <a>
+                                                    Welcome to {{currentUser.FirstName}}
+                                                </a>
+                                                <a *ngIf="currentUser!=null && currentUser.RoleId==2" (click)='editTutorProfile()'>
+                                                    <i class="fa fa-user"></i> &nbsp;My profile</a>
+                                                <a *ngIf="currentUser!=null && currentUser.RoleId==3" (click)='editLearnerProfile()'>
+                                                    <i class="fa fa-user"></i> &nbsp;My profile</a>
+                                                <a (click)="OnLogout()">
+                                                    <i class="fa fa-lock"></i>&nbsp; Logout
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <!-- Cart & Search -->
+                        <div class="header-xtra pull-right">
+                            <a class="btn btn-primary" type="button" routerLink="/signUp" *ngIf="currentUser==null">Sign Up</a>&nbsp;
+                            <a class="btn btn-success" (click)="openLoginDialog()" type="button" *ngIf="currentUser==null">&nbsp;Login </a>&nbsp;
+                        </div>
+                        <div class="tb_right hidden-xs pull-right" *ngIf="currentUser!=null">
+                            <ul>
+                                <li>
+                                    <div class="tbr-info">
+                                        <span>
+                                            <img class="img-circle" src="assets/Images/icons/user_32.png" alt=""> &nbsp;
+                                            <b style="text-transform: capitalize;color: #556080">{{currentUser.FirstName}}</b>
+                                            <b style="color: #556080" *ngIf="currentUser.RoleID==1">(A)</b>
+                                            <b style="color: #556080" *ngIf="currentUser.RoleID==2">(T)</b>
+                                            <b style="color: #556080" *ngIf="currentUser.RoleID==3">(L)</b>&nbsp;
+                                            <i class="fa fa-caret-down"></i>
+                                        </span>
+                                        <div class="tbr-inner">
+                                            <a>
+                                                Welcome to {{currentUser.FirstName}}
+                                            </a>
+                                            <a *ngIf="currentUser!=null && currentUser.RoleId==2" (click)='editTutorProfile()'>
+                                                <i class="fa fa-user"></i> &nbsp;My profile</a>
+                                            <a *ngIf="currentUser!=null && currentUser.RoleId==3" (click)='editLearnerProfile()'>
+                                                <i class="fa fa-user"></i> &nbsp;My profile</a>
+                                            <a (click)="OnLogout()">
+                                                <i class="fa fa-lock"></i>&nbsp; Logout
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <div class="user_flyout pull-right" *ngIf="currentUser!=null">
+                            <ul class="navigation">
+                                <li class="dropdown dropdown-user">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
+                                        <span>
+                                            <img class="img-circle" src="assets/Images/noimage.jpg" alt="" style="width:35px;height: 35px;color:black;margin-left: 5px;font-weight: 400">Welcome to {{currentUser.FirstName}}</span>
+                                        <i class="caret"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                            <a *ngIf="currentUser!=null && currentUser.RoleID ==roles.Tutor" [routerLink]="['/viewTutorProfile',currentUser.TutorID]">
+                                                <i class="fa fa-user"></i> &nbsp;My profile</a>
+                                            <a *ngIf="currentUser!=null && currentUser.RoleID ==roles.Learner" (click)='editLearnerProfile()'>
+                                                <i class="fa fa-user"></i> &nbsp;My profile</a>
+                                        </li>
+                                        <li>
+                                            <a (click)="OnLogout()">
+                                                <i class="fa fa-lock"></i>&nbsp; Logout</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div> -->
+                        <!-- Navmenu -->
+                        <div class="collapse navbar-collapse  text-center" id="bs-example-navbar-collapse-1">
+                            <div class="search" class="text-center">
+                                <li class="col-md-offset-2 col-md-5">
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" style="border-radius: 0px;">
+                                                    <i class="fa fa-th" aria-hidden="true"></i>&nbsp; Trainings
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                                                    <li class="dropdown-submenu" *ngFor="let cat of Category" style="text-transform: capitalize">
+                                                        <a class="category" (mouseenter)="getCourses(cat.CategoryId)">{{cat.CategoryName}}</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li *ngFor="let Course of customeCourses">
+                                                                <a [routerLink]="['/CourseExplanation',Course.CourseId]" title="View Course">{{Course.CourseName}}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <ng-template #rt let-r="result" let-t="term">
+                                            {{ r.CourseName}}
+                                        </ng-template>
+                                        <input id="typeahead-template" type="text" class="form-control " [(ngModel)]="model" [ngbTypeahead]="courseSearch" [resultTemplate]="rt"
+                                            [inputFormatter]="searchFormatter" />
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-primary btn-lg" type="button" (click)="searchCourse(model)" cdkFocusInitial>
+                                                <i class="glyphicon glyphicon-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="text-center">
+                                <ul class="nav navbar-nav" style="display: inline-block;float: none;">
+                                    <li>
+                                        <a routerLink="/">
+                                            <b>Home</b>
+                                        </a>
+                                    </li>
+
+                                    <li class="dropdown" *ngIf="currentUser != null && currentUser.RoleID ==roles.Admin">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <b>Users</b>
+                                        </a>
+                                        <ul class="dropdown-menu submenu" role="menu">
+                                            <li>
+                                                <a href="" routerLink="/admin/TutorDetails">
+                                                    <b>Tutors</b>
+                                                </a>
+                                                <a href="" routerLink="/admin/LearnerList">
+                                                    <b>Learners</b>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <b>Batches</b>
+                                        </a>
+                                        <ul class="dropdown-menu submenu" role="menu">
+                                            <li>
+                                                <a href="" routerLink="/DemoList">
+                                                    <b>Demo Courses</b>
+                                                </a>
+                                                <a href="" routerLink="/RegList">
+                                                    <b>Regular Batches</b>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- <li>
+                                        <a routerLink="/DemoList">
+                                            <b>Demo Courses</b>
+                                        </a>
+                                    </li> -->
+                                    <!-- <li *ngIf="currentUser != null && currentUser.RoleID ==roles.Admin">
+                                        <a routerLink="/admin/latestEvent">
+                                            <b>Events</b>
+                                        </a>
+                                    </li> -->
+                                    <li>
+                                        <a *ngIf="currentUser==null ||( currentUser.RoleID ==roles.Admin || currentUser.RoleID ==roles.Learner)" routerLink="/viewTutorsList">
+                                            <b>View Tutors</b>
+                                        </a>
+                                        <a *ngIf="currentUser!=null && currentUser.RoleID ==roles.Tutor" [routerLink]="['/viewTutorProfile',currentUser.TutorID]">
+                                            <b>My Profile</b>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown" *ngIf="currentUser != null && currentUser.RoleID ==roles.Learner">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <b>Registered Batch's</b>
+                                        </a>
+                                        <ul class="dropdown-menu submenu" role="menu">
+                                            <li>
+                                                <a href="" routerLink="/learnerdemoreg">
+                                                    <b>Registered Demo Batch(s)</b>
+                                                </a>
+                                                <a href="" routerLink="/learnerregularreg">
+                                                    <b>Registered Regular Batch(s)</b>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown" *ngIf="currentUser != null && currentUser.RoleID ==roles.Admin">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <b>Courses</b>
+                                        </a>
+                                        <ul class="dropdown-menu submenu" role="menu">
+                                            <li>
+                                                <a href="" routerLink="/admin/category">
+                                                    <b>Category List</b>
+                                                </a>
+                                                <a href="" routerLink="/admin/Courseslist">
+                                                    <b>Course List</b>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li *ngIf="currentUser != null && currentUser.RoleID ==roles.Tutor">
+                                        <a routerLink="/admin/demoReg">
+                                            <b>Registered Learners</b>
+                                        </a>
+                                    </li>
+                                    <!-- <li class="dropdown" *ngIf="currentUser != null && currentUser.RoleID ==roles.Admin">
+                                        <a routerLink="/admin/demoReg">
+                                            <b>Registered for Demo's</b>
+                                        </a>
+                                    </li>
+                                    <li *ngIf="currentUser != null && currentUser.RoleID ==roles.Admin">
+                                        <a routerLink="/admin/learnerrequest">
+                                            <b>Learner Request</b>
+                                        </a>
+                                    </li>
+                                    <li *ngIf="currentUser != null && currentUser.RoleID ==roles.Admin">
+                                        <a routerLink="/admin/discountMessage">
+                                            <b>Discount Offer</b>
+                                        </a>
+                                    </li> -->
+                                    <li class="dropdown" *ngIf="currentUser != null && currentUser.RoleID ==roles.Admin">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <b>Admin Pages</b>
+                                        </a>
+                                        <ul class="dropdown-menu submenu" role="menu">
+                                            <li>
+                                                <a routerLink="/admin/latestEvent">
+                                                    <b>Events</b>
+                                                </a>
+                                                <a href="" routerLink="/admin/learnerrequest">
+                                                    <b>Learner Request</b>
+                                                </a>
+                                                <a href="" routerLink="/admin/discountMessage">
+                                                    <b>Discount Offer</b>
+                                                </a>
+
+                                                <a routerLink="/admin/demoReg">
+                                                    <b>Registered for Demo's</b>
+                                                </a>
+
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- <li *ngIf="currentUser != null && currentUser.RoleID ==roles.Admin">
+                                        <a routerLink="/admin/demoReg">
+                                            <b>Registered for Demo's</b>
+                                        </a>
+                                    </li> -->
+                                    <!-- <li class="dropdown dropdown-user visible-xs hidden-md" *ngIf="currentUser!=null">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            <span>
+                                                <img class="img-circle" src="assets/Images/noimage.jpg" alt="" style="width:35px;height: 35px;color:black;margin-left: 5px;font-weight: 400">Welcome to {{currentUser.FirstName}}</span>
+                                            <i class="caret"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li>
+                                                <a *ngIf="currentUser!=null && currentUser.RoleID ==roles.Tutor" [routerLink]="['/viewTutorProfile',currentUser.TutorID]">
+                                                    <i class="fa fa-user"></i> &nbsp;My profile</a>
+                                                <a *ngIf="currentUser!=null && currentUser.RoleID ==roles.Learner" (click)='editLearnerProfile()'>
+                                                    <i class="fa fa-user"></i> &nbsp;My profile</a>
+                                            </li>
+                                            <li>
+                                                <a (click)="OnLogout()">
+                                                    <i class="fa fa-lock"></i>&nbsp; Logout</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <div class="visible-xs hidden-md" *ngIf="currentUser==null">
+                                        <a class="btn btn-primary" type="button" routerLink="/signUp" *ngIf="currentUser==null">Sign Up</a>&nbsp;
+                                        <a class="btn btn-success" (click)="openLoginDialog()" type="button" *ngIf="currentUser==null">&nbsp;Login </a>&nbsp;
+                                    </div> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+    <div style="min-height: 70vh;">
+        <router-outlet></router-outlet>
+    </div>
+</div>

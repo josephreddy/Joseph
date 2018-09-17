@@ -1,0 +1,200 @@
+<div class="text-center dialog-header">
+        <h2 mat-dialog-title>&nbsp;Login To TutorsClub
+        <img class="pull-right pull-right" src="assets/Images/icons/close.png" (click)="onNoClick()" />
+    </h2>
+    </div>
+    
+    <div *ngIf="alert" class="font success col-lg-12 col-sm-12 col-md-12" style="text-align: center; background-color: red;color: white">
+    <h5>
+        <b>Logged in Succesfully</b>
+    </h5>
+    </div>
+    <div *ngIf="isLoginError" class="font col-lg-12 col-sm-12 col-md-12" style="text-align: center; background-color: red;color: white">
+    <h5>Invalid UserName or Password</h5>
+    </div>
+    <!-- <div class="col-md-6">
+        <div class="text-center login_ribbon">
+                <h2>Login To TtorsClub</h2>
+        </div>
+    </div> -->
+    <!-- <div class="col-md-6"> -->
+        <div class="clearfix space20"></div>
+        <div class="col-xs-1 col-md-3"></div>
+                <a class="navbar-brand" routerLink="/">
+                    <img src="assets/Images/logo/design5a.jpg" class="img-responsive" alt="">
+                </a>
+                <div class="clearfix space20"></div>
+                <form [formGroup]="LoginRegistrationrFrm">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Email Address" formControlName="emailid" required/>
+                        <mat-error>
+                            <span *ngIf=" LoginRegistrationrFrm.get('emailid').touched ||  LoginRegistrationrFrm.get('password').dirty">
+                                <span *ngIf="LoginRegistrationrFrm.controls['emailid'].hasError('maxlength') ">
+                                    Max Length Should Not Exceed More Than 30 Characters
+                                </span>
+                                <span *ngIf="LoginRegistrationrFrm.controls['emailid'].hasError('pattern')">
+                                    Please Enter Valid email Address
+                                </span>
+                                <span *ngIf="LoginRegistrationrFrm.controls['emailid'].hasError('required') ">
+                                    Please Enter Email Address
+                                </span>
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <input matInput type="password" formControlName="password" placeholder="Password" required/>
+                        <mat-error>
+                            <span *ngIf="LoginRegistrationrFrm.get('password').touched ||  LoginRegistrationrFrm.get('password').dirty">
+                                <span *ngIf="LoginRegistrationrFrm.controls['password'].hasError('required') ">
+                                    Please Enter Password
+                                </span>
+                                <span *ngIf="LoginRegistrationrFrm.controls['password'].hasError('pattern') ">
+                                    Password Should Contain One Uppercase,One Lowercase,One Special Character,One Numeric and Minimum of 8 Characters
+                                </span>
+                                <!-- <span *ngIf="LoginRegistrationrFrm.controls['password'].hasError('minlength') ">
+                                    Min Length Should Be 8 Characters
+                                </span> -->
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="clearfix space10"></div>
+                    <div class="col-lg-12 col-sm-12 text-center">
+                        <a routerLink=".">Forgot Password ?</a>
+                    </div>
+                    <div class="clearfix space10"></div>
+        
+                    <div class="col-lg-12 text-center">
+                        <button class="btn btn-md btn-primary full-width" (click)="LoginForm()" [disabled]="!LoginRegistrationrFrm.valid || isLoading" cdkFocusInitial>
+                            <i class="fa fa-spinner fa-spin" *ngIf="isLoading"></i>&nbsp;&nbsp;Login</button>
+                    </div>
+                    <div class="clearfix space10"></div>
+        
+                    <div class="col-lg-12 col-sm-12 text-center">
+                        <div>
+                            <span>Don’t have an account ? </span>
+                            <div class="clearfix space10"></div>
+                            <a href="" routerLink="/signUp" (click)="signUp()"><u>Sign up Now</u></a>
+                        </div>
+        
+                    </div>
+                </form>    
+    <!-- </div> -->
+    
+    
+    
+    
+    
+    
+    
+    <!-- <div mat-dialog-content>
+    <form [formGroup]="LoginRegistrationrFrm">
+        <div class="col-lg-12 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput placeholder="Email Address" formControlName="emailid" required/>
+                <mat-error>
+                    <span *ngIf=" LoginRegistrationrFrm.get('emailid').touched ||  LoginRegistrationrFrm.get('password').dirty">
+                        <span *ngIf="LoginRegistrationrFrm.controls['emailid'].hasError('maxlength') ">
+                            {{'Max Length Should Not Exceed More Than 30 Characters'}}
+                        </span>
+                        <span *ngIf="LoginRegistrationrFrm.controls['emailid'].hasError('pattern')">
+                            {{'Please Enter Valid email Address'}}
+                        </span>
+                        <span *ngIf="LoginRegistrationrFrm.controls['emailid'].hasError('required') ">
+                            {{'Please Enter Email Address'}}
+                        </span>
+                    </span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    
+        <div class="col-lg-12 col-sm-12">
+            <mat-form-field class="example-full-width">
+                <input matInput type="password" formControlName="password" placeholder="Password" required/>
+                <mat-error>
+                    <span *ngIf="LoginRegistrationrFrm.get('password').touched ||  LoginRegistrationrFrm.get('password').dirty">
+                        <span *ngIf="LoginRegistrationrFrm.controls['password'].hasError('required') ">
+                            {{'Please Enter Password'}}
+                        </span>
+    
+                        <span *ngIf="LoginRegistrationrFrm.controls['password'].hasError('minlength') ">
+                            {{'Min Length Should Be 8 Characters'}}
+                        </span>
+                    </span>
+                </mat-error>
+            </mat-form-field> 
+        </div>
+        <div class="col-lg-12 col-sm-12 text-center">
+            <div style="text-align: center"> 
+                <a routerLink=".">Forgot Password ?</a> 
+            </div>
+        </div>
+        <div class="col-lg-12 text-center">
+            <button class="btn btn-primary" (click)="LoginForm()" cdkFocusInitial>Login</button>
+        </div> 
+        <div class="col-lg-12 col-sm-12 text-center">
+            <div>
+                <span>Don’t have an account ? </span>
+                <br>
+                <a (click)="openLearnerSignUpDialog()">Sign up Now</a>
+            </div>
+    
+        </div> 
+    </form>
+    </div> -->
+    
+    
+    
+    
+    
+    <!-- <div mat-dialog-content>
+        <form [formGroup]="LoginRegistrationrFrm" style="margin-top: 10px;">
+            <div class="col-lg-12 col-sm-12">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </span>
+                    <input id="email" type="text" class="form-control" name="email" formControlName="emailid" placeholder="Email">
+                </div>
+                <div class="invalid">
+                    <span *ngIf="!LoginRegistrationrFrm.get('emailid').valid && LoginRegistrationrFrm.get('emailid').touched">
+                        <span *ngIf="LoginRegistrationrFrm.controls['emailid'].hasError('maxlength') ">
+                            {{'Max Length Should Not Exceed More Than 30 Characters'}}
+                        </span>
+                        <span *ngIf="LoginRegistrationrFrm.controls['emailid'].hasError('pattern')">
+                            {{'Invalid Email ID'}}
+                        </span>
+                        <span *ngIf="LoginRegistrationrFrm.controls['emailid'].hasError('required') ">
+                            {{'Please Enter Email Address'}}
+                        </span>
+                    </span>
+                </div>
+            </div>
+    
+            <div class="col-lg-12 col-sm-12" style="margin-top: 10px;">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="glyphicon glyphicon-lock"></i>
+                    </span>
+                    <input id="password" type="password" class="form-control" name="password" formControlName="password" placeholder="Password">
+                </div>
+                <div  class="invalid">
+                    <span *ngIf="!LoginRegistrationrFrm.get('password').valid && LoginRegistrationrFrm.get('password').touched">
+                        <span *ngIf="LoginRegistrationrFrm.controls['password'].hasError('required') ">
+                            {{'Please Enter Password'}}
+                        </span>
+    
+                        <span *ngIf="LoginRegistrationrFrm.controls['password'].hasError('minlength') ">
+                            {{'Min Length Should Be 8 Characters'}}
+                        </span>
+                    </span>
+                </div>
+            </div>
+    
+    
+            <div mat-dialog-actions class="pull-right">
+                <button mat-raised-button (click)="LoginForm()" [disabled]="!LoginRegistrationrFrm.valid" color="primary" cdkFocusInitial>Login</button>
+                <button mat-button (click)="onNoClick()" style="background: orange;color: whitesmoke">Cancel</button>
+              
+            </div>
+        </form>
+    </div> -->

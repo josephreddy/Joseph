@@ -1,0 +1,128 @@
+<div class="dialog-header">
+    <h2 mat-dialog-title>Edit Course Details</h2>
+    <i class="fa fa-times pull-right" (click)="onNoClick()" style="cursor: pointer;font-size: 17px;margin-top: -33px"></i>
+</div>
+
+<div mat-dialog-content>
+
+    <form [formGroup]="EditCourseRegistrationrFrm" style="margin-top: 0px;">
+        <input type="text" formControlName="catogoryId" [(ngModel)]="data.CategoryId" hidden/>
+        <input type="text" formControlName="courseId" [(ngModel)]="data.CourseId" hidden/>
+        <input type="text" formControlName="CreatedBy" [(ngModel)]="data.CreatedBy" hidden/>
+        <input type="text" formControlName="DateCreated" [(ngModel)]="data.DateCreated" hidden/>
+        <input type="text" formControlName="active" [(ngModel)]="data.Active" hidden/>
+
+        <div class="col-md-12">
+            <div class="row">
+                <mat-form-field class="col-md-6">
+                    <mat-select placeholder="Catagory" [(ngModel)]="data.CategoryId" formControlName="course">
+                        <mat-option *ngFor="let Catagory of CatagoryList" [value]="Catagory.CategoryId">{{Catagory.CategoryName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="col-md-6">
+                    <input matInput onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                        placeholder="Course Name" minlength="3" formControlName="courseName" [(ngModel)]="data.CourseName" required/>
+
+                    <mat-error>
+                        <span *ngIf="!EditCourseRegistrationrFrm.get('courseName').valid || EditCourseRegistrationrFrm.get('courseName').touched ||  EditCourseRegistrationrFrm.get('courseName').dirty">
+                            <span *ngIf="EditCourseRegistrationrFrm.controls['courseName'].hasError('required') ">
+                                {{'Please Enter Course Name'}}
+                            </span>
+
+
+                            <span *ngIf="EditCourseRegistrationrFrm.controls['courseName'].hasError('minlength') ">
+                                {{'Min Length Should Be 3 Characters'}}
+                            </span>
+                            <!-- <span *ngIf="EditCourseRegistrationrFrm.controls['courseName'].hasError('maxlength') ">
+                                {{'Max Length Should Be 16 Characters'}}
+                            </span> -->
+
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                    <input matInput onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                        placeholder="Alias Name" minlength="3" formControlName="aliasName" [(ngModel)]="data.Coursealias" required/>
+
+                    <mat-error>
+                        <span *ngIf="!EditCourseRegistrationrFrm.get('aliasName').valid || EditCourseRegistrationrFrm.get('aliasName').touched ||  EditCourseRegistrationrFrm.get('courseName').dirty">
+                            <span *ngIf="EditCourseRegistrationrFrm.controls['aliasName'].hasError('required') ">
+                                {{'Please Enter Course Name'}}
+                            </span>
+
+
+                            <span *ngIf="EditCourseRegistrationrFrm.controls['aliasName'].hasError('minlength') ">
+                                {{'Min Length Should Be 3 Characters'}}
+                            </span>
+                            <!-- <span *ngIf="EditCourseRegistrationrFrm.controls['aliasName'].hasError('maxlength') ">
+                                {{'Max Length Should Be 16 Characters'}}
+                            </span> -->
+
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <mat-form-field class="col-md-12">
+                    <textarea matInput placeholder="Description" formControlName="description" minlength="10" [(ngModel)]="data.Description"
+                        required></textarea>
+                    <mat-error>
+                        <span *ngIf="!EditCourseRegistrationrFrm.get('description').valid || EditCourseRegistrationrFrm.get('description').touched ||  EditCourseRegistrationrFrm.get('description').dirty">
+                            <span *ngIf="EditCourseRegistrationrFrm.controls['description'].hasError('required') ">
+                                {{'Please Enter Description'}}
+                            </span>
+
+                            <span *ngIf="EditCourseRegistrationrFrm.controls['description'].hasError('minlength') ">
+                                {{'Min Length Should Be 10 Characters'}}
+                            </span>
+                            <!-- <span *ngIf="EditCourseRegistrationrFrm.controls['description'].hasError('maxlength') ">
+                                {{'Max Length Should Be 16 Characters'}}
+                            </span> -->
+
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+
+        </div>
+        <div class="col-lg-6">
+            <div class="col-lg-12">
+                <label style="color: steelblue;font-weight: 400">Photo</label>
+            </div>
+            <img *ngIf="!cropping.isCropped" id=imageid src="{{data.ImageUrl}}" style="width: 220px;height: 220px;" />
+            <img *ngIf="cropping.isCropped" [src]="cropping.result">
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            <label style="color: steelblue;font-weight: 400">Edit Photo
+                <div class="actions">
+                    <input #_fileInput type="file" formControlName="filename" (change)="cropping.selectInputEvent($event)" accept="image/*" hidden>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-12">
+                        <div class="resize-image">
+                            <ly-cropping #cropping [config]="myConfig" (loaded)="onloaded()" (error)="onerror()">
+                            </ly-cropping>
+                            <button *ngIf="cropping.isLoaded" color="accent" (click)="crop()" ly-button>crop</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <!-- <img *ngIf="cropping.isCropped" [src]="cropping.result"> -->
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-lg-12">
+            <div mat-dialog-actions class="pull-right">
+                <button mat-raised-button (click)="EditCourseLoginForm()" [disabled]="!EditCourseRegistrationrFrm.valid ||!EditCourseRegistrationrFrm.dirty || btnDisable"
+                    color="primary" cdkFocusInitial>Submit</button>
+                <button mat-button (click)="onNoClick()" style="background: orange;color: whitesmoke">Cancel</button>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>

@@ -1,0 +1,256 @@
+<div class="account-wrap parallax-LnrSignUp" style="min-height: 700px;">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-xs-12 col-md-offset-1 col-sm-6 col-md-5 color">
+                <h3 class="color">
+                    <b>Learners Sign up into TutorsClub Portal</b>
+                </h3>
+                <div class="space90"></div>
+                <h6>
+                    <u>Powered by
+                        <span>TutorsClub</span>
+                    </u>
+                </h6>
+                <h1 class="text-white text-uppercase">
+                    When Results Matter, Consider Our Online Private Schools
+                </h1>
+                <div class="space100"></div>
+                <h2 class="inline">
+                    <b>TutorsClub </b>
+                </h2>
+                <h3 class="inline" style="text-align: justify;">
+                    Powered online private schools and courses provide high-quality curricula with support from teachers, counselors,and academic
+                    coaches to help students reach their full potential. Call us at 844.602.1685 or fill out the form for
+                    more information.</h3>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4 pull-right">
+                <div id="account-id">
+                    <h3 class="form-header">Learner Signup Details</h3>
+                    <div class="account-form">
+                        <div *ngIf="isError" class="font col-lg-12 col-sm-12 col-md-12" style="text-align: center; background-color: red;color: white">
+                            <h4>
+                                <b>{{result}}</b>
+                            </h4>
+                        </div>
+                        <form [formGroup]="learnersignup">
+                            <div class="row">
+                                <mat-form-field class="col-md-12 warningFont">
+                                    <input matInput type="text" formControlName="firstName" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                                        placeholder="First Name" required>
+                                    <mat-error>
+                                        <span *ngIf="!learnersignup.get('firstName').valid && learnersignup.get('firstName').touched">
+                                            <span *ngIf="learnersignup.controls['firstName'].hasError('required') ">
+                                                Please Enter First Name
+                                            </span>
+                                        </span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field class="col-md-12 warningFont">
+                                    <input matInput type="text" formControlName="lastName" placeholder="Last Name" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                                        required>
+                                    <mat-error>
+                                        <span *ngIf="!learnersignup.get('lastName').valid && learnersignup.get('lastName').touched">
+                                            <span *ngIf="learnersignup.controls['lastName'].hasError('required') ">
+                                                Please Enter Last Name
+                                            </span>
+                                        </span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="row">
+                                <mat-form-field class="col-md-12">
+                                    <input matInput type="text" formControlName="emailid" placeholder="Email Address" required>
+                                    <mat-error>
+                                        <span *ngIf="!learnersignup.get('emailid').valid && learnersignup.get('emailid').touched">
+                                            <span *ngIf="learnersignup.controls['emailid'].hasError('required') ">
+                                                Please Enter Email Address
+                                            </span>
+                                            <span *ngIf="learnersignup.controls['emailid'].hasError('pattern')">
+                                                Please Enter Valid Email Address
+                                            </span>
+
+                                        </span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field class="col-md-12">
+                                    <input matInput type="password" formControlName="password" placeholder="Password" required>
+                                    <mat-error>
+                                        <span *ngIf="!learnersignup.get('password').valid && learnersignup.get('password').touched">
+                                            <span *ngIf="learnersignup.controls['password'].hasError('required') ">
+                                                Please Enter Password
+                                            </span>
+                                            <span *ngIf="learnersignup.get('password').hasError('pattern')">Password Should Contain One Uppercase,One Lowercase,One Special Character,One
+                                                Numeric and Minimum of 8 Characters</span>
+
+                                        </span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="clearfix space20"></div>
+                            <div class="row">
+                                <mat-form-field class="col-md-6">
+                                    <label>Phone Number *</label>
+
+                                    <input matInput style="width: 178px; height: 37px;" formControlName="contactNumber" type="text"
+                                        ng2TelInput (intlTelInputObject)="telInputObject($event)" (countryChange)="onCountryChange($event)"
+                                        [textMask]="{mask: mask}" required/>
+                                    <mat-error>
+                                        <span *ngIf="!learnersignup.get('contactNumber').valid && learnersignup.get('contactNumber').touched">
+                                            <span *ngIf="learnersignup.controls['contactNumber'].hasError('required') ">
+                                                {{'Please Enter Your Mobile Number'}}
+                                            </span>
+                                            <span *ngIf="learnersignup.controls['contactNumber'].hasError('minlength') ">
+                                                {{'Please Enter valid Mobile Number'}}
+                                            </span>
+                                            <span *ngIf="learnersignup.controls['contactNumber'].hasError('maxlength') ">
+                                                {{'Please Enter Valid Mobile Number'}}
+                                            </span>
+                                            <span *ngIf="learnersignup.controls['contactNumber'].hasError('required')&&learnersignup.controls['contactNumber'].hasError('pattern')">
+                                                {{'Please Enter Valid Mobile Number'}}
+                                            </span>
+                                        </span>
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field class="col-md-6">
+                                    <label>Alternate Number *</label>
+
+                                    <input matInput style="width: 178px; height: 37px;" formControlName="AlternativeContactNumber" type="text"
+                                        minlength="3" ng2TelInput (intlTelInputObject)="telInputObject1($event)" (countryChange)="onCountryChange1($event)"
+                                        [textMask]="{mask: mask}" required/>
+                                    <mat-error>
+                                        <span *ngIf="!learnersignup.get('AlternativeContactNumber').valid && learnersignup.get('AlternativeContactNumber').touched">
+                                            <span *ngIf="learnersignup.controls['AlternativeContactNumber'].hasError('required') ">
+                                                {{'Please Enter Your Mobile Number'}}
+                                            </span>
+                                            <span *ngIf="learnersignup.controls['AlternativeContactNumber'].hasError('minlength') ">
+                                                {{'Please Enter valid Mobile Number'}}
+                                            </span>
+                                            <span *ngIf="learnersignup.controls['AlternativeContactNumber'].hasError('maxlength') ">
+                                                {{'Please Enter Valid Mobile Number'}}
+                                            </span>
+                                            <span *ngIf="learnersignup.controls['AlternativeContactNumber'].hasError('required')&&learnersignup.controls['AlternativeContactNumber'].hasError('pattern')">
+                                                {{'Please Enter Valid Mobile Number'}}
+                                            </span>
+                                        </span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field class="col-md-12">
+                                    <input class="col-md-11" placeholder="ZIP/PINCODE" [(ngModel)]="due" (keypress)="keyPress($event)" matInput formControlName="zipcode"
+                                        type="text" id="ZIPCode" name="ZIPCode" allow-pattern="[0-9]" minlength="5" maxlength="6"
+                                        required data-error="ZipCode is required">
+                                    <!-- <i *ngIf="search" matTooltip="Search" class="col-md-1 fa fa-search pull-right" (click)=onClickOutside(due)></i>
+                                    <i *ngIf="!search" class="fa fa-spinner fa-spin pull-right"></i> -->
+                                    <!-- <input matInput type="text" maxlength="6" formControlName="zipcode" placeholder="Zip/Pin Code" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                                required>click-outside (ngModelChange)="onClickOutside($event)" -->
+                                    <mat-error>
+                                        <span *ngIf="!learnersignup.get('zipcode').valid && learnersignup.get('zipcode').touched">
+                                            <span *ngIf="learnersignup.controls['zipcode'].hasError('required') ">
+                                                Please Enter Zip/Pin Code
+                                            </span>
+                                            <span *ngIf="learnersignup.controls['zipcode'].hasError('minlength') ">
+                                                Min Length Should Be 5 Numbers
+                                            </span>
+                                        </span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field class="col-md-12">
+                                    <input [(ngModel)]="City" matInput type="text" formControlName="City" placeholder="City" required>
+                                    <mat-error>
+                                        <span *ngIf="!learnersignup.get('City').valid && learnersignup.get('City').touched">
+                                            <span *ngIf="learnersignup.controls['City'].hasError('required') ">
+                                                Please Enter City
+                                            </span>
+                                            <!-- <span *ngIf="learnersignup.controls['City'].hasError('minlength') ">
+                                                Min Length Should Be 4 Characters
+                                            </span> -->
+
+                                        </span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field class="col-md-12">
+                                    <input [(ngModel)]="State" matInput type="text" formControlName="state" placeholder="State" required>
+                                    <mat-error>
+                                        <span *ngIf="!learnersignup.get('state').valid && learnersignup.get('state').touched">
+                                            <span *ngIf="learnersignup.controls['state'].hasError('required') ">
+                                                Please Enter State
+                                            </span>
+                                            <!-- <span *ngIf="learnersignup.controls['state'].hasError('minlength') ">
+                                                Min Length Should Be 4 Characters
+                                            </span> -->
+
+                                        </span>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+
+                                <mat-form-field class="col-md-12">
+                                    <mat-select [(ngModel)]="Country" placeholder="Country" [(ngModel)]="country" (ngModelChange)="countryChanges($event)" formControlName="country"
+                                        required>
+                                        <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
+                                    </mat-select>
+
+                                    <mat-error>
+                                        <span *ngIf="!learnersignup.get('country').valid && learnersignup.get('country').touched">
+                                            <span *ngIf="learnersignup.controls['country'].hasError('required') ">
+                                                Please Select Country
+                                            </span>
+
+                                        </span>
+                                    </mat-error>
+                                </mat-form-field>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12 col-lg-6">
+                                    <div class="clearfix space10"></div>
+                                    <ng2-timezone-picker (change)="ChangeTimeZone($event)" width="100%" placeholder="Select timezone" showOffset="true" guess="true">
+                                    </ng2-timezone-picker>
+                                    <mat-error>
+                                        <span *ngIf="!learnersignup.get('TimeZone').valid && learnersignup.get('TimeZone').touched">
+                                            <span *ngIf="learnersignup.controls['TimeZone'].hasError('required') ">
+                                                Please Select Time Zone
+                                            </span>
+
+                                        </span>
+                                    </mat-error>
+                                </div>
+                                <mat-form-field class="col-xs-12 col-md-12 col-lg-6">
+                                    <input matInput placeholder="TimeZone" [(ngModel)]="ChangeZone" formControlName="TimeZone" readonly/>
+
+                                </mat-form-field>
+                            </div>
+
+                        </form>
+
+                        <div class="pull-right">
+                            <button class="btn btn-primary" [disabled]="(!learnersignup.valid || isLoading)" (click)="LearnerSignUp()" type="submit">
+                                <i class="fa fa-spinner fa-spin" *ngIf="isLoading"></i>&nbsp;&nbsp;Submit</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 text-center">
+                                <h4> Already Have An Account?
+                                    <a routerLink="." (click)="openLoginDialog()">
+                                        <u>Login</u>
+                                    </a>
+                                </h4>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,436 @@
+<!-- <div *ngFor="let course of courselist"> -->
+<div class="content-group tab-content-bordered navbar-component bgcolor">
+  <div class="navbar navbar-inverse" style="position: relative;margin-bottom: 0px">
+    <section class="new-course-banner-bg" style="height: 70px">
+      <!-- <div class="container banner_container">
+          <div class="row">
+            <div class="main_outer_wrap course-wrap-wdth">
+              <div class="course-descrip-wraps col-md-8 col-sm-8 video-missing" id="">
+                <h1 class="light-40sp" ng-init="cpg.h1Text=&quot;Angular Training&quot;" style="color: white">{{title}}</h1> -->
+      <!-- <div class="learners" itemscope="itemscope" itemtype="http://data-vocabulary.org/Review-aggregate"> -->
+      <!-- <div class="rating_wrap default-cursor">
+                  </div> -->
+      <!-- <h2 class="courepage-intro-text">{{course.CourseDesc}}</h2> -->
+      <!-- </div> -->
+      <!-- </div>
+            </div>
+          </div>
+        </div> -->
+      <div style="background-color: #337ab7">
+        <div>
+          <h1 class="container" style="color: white; background-color: #337ab7;height: 70px;padding-top: 13px;padding-left: 13px">{{title}}</h1>
+        </div>
+      </div>
+    </section>
+    <div class="container" style="background-color: white;text-transform: capitalize">
+      <h3>
+        <b>About Course</b>
+      </h3>
+      <!-- <h4>{{AboutCourse}}</h4> -->
+      <div innerHTML="{{AboutCourse}}"></div>
+    </div>
+    <div class="container" style="background: #bbb6b6">
+      <ul class="nav navbar-nav">
+        <li>
+          <a (click)="scroll(4)" data-toggle="tab" aria-expanded="false">Demo Batch(s)</a>
+        </li>
+        <li>
+          <a (click)="scroll(5)" data-toggle="tab" aria-expanded="false">Regular Batch(s)</a>
+        </li>
+        <li>
+          <a (click)="scroll(2)" data-toggle="tab" aria-expanded="true"> Course Description</a>
+        </li>
+        <li>
+          <a (click)="scroll(6)" data-toggle="tab" aria-expanded="true">Certifications</a>
+        </li>
+        <li>
+          <a (click)="scroll(3)" data-toggle="tab" aria-expanded="true">F&Q </a>
+        </li>
+        <li class="pull-right">
+          <button *ngIf="(role==1&&(SubMenu?.length==0))" [routerLink]="['/admin/courseDescription',Id]" type="button" style="margin-left: 235px;margin-top: 15px"
+            class="btn btn-primary">Add Course Details</button>
+          <button *ngIf="(role==1&&(SubMenu?.length>=1))" [routerLink]="['/admin/courseDescription',Id]" type="button" style="margin-left: 235px;margin-top: 15px"
+            class="btn btn-primary">Edit Course Details</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="panel-group">
+        <div class="panel panel-info">
+          <div class="demoBatches panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapsedemobatch" style="font-weight: 600">Upcoming Demo Batches</a>
+            </h4>
+          </div>
+          <div id="collapsedemobatch" class="panel-body collapse in" style="overflow: auto;">
+            <div class="row">
+              <div class="mat-elevation-z8">
+                <table mat-table #sort1="matSort" [dataSource]="dataSource" matSort>
+
+                  <ng-container matColumnDef="CourseName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Course Name </th>
+                    <td mat-cell *matCellDef="let row"> {{row.CourseName}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="StartDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date</th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.StartDate"> {{row.StartDate |date:"dd/MM/yyyy"}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Time">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Time </th>
+                    <td mat-cell *matCellDef="let row"> {{row.Time}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="TrainingMode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Training Mode</th>
+                    <td mat-cell *matCellDef="let row">
+                      {{row.TrainingName}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Trainingtype">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Training Type</th>
+                    <td mat-cell *matCellDef="let row"> {{row.TrainingName=="Offline"?"-":row.TrainingModeName}} </td>
+                    <!-- <td mat-cell *matCellDef="let row"> {{row.TrainingModeName}} </td> -->
+                  </ng-container>
+                  <ng-container matColumnDef="Duration">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Duration (hrs)</th>
+                    <td mat-cell *matCellDef="let row"> {{row.Duration}} Hrs </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Timezone">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Time zone</th>
+                    <td mat-cell *matCellDef="let row"> {{row.Timezone}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="TutorName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tutor Name</th>
+                    <td mat-cell *matCellDef="let row"> {{row.TutorName}} </td>
+                  </ng-container>
+
+
+                  <!-- <ng-container matColumnDef="DataCreated">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Created</th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.DataCreated"> {{row.DataCreated |date:"dd/MM/yyyy hh:mm a"}} </td>
+                  </ng-container> -->
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                  </tr>
+
+                  <ng-container matColumnDef="TCDemoId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let row">
+                      <button *ngIf="currentUser==null ||  currentUser.RoleID==3" class="btn btn-danger waves-effect" [disabled]="disablerow" (click)="openRegisterDemoDialog(row)"
+                        style="padding: 4px">
+                        <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                          Register
+                        </span>
+                      </button>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="TutorID">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let row">
+                      <button class="btn btn-info waves-effect" [disabled]="disablerow" (click)="openViewDemoDialog(row)" style="padding: 4px;margin-left: 5px;">
+                        <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                          View
+                        </span>
+                      </button>
+                    </td>
+                  </ng-container>
+                </table>
+                <mat-paginator #paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="panel-group">
+        <div class="panel panel-info">
+          <div class="regularBatches panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapseregbatch" style="font-weight: 600">Regular Batches</a>
+            </h4>
+            <!-- <b>Regular Batches</b> -->
+          </div>
+          <div id="collapseregbatch" class="panel-body collapse in" style="overflow: auto;">
+            <div class="row">
+              <div class="mat-elevation-z8">
+                <table mat-table #sort2="matSort" [dataSource]="dataRegSource" matSort>
+
+                  <ng-container matColumnDef="CourseName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Course Name </th>
+                    <td mat-cell *matCellDef="let row"> {{row.CourseName}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="StartDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date</th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.StartDate"> {{row.StartDate |date:"dd/MM/yyyy"}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Time">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Time </th>
+                    <td mat-cell *matCellDef="let row"> {{row.Time}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="TrainingMode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Training Mode</th>
+                    <td mat-cell *matCellDef="let row">
+                      {{row.TrainingName}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Trainingtype">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Training Type</th>
+                    <td mat-cell *matCellDef="let row"> {{row.TrainingName=="Offline"?"-":row.TrainingModeName}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Duration">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Duration (hrs)</th>
+                    <td mat-cell *matCellDef="let row"> {{row.Duration}} Hrs </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Timezone">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Time zone</th>
+                    <td mat-cell *matCellDef="let row"> {{row.Timezone}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="TutorName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tutor Name</th>
+                    <td mat-cell *matCellDef="let row"> {{row.TutorName}} </td>
+                  </ng-container>
+                  <!-- <ng-container matColumnDef="DataCreated">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Created</th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.DataCreated"> {{row.DataCreated |date:"dd/MM/yyyy hh:mm a"}} </td>
+                  </ng-container> -->
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns1;">
+                  </tr>
+
+                  <ng-container matColumnDef="TCDemoId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let row">
+                      <button *ngIf="currentUser==null ||  currentUser.RoleID==3" class="btn btn-primary waves-effect" [disabled]="disablerow"
+                        (click)="openRegisterRegularDialog(row)" style="padding: 4px">
+                        <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                          Enroll
+                        </span>
+                      </button>
+                      <!-- <a mat-raised-button (click)="openRegisterDemoDialog(row)" class="btn btn-primary">Register</a> -->
+                    </td>
+                  </ng-container>
+                  <!-- <ng-container matColumnDef="TutorID">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let row">
+                      <button class="btn btn-info waves-effect" [disabled]="disablerow" (click)="openViewDemoDialog(row)" style="padding: 4px;margin-left: 5px;">
+                        <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                          View
+                        </span>
+                      </button>
+                    </td>
+                  </ng-container> -->
+                </table>
+
+                <mat-paginator #paginator1 [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="panel-group">
+        <div class="panel panel-info">
+          <div class="aboutCourse panel-heading">
+            <b>About Training</b>
+          </div>
+          <div class="panel-body">
+            <div class="panel-group">
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h5 class="panel-title" style="text-align: inherit;font-size: 12px">
+                    <a data-toggle="collapse" href="#collapseAboutTrainingCourse" style="font-weight: 600">About Courses</a>
+                  </h5>
+                </div>
+                <div id="collapseAboutTrainingCourse" class="panel-collapse collapse in">
+                  <h5 style="margin-left: 10px;">{{AboutTrainingCourse}}</h5>
+                </div>
+                <div class="panel-heading">
+                  <h5 class="panel-title" style="text-align: inherit;font-size: 12px">
+                    <a data-toggle="collapse" href="#collapseWhatYouWillLearn" style="font-weight: 600">What You Will Learn</a>
+                  </h5>
+                </div>
+                <div id="collapseWhatYouWillLearn" class="panel-collapse collapse in">
+                  <h5 style="margin-left: 10px;">{{WhatYouWillLearn}}</h5>
+                </div>
+                <div class="panel-heading">
+                  <h5 class="panel-title" style="text-align: inherit;font-size: 12px">
+                    <a data-toggle="collapse" href="#collapseWhyYouShouldTake" style="font-weight: 600">Why You Should Take</a>
+                  </h5>
+                </div>
+                <div id="collapseWhyYouShouldTake" class="panel-collapse collapse in">
+                  <h5 style="margin-left: 10px;">{{WhyYouShouldTake}}</h5>
+                </div>
+                <div class="panel-heading">
+                  <h5 class="panel-title" style="text-align: inherit;font-size: 12px">
+                    <a data-toggle="collapse" href="#collapseWhoShouldTake" style="font-weight: 600">Who Should Take</a>
+                  </h5>
+                </div>
+                <div id="collapseWhoShouldTake" class="panel-collapse collapse in">
+                  <h5 style="margin-left: 10px;">{{WhoShouldTake}}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <div class="row">
+      <div class="panel-group">
+        <div class="panel panel-info">
+          <div class="courseContent panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapsedescription" style="font-weight: 600">
+                <b>Course Description</b>
+              </a>
+            </h4>
+          </div>
+          <div>
+            <table class="table table-striped table-bordered col-lg-4" style="background-color: white">
+              <tbody *ngFor="let field of SubMenu; let i = index">
+                <tr>
+                  <td *ngIf="field?.SubMenuName">
+                    <div class="panel-group">
+                      <div class="panel panel-warning">
+                        <div class="panel-heading">
+                          <h5 class="panel-title" style="text-align: inherit;font-size: 12px">
+                            <a data-toggle="collapse" href="#{{field.SubMenuName}}" style="font-weight: 600">{{field.SubMenuName}}</a>
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr style="width: 100%">
+                  <td *ngIf="field?.SubMenuName" id="{{field.SubMenuName}}" class="panel-collapse collapse in">
+                    {{field.CourseDescription}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+    <div class="row">
+      <div class="panel-group">
+        <div class="panel panel-info">
+          <div class="certification panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapsableID" style="font-weight: 600">
+                <b>Course Description 1</b>
+              </a>
+            </h4>
+          </div>
+          <div id="collapsableID" class="panel-body collapse in">
+            <div class="panel-group">
+              <div class="panel panel-warning"  *ngFor="let field of SubMenu; let i = index">
+                <div class="panel-heading">
+                  <h5 class="panel-title" style="text-align: inherit;font-size: 12px">
+                    <a data-toggle="collapse" href="#{{field.SubMenuName}}" style="font-weight: 600">{{field.SubMenuName}}</a>
+                  </h5>
+                </div>
+                <div id="{{field.SubMenuName}}" class="panel-collapse collapse in">
+                  <div innerHTML="{{field.CourseDescription}}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="panel-group">
+        <div class="panel panel-info">
+          <div class="certification panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapsecertificate" style="font-weight: 600">
+                <b>Certification</b>
+              </a>
+            </h4>
+            <!-- <b>Certification</b> -->
+          </div>
+          <div id="collapsecertificate" class="panel-body collapse in">
+            <div class="panel-group">
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h5 class="panel-title" style="text-align: inherit;font-size: 12px">
+                    <a data-toggle="collapse" href="#collapseCertification" style="font-weight: 600">Certification</a>
+                  </h5>
+                </div>
+                <div id="collapseCertification" class="panel-collapse collapse in">
+                  <!-- <h5 style="margin-left: 10px;">{{Certification}}</h5> -->
+                  <div innerHTML="{{Certification}}"></div>
+                </div>
+                <div class="panel-heading">
+                  <h5 class="panel-title" style="text-align: inherit;font-size: 12px">
+                    <a data-toggle="collapse" href="#collapseValidity" style="font-weight: 600">Validity</a>
+                  </h5>
+                </div>
+                <div id="collapseValidity" class="panel-collapse collapse in">
+                  <!-- <h5 style="margin-left: 10px;">{{Validity}}</h5> -->
+                  <div innerHTML="{{Validity}}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="panel-group">
+        <div class="panel panel-info">
+          <div class="fandq panel-heading" id="fandq">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapseFAQ" style="font-weight: 600">
+                <b>Frequently Asked Questions</b>
+              </a>
+            </h4>
+            <!-- <b>Frequently Asked Questions</b> -->
+          </div>
+          <div id="collapseFAQ" class="panel-body collapse in">
+            <!-- <div *ngFor="let menu of submenulist"> -->
+            <div class="panel-group">
+              <!-- <div class="panel panel-warning">
+                    <div class="panel-heading">
+                      <h3 class="panel-title" style="text-align: inherit;font-size: 12px">
+                        <a data-toggle="collapse" href="#collapse{{menu.subMenuTitleID}}1" style="font-weight: 600">{{menu.subMenuTitle}}</a>
+                      </h3>
+                    </div>
+                    <div id="collapse{{menu.subMenuTitleID}}1" class="panel-collapse collapse">
+                      <h5 style="margin-left: 10px;">{{menu.subMenuDescription}}</h5>
+                    </div>
+                  </div> -->
+            </div>
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="support" *ngIf="currentUser==null ||  currentUser.RoleID==3">
+      <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+        <i class="fa fa-calendar fa-5x" aria-hidden="true"></i>
+      </div>
+      <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10" style="text-align: center">
+        <h3>The given Schedule Doesn't Match You?</h3>
+        <div class="space20"></div>
+        <h5>We are Here to Help You Find a Suitable Batch Schedule</h5>
+
+        <button style="margin-top: 40px" type="button" (click)="openSupportRequestDialog()" class="btn btn-danger">Contact Us</button>
+        <!-- <div style="height: 50px;width: 100px;border: black 1px groove; border-radius: 5px;background-color: red"></div> -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->

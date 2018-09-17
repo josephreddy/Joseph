@@ -1,0 +1,10 @@
+.panel-title > a:before {
+    float: left !important;
+    font-family: FontAwesome;
+    content:"\f068";
+    padding-right: 10px;
+}
+.panel-title > a.collapsed:before {
+    float: left !important;
+    content:"\f067";
+}

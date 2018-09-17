@@ -1,0 +1,169 @@
+<div class="account-wrap parallax-LnrSignUp" style="min-height: 700px;">
+  <h2 class="color">
+      <b>Learners SignUp</b>
+  </h2>
+  <div class="container-fluid ">
+      <div class="row">
+          <div class="col-xs-12 col-md-offset-2 col-sm-6 col-md-5 color">
+              <h6>
+                  <u>Powered by
+                      <span>TutorsClub</span>
+                  </u>
+              </h6>
+              <h1 class="text-white text-uppercase">
+                  When Results Matter, Consider Our Online Private Schools
+              </h1>
+              <div class="space90"></div>
+              <h2 class="inline">
+                  <b>TutorsClub </b>
+              </h2>
+              <h3 class="inline">
+                  Powered online private schools and courses provide high-quality curricula with support from teachers, counselors,and academic
+                  coaches to help students reach their full potential.Call us at 844.602.1685 or fill out the form for
+                  more information.</h3>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 pull-right">
+              <div id="account-id"> 
+                  <div class="account-form">
+                      <form [formGroup]="formGroup" class="form-login" data-toggle="validator" role="form">
+                          <div class="row">
+                              <div class="form-group col-md-12">
+                                  <div class="fl-flex-label">
+                                      <input formControlName="firstName" class="form-control active" id="FirstName" type="text" allow-pattern="[a-zA-Z]" required
+                                          data-error="First Name is required" minlength="3" maxlength="40">
+                                      <div class="help-block with-errors"></div>
+                                      <label>First Name</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="form-group col-md-12">
+                                  <div class="fl-flex-label">
+                                      <input formControlName="lastName" class="form-control active" id="LastName" type="text" allow-pattern="[a-zA-Z]" data-error="Last Name is required"
+                                          maxlength="40" required>
+                                      <div class="help-block with-errors"></div>
+                                      <label>Last Name</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="form-group col-md-12">
+                                  <div class="fl-flex-label">
+                                      <input formControlName="emailid" type="email" class="form-control active" id="Email" name="email" minlength="3" maxlength="40"
+                                          required data-error="Enter a Valid Email">
+                                      <div class="help-block with-errors"></div>
+                                      <label>Email</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="form-group col-sm-12">
+                                  <div class="fl-flex-label">
+                                      <input minlength="8" class="form-control active" formControlName="password" type="password" id="reg_password" name="reg_password"
+                                           required data-error="Password Should Contain Min of 8 Character's with Capital letter, Special Symbols and Number's"/>
+                                      <!-- <input type="checkbox" id="eye" onclick="if(reg_password.type=='text')reg_password.type='password'; else reg_password.type='text';"/> -->
+                                      <div class="help-block with-errors"></div>
+                                      <label>Password</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="form-group col-md-6">
+                                  <div class="fl-flex-label">
+                                      <input formControlName="contactNumber" class="form-control active" id="contactNumber" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                          type="text" maxlength="10" minlength="3" (intlTelInputObject)="telInputObject($event)"
+                                          ng2TelInput (countryChange)="onCountryChange($event)" required data-error="Phone Number is required"/>
+                                      <div class="help-block with-errors"></div>
+                                  </div>
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <div class="fl-flex-label">
+                                      <input formControlName="AlternativeContactNumber" class="form-control active" id="AlternativeContactNumber" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                          type="text" maxlength="10" minlength="3" (intlTelInputObject)="telInputObject1($event)"
+                                          ng2TelInput (countryChange)="onCountryChange1($event)" required required data-error="Alternate Phone Number is required"/>
+                                      <div class="help-block with-errors"></div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="form-group col-md-6">
+                                  <div class="fl-flex-label">
+                                      <input formControlName="zipcode" click-outside (ngModelChange)="onClickOutside($event)" type="text" class="form-control active"
+                                          id="ZIPCode" name="ZIPCode" allow-pattern="[0-9]" minlength="5" maxlength="6" required
+                                          data-error="ZipCode is required" >
+                                      <div class="help-block with-errors"></div>
+                                      <label>ZIP/PIN Code</label>
+                                  </div>
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <div class="fl-flex-label">
+                                      <input [(ngModel)]="city" formControlName="City" class="form-control" id="City" required data-error="City is required"
+                                      />
+                                      <div class="help-block with-errors"></div>
+                                      <label>City</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="form-group col-md-6">
+                                  <div class="fl-flex-label">
+                                      <input [(ngModel)]="State" formControlName="state" class="form-control" id="State" required data-error="State is required"/>
+
+                                      <div class="help-block with-errors"></div>
+                                      <label>State</label>
+                                  </div>
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <div class="fl-flex-label">
+                                      <input [(ngModel)]="Country" formControlName="country" class="form-control" id="Country" required data-error="Country is required"/>
+
+                                      <div class="help-block with-errors"></div>
+                                      <label>Country</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <ng2-timezone-picker (change)="ChangeTimeZone($event)" guess="true">
+                                  </ng2-timezone-picker>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="fl-flex-label">
+                                      <input formControlName="TimeZone" [(ngModel)]="ChangeZone" type="text" class="form-control active" id="TimeZone" name="TimeZone"
+                                          allow-pattern="[a-zA-Z]" minlength="3" maxlength="40" required readonly>
+                                      <div class="help-block with-errors"></div>
+                                      <label>Time Zone</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="form-group col-md-12">
+                              <b>Preffered Technology or Course</b>
+                          </div>
+                          <div class="row">
+                              <div class="form-group col-md-12">
+                                  <div class="fl-flex-label">
+                                      <select class="form-control" id="Technology">
+                                          <option value="" selected disabled>Select Technology or Course Name</option>
+                                          <option>1</option>
+                                          <option>2</option>
+                                          <option>3</option>
+                                          <option>4</option>
+                                          <option>5</option>
+                                      </select>
+                                      <div class="help-block with-errors"></div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="buttons-set text-center">
+                              <button [disabled]="(!formGroup.valid)" class="btn-black" type="submit" (click)="LearnerSignUp()">
+                                  <span>Submit</span>
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>

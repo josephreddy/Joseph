@@ -1,0 +1,113 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 100px;
+  }
+
+  .panel-info>.panel-heading{
+    font-style: oblique;
+  }
+  .navbar-inverse .navbar-nav>li>a{
+    font-weight: bold;
+    color: black;
+  }
+  .navbar-inverse .navbar-nav>li>a:hover{
+    color: #a91e1e;
+  }
+
+  .navbar-inverse .navbar-nav>.active>a {
+    background-color: #bbb6b6;
+    color: #a91e1e
+  }
+
+  .navbar-inverse .navbar-nav>a {
+    background-color: dodgerblue;
+  }
+  .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form{
+    background-color: #eaeaea;
+  }
+  h2.courepage-intro-text {
+    clear: both;
+    color: rgba(0, 0, 0, .5);
+    font-size: 14px;
+    line-height: 1.57;
+    padding: 0 0 15px;
+    display: inline-block;
+    font-weight: 400;
+  }
+
+  .textsize {
+    clear: both;
+    font-size: 14px;
+    line-height: 1.57;
+    display: inline-block;
+  }
+
+  /* @media (min-width: 300px) {
+    section.new-course-banner-bg {
+      background: url() center center/cover no-repeat #0c79b4;
+    } */
+  /* } */
+
+    @media (min-width: 300px) {
+    .new-course-wraper .course-banner .course-rate,
+    .new-course-wraper .course-banner h1,
+    h2.courepage-intro-text {
+      color: #fff;
+    }
+  }
+
+ .stricky {
+    margin: 0;
+    position: fixed;
+    background: #fff;
+    top:0;
+    left:0;
+    width: 100%;
+    z-index: 99999;
+    -webkit-animation-name: menu_sticky;
+    animation-name: menu_sticky;
+    -webkit-animation-duration: 0.60s;
+    animation-duration: 0.60s;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  .fa-5x{
+    font-size: 12em;
+    padding: 23px    
+  }
+
+  .support{
+    height: 200px;
+    width: 100%;
+    border: black 1px groove; 
+    border-radius: 5px;
+    background-color: white
+  }
+
+  .panel-title > a:before {
+    float: left !important;
+    font-family: FontAwesome;
+    content:"\f068";
+    padding-right: 10px;
+}
+.panel-title > a.collapsed:before {
+    float: left !important;
+    content:"\f067";
+}
+
+.table-bordered > tbody > tr > td{
+  width: 98%;
+  margin-left: 11px;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd){
+  background-color: #fff;
+}

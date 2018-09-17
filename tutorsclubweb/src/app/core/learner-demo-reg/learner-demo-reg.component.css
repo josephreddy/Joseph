@@ -1,0 +1,21 @@
+.capital{
+    text-transform: uppercase;
+  }
+
+.star {
+    font-size: 3rem;
+    color: #b0c4de;
+  }
+.filled {
+    color: #1e90ff;
+  }
+.bad {
+    color: #b0c4de;
+  }
+.filled.bad {
+    color: #1e90ff;
+  }
+
+.margin{
+  margin-top: -12px
+}

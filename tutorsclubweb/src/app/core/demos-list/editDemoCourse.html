@@ -1,0 +1,174 @@
+<div style="min-height: 800px">
+    <div class="container" style="margin-bottom: 20px">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8" style="height: auto;border:2px white solid;width: 700px;margin-top: 50px;background-color: #e6f2ff;border-top-right-radius: 25px;border-top-left-radius: 25px;box-shadow:0px 0px 60px white">
+            <div class="dialog-header" style="text-align: center;margin-left: -15px;margin-right: -15px;background-color: #0c79b4;border-top-right-radius: 25px;border-top-left-radius: 25px;">
+                <h2>Edit Demo sessions</h2>
+                <!-- <i class="fa fa-times pull-right" (click)="onNoClick()" style="cursor: pointer;font-size: 17px"></i> <mat-select placeholder="Tutor Name" formControlName="tutor" [(ngModel)]="this.tutorID" (ngModelChange)="onTutorSelect($event)"
+                                required [disabled]="isReadOnly">
+                                <mat-option *ngFor="let tutor of tutorslist.data" [value]="tutor.tutorID">{{tutor.start}} {{tutor.End}}</mat-option>
+                            </mat-select>-->
+            </div>
+            <div>
+                <form [formGroup]="editUpComingDemoCoursesFrm" style="margin-top: 10px;">
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <mat-select placeholder="Tutor Name" formControlName="tutor" [(ngModel)]="this.tutorID" (ngModelChange)="onTutorSelect($event)"
+                                required [disabled]=true>
+                                <mat-option *ngFor="let tutor of tutorslist.data" [value]="tutor.TutorID">{{tutor.FirstName}} {{tutor.LastName}}</mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span *ngIf="!editUpComingDemoCoursesFrm.get('tutor').valid || editUpComingDemoCoursesFrm.get('tutor').touched ||  editUpComingDemoCoursesFrm.get('tutor').dirty">
+                                    <span *ngIf="editUpComingDemoCoursesFrm.controls['tutor'].hasError('required') ">
+                                        {{'Please Select One'}}
+                                    </span>
+                                </span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <mat-select placeholder="Course" formControlName="course" [(ngModel)]="data.CourseId" required>
+                                <mat-option *ngFor="let course of courselist.data" [value]="course.CourseId">{{course.CourseName}}</mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <span *ngIf="!editUpComingDemoCoursesFrm.get('course').valid || editUpComingDemoCoursesFrm.get('course').touched ||  editUpComingDemoCoursesFrm.get('course').dirty">
+                                    <span *ngIf="editUpComingDemoCoursesFrm.controls['course'].hasError('required') ">
+                                        {{'Please Select One'}}
+                                    </span>
+                                </span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput [matDatepicker]="picker" formControlName="startdate" [(ngModel)]="data.StartDate" placeholder="Start Date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-error>
+                            <span *ngIf="!editUpComingDemoCoursesFrm.get('startdate').valid ||  editUpComingDemoCoursesFrm.get('startdate').dirty">
+                                <span *ngIf="editUpComingDemoCoursesFrm.controls['startdate'].hasError('min')">
+                                    {{'Date should be less than current date'}}
+                                </span>
+                            </span>
+                        </mat-error>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field>
+                            <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="data.Time" formControlName="time"
+                                matInput [owlDateTimeTrigger]="time" placeholder="{{'Timing'}}" [owlDateTime]="time" #time/>
+                            <owl-date-time #time [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                            <mat-error>
+                                <span *ngIf="!editUpComingDemoCoursesFrm.get('time').valid || editUpComingDemoCoursesFrm.get('time').touched ||  editUpComingDemoCoursesFrm.get('time').dirty">
+                                    <span *ngIf="editUpComingDemoCoursesFrm.controls['time'].hasError('required') ">
+                                        {{'Please Select One'}}
+                                    </span>
+                                </span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <mat-select placeholder="Session Type" [(ngModel)]="session" formControlName="sessionType" required>
+                                <mat-option *ngFor="let trainings of sessionType" [value]="trainings.sessionTypeId">{{trainings.SessionType}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <mat-select placeholder="Training Mood" [(ngModel)]="TrainingMode" (ngModelChange)="onShiftChange($event)" formControlName="trainingmood"
+                                required>
+                                <mat-option *ngFor="let training of Trainingtype" [value]="training.TrainingModeId">{{training.TrainingName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Training Mood" [(ngModel)]="TrainingMode" formControlName="trainingmood" />
+                        </mat-form-field> -->
+                    </div>
+                    <div class="col-lg-6 col-sm-12" *ngIf="TypesVisible">
+                        <mat-form-field class="example-full-width">
+                            <mat-select placeholder="Training Types" [(ngModel)]="Trainingtypes" formControlName="trainingtype">
+                                <mat-option *ngFor="let trainingss of traininglist" [value]="trainingss.TrainingMode">{{trainingss.TrainingModeName}}</mat-option>
+                            </mat-select>
+                            <!-- <input matInput placeholder="Training Types" [(ngModel)]="Trainingtype" formControlName="trainingtype" /> -->
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div class="col-lg-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Is paid Demo Session?" [(ngModel)]="paiddemo" formControlName="paiddemo" />
+                        </mat-form-field>
+                    </div> -->
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <mat-select placeholder="Is paid Demo Session?" [(ngModel)]="paiddemo" (ngModelChange)="onFeesChange($event)" formControlName="paiddemo">
+                                <mat-option value="true">Yes</mat-option>
+                                <mat-option value="false">No</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <mat-select placeholder="Select Hours" [(ngModel)]="hrs" formControlName="Inhours">
+                                    <mat-option *ngFor="let hour of hours" [value]="hour.value">
+                                        {{hour.viewValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <mat-select placeholder="Select Minutes" [(ngModel)]="duration" formControlName="Inminutes">
+                                    <mat-option *ngFor="let minute of minutes" [value]="minute.value">
+                                        {{minute.viewValue}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-6 col-sm-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput type="number" [(ngModel)]="data.Duration" placeholder="Demo Duration in Hours" formControlName="duration" required/>
+                        </mat-form-field>
+                    </div> -->
+                    <div class="col-lg-6 col-sm-12" *ngIf="FeesVisible">
+                        <mat-form-field class="example-full-width">
+                            <input matInput type="number" [(ngModel)]="data.Fee" placeholder="Training Fee" formControlName="Fee" required/>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-sm-12" *ngIf="FeesVisible">
+                        <mat-form-field class="example-full-width">
+                            <mat-select placeholder="Select a Currency" (ngModelChange)="onCurrencyChange($event)" formControlName="currency" required>
+                                <mat-option *ngFor="let trainings of currenies" [value]="trainings.code">{{trainings.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="row" style="margin-left: 0px;">
+                        <div class="col-lg-6 col-sm-12">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="TimeZone" [(ngModel)]="ChangeZone" formControlName="timezone" required/>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <label style="color: steelblue;font-weight: 400">
+                                <ng2-timezone-picker style="width: 100%" (change)="ChangeTimeZone($event)" placeholder="Select Timezone" showOffset="false"
+                                    guess="false">
+                                </ng2-timezone-picker>
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div mat-dialog-actions class="pull-right">
+                        <button mat-raised-button (click)="EditDemoCourseForm()" [disabled]="!editUpComingDemoCoursesFrm.valid ||!editUpComingDemoCoursesFrm.dirty"
+                            color="primary" cdkFocusInitial>Save</button>
+                        <button mat-button (click)="onNoClick()" style="background: orange;color: whitesmoke">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>

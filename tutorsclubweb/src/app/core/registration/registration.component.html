@@ -1,0 +1,729 @@
+<div class="container-fluid backGroundColor">
+    <div class="clearfix space20"></div>
+    <h2 class="color">
+      <b>Tutors SignUp</b>
+    </h2>
+    <div class="container">
+      <!-- <div> -->
+      <!-- <div class="col-xs-12 col-md-offset-1 col-sm-6 col-md-3 pull-left color">
+            <h5>
+              <u>Powered by
+                <span>TutorsClub</span>
+              </u>
+            </h5>
+            <div class="space90"></div>
+    
+            <h1 class="text-white text-uppercase width">
+              Online tutoring jobs
+            </h1>
+            <h3 class="inline width">Start tutoring online with TutorsClub</h3>
+          </div> -->
+      <div class="col-xs-12 col-sm-12 col-md-12 panel panel-info">
+        <div class="panel-body">
+          <mat-horizontal-stepper [linear]="isLinear" #stepper>
+            <mat-step [stepControl]="PublicprofileForm">
+              <ng-template matStepLabel>Public Profile</ng-template>
+              <h2>Create Your Profile</h2>
+              <hr>
+              <h4>STEP 1 of 4 : Public Profile</h4>
+              <form [formGroup]="PublicprofileForm">
+                <div class="space20"></div>
+                <h3 class="mat-subheader">
+                  <b>Name:</b>
+                </h3>
+                <div class="row">
+                  <label class="col-xs-12 col-md-4 lablecolor">First Name:</label>
+                  <mat-form-field class="col-xs-12 col-md-6">
+                    <input [(ngModel)]="FirstName" formControlName="FirstName" matInput required>
+                    <mat-error class="errormessage">
+                      <span *ngIf="PublicprofileForm.controls['FirstName'].hasError('required')">Please Enter First Name</span>
+                      <span *ngIf="PublicprofileForm.controls['FirstName'].hasError('minlength')">Please Enter Atleast 1 Character</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row paddingBottom10">
+                  <label class="col-xs-12 col-md-4 lablecolor">Last Name:</label>
+                  <mat-form-field class="col-xs-12 col-md-6">
+                    <input [(ngModel)]="LastName" formControlName="LastName" matInput required>
+                    <mat-error>
+                      <span *ngIf="PublicprofileForm.controls['LastName'].hasError('required')">Please Enter Last Name</span>
+                      <span *ngIf="PublicprofileForm.controls['LastName'].hasError('minlength')">Please Enter Atleast 1 Character</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <label class="col-xs-12 col-md-4 lablecolor">What is Your Gender:
+                  </label>
+                  <mat-radio-group [(ngModel)]="GenderId" class="example-radio-group" formControlName="Gender">
+                    <mat-radio-button class="example-radio-button" *ngFor="let Gender of Genderlist" [value]="Gender.GenderId">
+                      {{Gender.GenderName}}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                  <!-- <mat-radio-group class="example-radio-group" formControlName="Gender">
+                        <mat-radio-button class="example-radio-button"  *ngFor="let gender of genderTypes" [value]="gender">
+                          {{gender}}
+                        </mat-radio-button>
+                      </mat-radio-group> -->
+                </div>
+                <h3 class="mat-subheader">
+                  <b>Address:</b>
+                </h3>
+                <div class="row">
+                  <label class="col-xs-12 col-md-4 lablecolor">Apt/Street:</label>
+                  <mat-form-field class="col-xs-12 col-md-6">
+                    <input [(ngModel)]="Address" formControlName="Street" matInput required>
+                    <mat-error>
+                      <span *ngIf="PublicprofileForm.controls['Street'].hasError('required')">Please Enter Street</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <label class="col-xs-12 col-md-4 lablecolor">Zip/Pincode:</label>
+                  <mat-form-field class="col-xs-12 col-md-6">
+                    <input [(ngModel)]="ZipCode" (keypress)="keyPress($event)" matInput formControlName="Pincode" click-outside (ngModelChange)="onClickOutside($event)" type="text"
+                      id="ZIPCode" name="ZIPCode" allow-pattern="[0-9]" minlength="5" maxlength="6" required data-error="ZipCode is required">
+                    <!-- <input formControlName="Pincode" matInput required> -->
+                    <mat-error>
+                      <span *ngIf="PublicprofileForm.controls['Pincode'].hasError('required')">Please Enter Pincode</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <label class="col-xs-12 col-md-4 lablecolor">City:</label>
+                  <mat-form-field class="col-xs-12 col-md-6">
+                    <input [(ngModel)]="City" formControlName="City" matInput required>
+                    <mat-error>
+                      <span *ngIf="PublicprofileForm.controls['City'].hasError('required')">Please Enter City</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <label class="col-xs-12 col-md-4 lablecolor">State:</label>
+                  <mat-form-field class="col-xs-12 col-md-6">
+                    <input [(ngModel)]="State" formControlName="State" matInput required>
+                    <mat-error>
+                      <span *ngIf="PublicprofileForm.controls['State'].hasError('required')">Please Enter State</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <label class="col-xs-12 col-md-4 lablecolor">Country:</label>
+                  <mat-form-field class="col-xs-12 col-md-6">
+                    <input [(ngModel)]="Country" formControlName="Country" matInput required>
+                    <mat-error>
+                      <span *ngIf="PublicprofileForm.controls['Country'].hasError('required')">Please Enter Country</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+  
+                <h3 class="mat-subheader">
+                  <b>Contact Details:</b>
+                </h3>
+                <div class="row">
+                  <label class="col-xs-12 col-md-4 lablecolor">Phone1:</label>
+                  <mat-form-field class="col-xs-12 col-md-6">
+                    <!-- <input type="number" formControlName="MobileNumber" matInput required> -->
+                    <input [(ngModel)]="PhoneNumber" matInput [textMask]="{mask: mask}"
+                      formControlName="MobileNumber" type="text" ng2TelInput (intlTelInputObject)="telInputObject($event)"
+                      (countryChange)="onCountryChange($event)" required/>
+                    <mat-error>
+                      <span *ngIf="PublicprofileForm.controls['MobileNumber'].hasError('required')">Please Enter Mobile number</span>
+                      <!-- <span *ngIf="PublicprofileForm.controls['MobileNumber'].hasError('minlength')">Mobile number should be mininium 10 Characters</span>
+                      <span *ngIf="PublicprofileForm.controls['MobileNumber'].hasError('pattern')">Mobile number should be only numbers</span> -->
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <label class="col-xs-12  col-md-4 lablecolor">Alternate Mobile Number:</label>
+                  <mat-form-field class="col-xs-12 col-md-6">
+                    <input matInput [(ngModel)]="AltPhoneNumber" [textMask]="mask ? {mask: mask} : null"
+                      formControlName="AltMobileNumber" type="text" ng2TelInput (intlTelInputObject)="telInputObject1($event)"
+                      (countryChange)="onCountryChange1($event)" required/>
+                    <!-- <input formControlName="AltMobileNumber" matInput required> -->
+                    <mat-error>
+                      <span *ngIf="PublicprofileForm.controls['AltMobileNumber'].hasError('required')">Please Enter Mobile number</span>
+                      <!-- <span *ngIf="PublicprofileForm.controls['AltMobileNumber'].hasError('minlength')">Mobile number should be mininium 10 Characters</span>
+                      <span *ngIf="PublicprofileForm.controls['AltMobileNumber'].hasError('pattern')">Mobile number should be only numbers</span> -->
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <label class="col-xs-12 col-md-4 lablecolor">Email:</label>
+                  <mat-form-field class="col-xs-12 col-md-6">
+                    <input [(ngModel)]="EmailId" formControlName="Email" matInput required>
+                    <mat-error>
+                      <span *ngIf="PublicprofileForm.controls['Email'].hasError('required')">Please Enter Email</span>
+                      <span *ngIf="PublicprofileForm.controls['Email'].hasError('pattern')">Please enter valid email</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <!-- <h3> -->
+                  <label class="mat-subheader col-xs-12 col-md-12">
+                    <h3>
+                      <b>About me:</b>
+                    </h3>
+                  </label>
+                  <!-- <span class="col-lg-8">No need to include your phoone number or email address when you receive a message from a student on TMS.it
+                        will be delivered to you immediately via email and/or push notification and you will be able to reply
+                        instantly from the convenience of your phone or computer.</span> -->
+                  <!-- </h3> -->
+                  <!-- </div>
+                  <div class="row">
+                    <div class="col-lg-1"></div> -->
+                  <div class="col-xs-12 col-md-12 col-lg-12">
+                    <mat-form-field class="col-xs-12 col-md-offset-4 col-md-6">
+                      <textarea [(ngModel)]="AboutMe" matInput formControlName="AboutMe" placeholder="About me(20 words minimum)"></textarea>
+                      <mat-error>
+                        <span *ngIf="PublicprofileForm.controls['AboutMe'].hasError('required')">Please Tell About YourSelf</span>
+                        <span *ngIf="PublicprofileForm.controls['AboutMe'].hasError('minlength')">Please enter atleast 20 letters.</span>
+                      </mat-error>
+                    </mat-form-field>
+                    <!-- <app-ngx-editor minHeight="250px" matInput [spellcheck]="true" [(ngModel)]="AboutMe" formControlName="AboutMe"></app-ngx-editor> -->
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12 col-lg-2">
+                    <img [src]="ImageUrl" class="img-rounded" width="150" height="150">
+                    <br/>
+                    <!-- <img [src]="" class="img-rounded" width="150" height="150"> -->
+                  </div>
+                  <div class="col-xs-12 col-lg-8">
+                    <h4>YOUR PHOTO
+                    </h4>
+                    <p class="col-lg-8">Upload a friendly picture (a big smile is best!), and make sure it's a bright photo.</p>
+                    <div class="col-lg-5">
+                      <!-- <input type="file" class="form-control" accept="image/jpeg, image/png"> -->
+                      <input type='file' class="form-control" formControlName="RawImage" accept="image/jpeg, image/png" (change)="onSelectFile($event)">
+                    </div>
+                  </div>
+                  <div class="col-lg-2"></div>
+                </div>
+                <h3 class="mat-subheader">
+                  <b>Subjects</b>
+                </h3>
+                <p>Many students will find you by searching for their desired subjects. So add as many subjects as you can.For
+                  example, if you add "Angular 5" you may also wish to add "TypeScript" and "HTML," as well. The more relevant
+                  subjects,the better!</p>
+                <div class="row">
+                  <mat-form-field class="col-xs-6 col-md-4">
+                    <mat-select [(ngModel)]="CourseId" placeholder="Select Course" formControlName="Course">
+                      <mat-option *ngFor="let course of CourseList" [value]="course">{{course.CourseName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <button type="button col-xs-6 col-md-4" class="btn btn-primary" [disabled]="CourseId==null" (click)="AddCourses(PublicprofileForm)">Add Course</button>
+                </div>
+                <li *ngFor="let subject of AddedSeubjectsList">{{subject.CourseName}}
+                  <i (click)="DeleteCourses(subject)" class="fa fa-minus-circle minusicon-color"></i>
+                  <br>
+                  <hr style="margin-right: 600px;">
+                </li>
+                <div>
+                  <button type="button" id="box" (click)="PublicProfileSave(false)" [disabled]="!PublicprofileForm.valid" matStepperNext class="pull-right btn btn-primary">Next (Shared Info) ></button>
+                  <!-- <button type="button" (click)="PublicProfileSave()" class="pull-right btn btn-primary">Save (Public Profile) ></button> -->
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="SharedInfoForm">
+              <h3>
+                <b>STEP 2 of 4 :Information shared with Registered students</b>
+              </h3>
+              <div class="space20"></div>
+              <h4>This information will be shared with learners that pay for a booking.</h4>
+              <form [formGroup]="SharedInfoForm">
+                <div class="space20"></div>
+  
+                <ng-template matStepLabel>Shared Info</ng-template>
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="row">
+                    <label class="col-xs-12  col-md-4 lablecolor">Personal Email:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="PersonalEmailId" formControlName="Email" matInput required>
+                      <mat-error>
+                        <span *ngIf="SharedInfoForm.controls['Email'].hasError('required')">Please Enter Email</span>
+                        <span *ngIf="SharedInfoForm.controls['Email'].hasError('pattern')">Please enter valid email</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-md-2"></div> -->
+                  <div class="row">
+                    <label class="col-xs-12  col-md-4 lablecolor">Personal Mobile Number:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="PersonalNumber" matInput formControlName="PersonalMobileNumber" type="text"
+                       [textMask]="{mask: mask}" ng2TelInput (intlTelInputObject)="telInputObject2($event)"
+                        (countryChange)="onCountryChange2($event)" required/>
+                      <!-- <input formControlName="PersonalMobileNumber" matInput required maxlength="10"> -->
+                      <mat-error>
+                        <span *ngIf="SharedInfoForm.controls['PersonalMobileNumber'].hasError('required')">Please Enter Phone number</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!--  -->
+                  <div class="row">
+                    <label class="col-xs-12  col-md-4 lablecolor">Shift Timings:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                        <!-- <mat-select placeholder="{{'Activity Rights'|translate}}" style="margin-left:20px;margin-top:7px"  [(ngModel)]="activityRightData" multiple (change)="onChange($event.value)" formControlName="activityRightIds" required>
+                            <mat-checkbox [(ngModel)]="checked" [ngModelOptions]="{standalone: true}" (change)="onCheckedChange(checked)" readonly required>Select All</mat-checkbox>
+                              <mat-option *ngFor="let right of rights" [value]="right.id">{{right.name}}</mat-option>
+                          </mat-select>   -->
+                      <mat-select [(ngModel)]="shiftss" formControlName="ShiftTimings" multiple (selectionChange)="onShiftChange($event.value)" required>
+                        <mat-checkbox style="margin-left:16px;margin-top:7px" [(ngModel)]="checked" [ngModelOptions]="{standalone: true}" (change)="onCheckedChange(checked)">All</mat-checkbox>
+                        <mat-option *ngFor="let shift of PrefferrableShiftList" [value]="shift.ShiftID">{{shift.ShiftName}}</mat-option>
+                      </mat-select>
+                      <mat-error>
+                        <span *ngIf="!SharedInfoForm.get('ShiftTimings').valid || SharedInfoForm.get('ShiftTimings').touched ||  SharedInfoForm.get('ShiftTimings').dirty">
+                          <span *ngIf="SharedInfoForm.controls['ShiftTimings'].hasError('required') ">
+                            {{'Please Select Timing'}}
+                          </span>
+                        </span>
+                      </mat-error>
+                    </mat-form-field>
+  
+                    <div class="row">
+                      <div class="col-lg-8 col-md-8 col-sm-12 pull-right" [hidden]="!MorningTimeVisible">
+                        <label class="col-lg-3 col-md-2 col-sm-2 lablecolor ">Morning:</label>
+                        <mat-form-field>
+                          <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="MorningStartTime"
+                            [min]="Morningmin" [max]="Morningmax" matInput [owlDateTimeTrigger]="Mopentime" placeholder="{{' Start Time'}}"
+                            formControlName="Mopentime" [owlDateTime]="Mopentime" #Mopentime/>
+                          <owl-date-time #Mopentime [hour12Timer]="false" [pickerType]="'timer'"></owl-date-time>
+                          <mat-error>
+                            <span *ngIf="!SharedInfoForm.get('Mopentime').valid || SharedInfoForm.get('Mopentime').touched ||  SharedInfoForm.get('Mopentime').dirty">
+                              <span *ngIf="SharedInfoForm.controls['Mopentime'].hasError('required') ">
+                                {{'Please Select Start Time'}}
+                              </span>
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="MorningEndTime" [min]="Morningmin"
+                            [max]="Morningmax" matInput [owlDateTimeTrigger]="Mclosetime" placeholder="{{' End Time'}}" formControlName="Mclosetime"
+                            [owlDateTime]="Mclosetime" #Mclosetime/>
+                          <owl-date-time #Mclosetime [hour12Timer]="false" [pickerType]="'timer'"></owl-date-time>
+                          <mat-error>
+                            <span *ngIf="!SharedInfoForm.get('Mclosetime').valid || SharedInfoForm.get('Mclosetime').touched ||  SharedInfoForm.get('Mclosetime').dirty">
+                              <span *ngIf="SharedInfoForm.controls['Mclosetime'].hasError('required') ">
+                                {{'Please Select End Time'}}
+                              </span>
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-8 col-md-8 col-sm-12 pull-right" [hidden]="!AfternoonTimeVisible">
+                        <label class="col-lg-3 col-md-2 col-sm-2 lablecolor  ">After Noon:</label>
+                        <mat-form-field>
+                          <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="AfterNoonStartTime"
+                            [min]="Afternoonmin" [max]="Afternoonmax" matInput [owlDateTimeTrigger]="Aopentime" placeholder="{{' Start Time'}}"
+                            formControlName="Aopentime" [owlDateTime]="Aopentime" #Aopentime/>
+                          <owl-date-time #Aopentime [hour12Timer]="false" [pickerType]="'timer'"></owl-date-time>
+                          <mat-error>
+                            <span *ngIf="!SharedInfoForm.get('Aopentime').valid || SharedInfoForm.get('Aopentime').touched ||  SharedInfoForm.get('Aopentime').dirty">
+                              <span *ngIf="SharedInfoForm.controls['Aopentime'].hasError('required') ">
+                                {{'Please Select One'}}
+                              </span>
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="AfterNoonEndTime"
+                            [min]="Afternoonmin" [max]="Afternoonmax" matInput [owlDateTimeTrigger]="Aclosetime" placeholder="{{'End Time'}}"
+                            formControlName="Aclosetime" [owlDateTime]="Aclosetime" #Aclosetime/>
+                          <owl-date-time #Aclosetime [hour12Timer]="false" [pickerType]="'timer'"></owl-date-time>
+                          <mat-error>
+                            <span *ngIf="!SharedInfoForm.get('Aclosetime').valid || SharedInfoForm.get('Aclosetime').touched ||  SharedInfoForm.get('Aclosetime').dirty">
+                              <span *ngIf="SharedInfoForm.controls['Aclosetime'].hasError('required') ">
+                                {{'Please Select One'}}
+                              </span>
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-8 col-md-8 col-sm-12 pull-right" [hidden]="!EveningTimeVisible">
+                        <label class="col-lg-3 col-md-2 col-sm-2 lablecolor  ">Evening:</label>
+                        <mat-form-field>
+                          <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="EveningStartTime"
+                            [min]="Eveningmin" [max]="Eveningmax" matInput [owlDateTimeTrigger]="Eopentime" placeholder="{{'Start Time'}}"
+                            formControlName="Eopentime" [owlDateTime]="Eopentime" #Eopentime/>
+                          <owl-date-time #Eopentime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                          <mat-error>
+                            <span *ngIf="!SharedInfoForm.get('Eopentime').valid || SharedInfoForm.get('Eopentime').touched ||  SharedInfoForm.get('Eopentime').dirty">
+                              <span *ngIf="SharedInfoForm.controls['Eopentime'].hasError('required') ">
+                                {{'Please Select One'}}
+                              </span>
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="EveningEndTime" [min]="Eveningmin"
+                            [max]="Eveningmax" matInput [owlDateTimeTrigger]="Eclosetime" placeholder="{{' End Time'}}" formControlName="Eclosetime"
+                            [owlDateTime]="Eclosetime" #Eclosetime/>
+                          <owl-date-time #Eclosetime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                          <mat-error>
+                            <span *ngIf="!SharedInfoForm.get('Eclosetime').valid || SharedInfoForm.get('Eclosetime').touched ||  SharedInfoForm.get('Eclosetime').dirty">
+                              <span *ngIf="SharedInfoForm.controls['Eclosetime'].hasError('required') ">
+                                {{'Please Select One'}}
+                              </span>
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-8 col-md-8 col-sm-12 pull-right" [hidden]="!NightTimeVisible">
+                        <label class="col-lg-3 col-md-2 col-sm-2 lablecolor ">Night:</label>
+                        <mat-form-field>
+                          <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="NightStartTime" [min]="Nightmin"
+                            [max]="Nightmax" matInput [owlDateTimeTrigger]="Nopentime" placeholder="{{' Start Time'}}" formControlName="Nopentime"
+                            [owlDateTime]="Nopentime" #Nopentime/>
+                          <owl-date-time #Nopentime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                          <mat-error>
+                            <span *ngIf="!SharedInfoForm.get('Nopentime').valid || SharedInfoForm.get('Nopentime').touched ||  SharedInfoForm.get('Nopentime').dirty">
+                              <span *ngIf="SharedInfoForm.controls['Nopentime'].hasError('required') ">
+                                {{'Please Select One'}}
+                              </span>
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" [(ngModel)]="NightEndTime" [min]="Nightmin"
+                            [max]="Nightmax" matInput [owlDateTimeTrigger]="Nclosetime" placeholder="{{' End Time'}}" formControlName="Nclosetime"
+                            [owlDateTime]="Nclosetime" #Nclosetime/>
+                          <owl-date-time #Nclosetime [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+                          <mat-error>
+                            <span *ngIf="!SharedInfoForm.get('Nclosetime').valid || SharedInfoForm.get('Nclosetime').touched ||  SharedInfoForm.get('Nclosetime').dirty">
+                              <span *ngIf="SharedInfoForm.controls['Nclosetime'].hasError('required') ">
+                                {{'Please Select One'}}
+                              </span>
+                            </span>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  -->
+                  <!-- <div class="row">
+                      <label class="col-xs-12  col-md-4 lablecolor">Shift Timings:</label>
+                      <mat-form-field class="col-xs-12 col-md-6">
+                        <mat-select formControlName="ShiftTimings" multiple (ngModelChange)="onShiftChange($event.value)" required>
+                          <mat-option *ngFor="let shift of PrefferrableShiftList" [value]="shift.ShiftID">{{shift.ShiftName}}</mat-option>
+                        </mat-select> -->
+                  <!-- <input formControlName="ShiftTimings" matInput required> -->
+                  <!-- <mat-error>
+                          <span *ngIf="SharedInfoForm.controls['ShiftTimings'].hasError('required')">Please Select Shift Timings</span> -->
+                  <!-- <span *ngIf="SharedInfoForm.controls['ShiftTimings'].hasError('pattern')">Please enter valid email</span> -->
+                  <!-- </mat-error>
+                      </mat-form-field>
+                    </div> -->
+                  <div class="row">
+                      <label class="col-xs-12  col-md-4 lablecolor">Training Mode:</label>
+                      <mat-form-field class="col-xs-12 col-md-6">
+                        <mat-select [(ngModel)]="TrainingMode" formControlName="TrainingType" (selectionChange)="onTrainingTypeChange($event.value)"  required>
+                        <mat-option *ngFor="let trainingType of TrainingTypeList" [value]="trainingType.TrainingModeId">{{trainingType.TrainingName}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          <span *ngIf="SharedInfoForm.controls['TrainingType'].hasError('required')">Please Select One</span>
+                        </mat-error>
+                      </mat-form-field>
+                  </div>
+                  <div class="row" *ngIf="isTrainigModeVisible">
+                      <label class="col-xs-12  col-md-4 lablecolor">Training Type:</label>
+                      <mat-form-field class="col-xs-12 col-md-6">
+                        <mat-select [(ngModel)]="TrainingType" formControlName="TrainingMode">
+                        <mat-option *ngFor="let trainingMode of TrainingModeList" [value]="trainingMode.TrainingMode">{{trainingMode.TrainingModeName}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                          <span *ngIf="SharedInfoForm.controls['TrainingMode'].hasError('required')">Please Select One</span>
+                        </mat-error>
+                      </mat-form-field>
+                  </div>
+                 
+                  <div class="row">
+                    <label class="col-xs-12  col-md-4 lablecolor">Days Available:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <mat-select [(ngModel)]="WeekendAvailable" formControlName="WeekendAvailable" required>
+                      <mat-option *ngFor="let training of TrainingFrequencyList" [value]="training.TrainingFrequencyId">{{training.FrequencyType}}</mat-option>
+                      </mat-select>
+                      <mat-error>
+                        <span *ngIf="SharedInfoForm.controls['WeekendAvailable'].hasError('required')">Please Select One</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <label class="col-xs-12  col-md-4 lablecolor">Skills Level:</label>
+
+                    <mat-form-field class="col-xs-12 col-md-6">
+                    <mat-select [(ngModel)]="SkillsId" formControlName="skillsSet" multiple required>
+                      <mat-option *ngFor="let skillSet of SupportedSkillsList" [value]="skillSet.SkillsId">{{skillSet.SkillsName}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                      <span *ngIf="!SharedInfoForm.get('skillsSet').valid || SharedInfoForm.get('skillsSet').touched ||  SharedInfoForm.get('skillsSet').dirty">
+                        <span *ngIf="SharedInfoForm.controls['skillsSet'].hasError('required') ">
+                          {{'Please Select Skills Set'}}
+                        </span>
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+
+
+                    <!-- <mat-form-field class="col-xs-12 col-md-6">
+                      <mat-select [(ngModel)]="WeekendAvailable" formControlName="TrainingFrequency" required>
+                        <mat-option value="true">Yes</mat-option>
+                        <mat-option value="false">No</mat-option>
+                      </mat-select>
+                      <mat-error>
+                        <span *ngIf="SharedInfoForm.controls['TrainingFrequency'].hasError('required')">Please Select One</span>
+                        <span *ngIf="SharedInfoForm.controls['TrainingFrequency'].hasError('pattern')">Please enter valid email</span>
+                      </mat-error>
+                    </mat-form-field> -->
+                  </div>
+                  <div class="row paddingBottom10">
+                    <label class="col-xs-12  col-md-4 lablecolor">Experience (Years):</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="WorkExperience" (keypress)="keyPress($event)" formControlName="Experience" matInput required maxlength="2">
+                      <mat-error>
+                        <span *ngIf="SharedInfoForm.controls['Experience'].hasError('required')">Please Enter Experience</span>
+                        <span *ngIf="SharedInfoForm.controls['Experience'].hasError('pattern')">Please Enter in Numeric's</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Select Time Zone:</label>
+                    <label class="col-xs-12 col-md-6">
+                      <ng2-timezone-picker (change)="ChangeTimeZone($event)" placeholder="Select timezone" showOffset="true" guess="true">
+                      </ng2-timezone-picker>
+                    </label>
+                  </div>
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Selected Time Zone:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="ChangeZone" formControlName="TimeZone" [(ngModel)]="ChangeZone" matInput readonly required>
+                      <mat-error>
+                        <span *ngIf="SharedInfoForm.controls['TimeZone'].hasError('required')">Please Select TimeZone</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Select Preferred Language:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <mat-select [(ngModel)]="lang" formControlName="PrefferLanguage" multiple required>
+                        <mat-option *ngFor="let language of Languagelist" [value]="language.LangID">{{language.LanguageName}}</mat-option>
+                      </mat-select>
+                      <mat-error>
+                        <span *ngIf="!SharedInfoForm.get('PrefferLanguage').valid || SharedInfoForm.get('PrefferLanguage').touched ||  SharedInfoForm.get('PrefferLanguage').dirty">
+                          <span *ngIf="SharedInfoForm.controls['PrefferLanguage'].hasError('required') ">
+                            {{'Please Select Language'}}
+                          </span>
+                        </span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-1"></div>
+                </div>
+                <div>
+                  <!-- <button type="button" (click)="PublicProfileSave()" class="pull-right btn btn-primary">Save (Shared Information) ></button> -->
+                  <button type="button" matStepperPrevious class="pull-left btn btn-primary">
+                    < Previous (Public Profile)</button>
+                      <button [disabled]="!SharedInfoForm.valid" type="button" (click)="PublicProfileSave(false)" matStepperNext class="pull-right btn btn-primary">Next (Social Profile) ></button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="SocialInfoForm">
+              <h3>
+                <b>STEP 3 of 4 :Social WebSite Links for Communication</b>
+              </h3>
+              <div class="space20"></div>
+              <h4>This information will be shared with learners that pay for a booking.</h4>
+              <form [formGroup]="SocialInfoForm">
+                <ng-template matStepLabel>Social Profile</ng-template>
+                <div class="row">
+                  <div class="col-md-1"></div>
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Blog URL:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="Blog" formControlName="Blog" matInput>
+                      <mat-error>
+                        <!-- <span *ngIf="SharedInfoForm.controls['Blog'].hasError('required')">Please Enter Blog URL</span> -->
+                        <span *ngIf="SocialInfoForm.controls['Blog'].hasError('pattern')">Please enter valid Blog URL</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-md-2"></div> -->
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">LinkedIn Profile:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="LinkedIn" formControlName="LinkedIn" matInput>
+                      <mat-error>
+                        <!-- <span *ngIf="SocialInfoForm.controls['LinkedIn'].hasError('required')">Please Enter LinkedIn Profile</span>
+                        <span *ngIf="SocialInfoForm.controls['LinkedIn'].hasError('minlength')">Phone number should be mininium 10 Characters</span> -->
+                        <span *ngIf="SocialInfoForm.controls['LinkedIn'].hasError('pattern')">Please enter valid LinkedIn ID</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">HangOut Profile:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="Hangout" formControlName="HangOut" matInput>
+                      <mat-error>
+                        <!-- <span *ngIf="SocialInfoForm.controls['HangOut'].hasError('required')">Please Enter HangOut Profile</span>
+                        <span *ngIf="SocialInfoForm.controls['HangOut'].hasError('minlength')">Phone number should be mininium 10 Characters</span> -->
+                        <span *ngIf="SocialInfoForm.controls['HangOut'].hasError('pattern')">Please enter valid HangOut ID</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Youtube Channel:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="YouTube" formControlName="Youtube" matInput>
+                      <mat-error>
+                        <span *ngIf="SocialInfoForm.controls['Youtube'].hasError('pattern')">Please enter valid YouTube Channel</span>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Skype ID:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="SkypeID" formControlName="Skype" matInput>
+                      <!-- <mat-error>
+                        <span *ngIf="SocialInfoForm.controls['Skype'].hasError('pattern')">Please enter valid Skype ID</span>
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-1"></div>
+                </div>
+                <div>
+                  <!-- <button type="button" class="pull-right btn btn-primary">Save (Social Profile) ></button> -->
+                  <button type="button" matStepperPrevious class="pull-left btn btn-primary">
+                    < Previous (Shared Info)</button>
+                      <button [disabled]="!SocialInfoForm.valid" type="button" (click)="PublicProfileSave(false)" matStepperNext class="pull-right btn btn-primary">Next (Payouts) ></button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="PayoutsForm">
+              <h3>
+                <b>STEP 4 of 4 : Payouts</b>
+              </h3>
+              <div class="space20"></div>
+              <h4>Private information that TutorsClub will never share with anyone.</h4>
+              <div class="space20"></div>
+              <form [formGroup]="PayoutsForm">
+                <ng-template matStepLabel>Payouts</ng-template>
+                <div class="row">
+                  <label class="col-xs-12 col-md-4 lablecolor">Select Payment Type:</label>
+                  <mat-radio-group (change)="onMediaTypeSelect($event.value)" [(ngModel)]="AccountType" formControlName="AccountTypeId" class="example-radio-group">
+                    <mat-radio-button class="example-radio-button" *ngFor="let payout of payoutstypes" [value]="payout.AccountTypeId">
+                      {{payout.AccountName}}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <div *ngIf="AccountType==1">
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Account Name:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="accountname" formControlName="AccountName" matInput>
+                      <!-- <mat-error>
+                          <span *ngIf="SocialInfoForm.controls['AccountName'].hasError('pattern')">Please enter valid Account Name</span>
+                        </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Account Number:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="AccountNumber" formControlName="AccountNumber" matInput (keypress)="keyPress($event)">
+                      <!-- <mat-error>
+                          <span *ngIf="SocialInfoForm.controls['AccountNumber'].hasError('pattern')">Please enter valid Account Number</span>
+                        </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Account IFSC Code:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="AccountIFCS" formControlName="AccountIFCS" matInput>
+                      <!-- <mat-error>
+                          <span *ngIf="SocialInfoForm.controls['AccountNumber'].hasError('pattern')">Please enter valid Account Number</span>
+                        </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div *ngIf="AccountType==2">
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Paypal Country:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <!-- <input [(ngModel)]="PaypalCountry" formControlName="PaypalCountry" matInput> -->
+                      <mat-select [(ngModel)]="PaypalCountry" (ngModelChange)="countryChanges($event)" formControlName="PaypalCountry" required>
+                        <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Paypal Email:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="PaypalEmail" formControlName="PaypalEmail" matInput>
+                      <!-- <mat-error>
+                          <span *ngIf="SocialInfoForm.controls['PaypalEmail'].hasError('pattern')">Please enter valid Account Name</span>
+                        </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <label class="col-xs-12 col-md-4 lablecolor">Paypal Number:</label>
+                    <mat-form-field class="col-xs-12 col-md-6">
+                      <input [(ngModel)]="PaypalNumber" matInput oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        formControlName="PaypalNumber" type="text" maxlength="10" ng2TelInput (intlTelInputObject)="telInputObject3($event)"
+                        (countryChange)="onCountryChange3($event)" required/>
+                      <!-- <input [(ngModel)]="PaypalNumber" formControlName="PaypalNumber" matInput> -->
+                      <!-- <mat-error>
+                          <span *ngIf="SocialInfoForm.controls['PaypalNumber'].hasError('pattern')">Please enter valid Account Number</span>
+                        </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <p>
+                    <i>when do i get paid?</i>
+                    <br> 48 hours after your session we transfer the money to your PayPal account or bank account (assuming that your tutee does
+                    not request a refund).You will receive a confirmation email or text message each time money is transferred to you (again,
+                    48 hours after your session).However,it may then take up to 1 full business day from the time of the payment confirmation
+                    for PayPal to accept/deposit the money,or up to 3 business days from that point for bank accounts(depending on your bank's
+                    policies). In the very rare case that 3 business days have elapsed from the time you're notified of the money transfer
+                    (so 5 days after the session), please call or email us and will investigate at once</p>
+                </div>              
+                <div class="row">
+                  <!-- <div class="col-xs-12 col-md-4"> -->
+                    <label class="col-xs-12 col-md-4 lablecolor">Where did you hear about us?</label>                    
+                    <!-- <h4>
+                      <b></b>
+                    </h4> -->
+                  <!-- </div>          -->
+                  <mat-form-field class="col-xs-12 col-md-4">
+                    <mat-select [(ngModel)]="ReferenceType" formControlName="ReferenceType" (selectionChange)="onReferenceTypeChange($event.value)"
+                      required>
+                      <mat-option *ngFor="let referenceType of ReferenceTypeList" [value]="referenceType.ReferenceTypeId">{{referenceType.ReferenceName}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                      <span *ngIf="PayoutsForm.controls['ReferenceType'].hasError('required')">Please Select One</span>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="col-xs-12 col-md-4" *ngIf="isReferenceTypeVisible">
+                      <input [(ngModel)]="ReferenceSource" formControlName="ReferenceSource" matInput>                    
+                    <mat-error>
+                      <span *ngIf="PayoutsForm.controls['ReferenceSource'].hasError('required')">where did you hear</span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>          
+              </form>
+              <div>
+                <button type="button" matStepperPrevious class="pull-left btn btn-primary">
+                  < Previous (Social Profile)</button>
+                    <button type="button" [disabled]="!PayoutsForm.valid" class="pull-right btn btn-primary" (click)="PublicProfileSave(true)">Submit</button>
+              </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+        </div>
+      </div>
+      <!-- </div> -->
+    </div>
+  </div>

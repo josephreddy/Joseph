@@ -1,0 +1,80 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 100px;
+  }
+
+  h2.courepage-intro-text {
+    clear: both;
+    color: rgba(0, 0, 0, .5);
+    font-size: 14px;
+    line-height: 1.57;
+    padding: 0 0 15px;
+    display: inline-block;
+    font-weight: 400;
+  }
+
+  .textsize {
+    clear: both;
+    font-size: 14px;
+    line-height: 1.57;
+    display: inline-block;
+  }
+
+  @media (min-width: 300px) {
+    section.new-course-banner-bg {
+      background: url() center center/cover no-repeat #4e9cff;
+    }
+
+    @media (min-width: 300px) {}
+    .new-course-wraper .course-banner .course-rate,
+    .new-course-wraper .course-banner h1,
+    h2.courepage-intro-text {
+      color: #fff;
+    }
+  }
+  h1{
+    font-size: 25px;
+  font-style: oblique;
+}
+
+ly-cropping {
+  width: 220px;
+  height: 220px;
+}
+
+
+
+/* .dialog-header{
+  display: block;
+  margin: -24px -24px 24px -29px;
+  padding: 5px 23px 0px 28px;
+  max-height: 65vh;
+  overflow: auto;
+  color: white;
+  background-color: #118aef;
+  backface-visibility: hidden;
+} */
+
+.invalid{
+  color: red;
+  font-size: 12px;
+}
+.mat-dialog-title{
+  margin: 0 0 8px;
+  display: block;
+  font-family: inherit
+}
+.mat-column-FileName {
+  width: 50px
+}
+.mat-column-FileName1 {
+  width: 50px
+}

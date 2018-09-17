@@ -1,0 +1,66 @@
+<div class="dialog-header">
+    <h2 mat-dialog-title>&nbsp;Edit Event
+        <img class="pull-right" src="assets/Images/icons/close.png" (click)="onNoClick()" />
+    </h2>
+</div>
+<div mat-dialog-content>
+    <div class="container">
+        <div class="row" style="text-align: left;height: auto;">
+            <form [formGroup]="EditRegistrationrFrm">
+                <div class="col-lg-12 col-sm-12">
+                    <mat-form-field class="full-width">
+                        <textarea matInput placeholder="Note" formControlName="note" [(ngModel)]="data.Note" rows="3" required></textarea>
+                        <mat-error>
+                            <span *ngIf="!EditRegistrationrFrm.get('note').valid || EditRegistrationrFrm.get('note').touched ||  EditRegistrationrFrm.get('note').dirty">
+                                <span *ngIf="EditRegistrationrFrm.controls['note'].hasError('required') ">
+                                    {{'Please Enter Note'}}
+                                </span>
+                            </span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <div class="col-lg-12">
+                        <label style="color: steelblue;font-weight: 400">Photo</label>
+                    </div>
+                    <img id=imageid src="{{data.ImageUrl}}" style="width: 500px;height: 200px;" />
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <label for="file-upload" class="custom-file-upload btn-primary">
+                        <i class="fa fa-cloud-upload"></i> Edit Photo
+                    </label>
+                    <div class="actions">
+                        <input id="file-upload" #_fileInput type="file" formControlName="filename" (change)="cropping.selectInputEvent($event)" accept="image/*"
+                            hidden>
+                        <!-- <input #_fileInput type="file" formControlName="filename" (change)="cropping.selectInputEvent($event)" accept="image/*" hidden> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="resize-image space20">
+                                <ly-cropping #cropping [config]="myConfig" (cropped)="oncropped($event)" (loaded)="onloaded()" (error)="onerror()">
+                                </ly-cropping>
+                            </div>
+                            <button *ngIf="cropping.isLoaded" color="accent" (click)="crop()" ly-button>crop</button>
+                        </div>
+                        <div class="col-lg-4">
+                            <img *ngIf="cropping.isCropped" [src]="cropping.result">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix space20"></div>
+                <div class="col-lg-12 text-center">
+                    <button type="button" class="btn btn-success" (click)="EditImage()" [disabled]="!EditRegistrationrFrm.valid ||!EditRegistrationrFrm.dirty || btnDisable"
+                        cdkFocusInitial>Update</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-danger" (click)="onNoClick()">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- <style>
+    ly-cropping {
+        max-width: 288px;
+    }
+</style> -->

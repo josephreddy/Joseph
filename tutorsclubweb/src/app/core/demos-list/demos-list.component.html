@@ -1,0 +1,183 @@
+<div class="bgcolor">
+  <div class="bcrumbs">
+    <h2>Upcoming Live Demo Training List
+    </h2>
+  </div>
+  <div class="container-fluid">
+    <button class="btn btn-success pull-right" [routerLink]="['/adddemosess']" *ngIf="currentUser!=null &&( currentUser.RoleID==1 || currentUser.RoleID==2)">
+      <i class="fa fa-plus"></i> &nbsp; Add Demo Course</button>
+    <div class="col-md-2 pull-right">
+      <select class="form-control" (ngModelChange)="onCurrencyChange($event)" [(ngModel)]=SelectedCurrency>
+        <!-- <ngx-select-search [(ngModel)]=SelectedCurrency1></ngx-select-search> -->
+        <option value="1" [disabled]=true>Choose a Currency</option>
+        <option *ngFor="let trainings of currenies" [value]="trainings.code">{{trainings.name}}</option>
+      </select>
+    </div>
+    <div class="col-md-2 pull-right">
+      <ng2-timezone-picker (change)="ChangeTimeZone($event)" placeholder="Select timezone" showOffset="true" guess="true">
+      </ng2-timezone-picker>
+    </div>
+    <!-- <div class="col-md-2">
+      <mat-form-field>
+        <mat-select placeholder="Select a Currency" (ngModelChange)="onCurrencyChange($event)" [(ngModel)]=SelectedCurrency>
+          <ngx-mat-select-search [(ngModel)]=SelectedCurrency1></ngx-mat-select-search>
+          <mat-option *ngFor="let trainings of currenies" [value]="trainings.code">{{trainings.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+    <input type="text" class="form-control searchPosition" (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    <div class="space20"></div>
+    <!-- <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field> -->
+    <div class="mat-elevation-z8" style="overflow: auto;">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="ImageUrl">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Training</th>
+          <td mat-cell *matCellDef="let row">
+            <a [routerLink]="['/CourseExplanation',row.CourseId]" title="View Course">
+              <img class="img-circle" src="{{row.ImageUrl}}" style="height: 40px;width: 40px;" />
+            </a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="CourseName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+          <td mat-cell *matCellDef="let row">
+            <a [routerLink]="['/CourseExplanation',row.CourseId]" title="View Course">{{row.CourseName}}</a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="StartDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date</th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.StartDate"> {{row.StartDate |date:"dd/MM/yyyy"}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Time">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Time</th>
+          <!-- <td mat-cell *matCellDef="let row"> {{row.Time}} </td> -->
+          <td mat-cell *matCellDef="let row" [style.color]="row.StartDate"> {{row.Time |date:"hh:mm a"}} </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="Timezone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Timezone</th>
+        <td mat-cell *matCellDef="let row"> {{row.Timezone}} </td>
+      </ng-container> -->
+        <ng-container matColumnDef="TrainingMode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Training Mode</th>
+          <td mat-cell *matCellDef="let row">
+            {{row.TrainingName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Trainingtype">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Training Type</th>
+          <td mat-cell *matCellDef="let row"> {{row.TrainingName=="Offline"?"-":row.TrainingModeName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Duration">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Duration (hrs)</th>
+          <td mat-cell *matCellDef="let row"> {{row.Duration}} Hrs </td>
+        </ng-container>
+        <ng-container matColumnDef="Mode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Mode</th>
+          <td mat-cell *matCellDef="let row">
+            {{row.SessionTypeName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Session">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sessions</th>
+          <td mat-cell *matCellDef="let row">
+            22 </td>
+        </ng-container>
+        <ng-container matColumnDef="TutorName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Tutor Name</th>
+          <td mat-cell *matCellDef="let row">
+            <a [routerLink]="['/viewTutorProfile',row.TutorID]">{{row.TutorName}}</a>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Fee">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Training Fee</th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.DataCreated"> {{row.Fee==null?'':symbol}} {{row.Fee==null?"Free":row.Fee*exchangeRate|round}}</td>
+        </ng-container>
+        <ng-container matColumnDef="TCDemoId" style="width: 30px">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.TCDemoId" style="text-align: center;">
+            <button *ngIf="currentUser==null ||  currentUser.RoleID==3" class="btn btn-danger waves-effect" (click)="openRegisterDemoDialog(row)"
+              [disabled]="disablerow" style="padding: 4px;">
+              <span md-tooltip="tooltip" title="Register" mdTooltipPosition="before">
+                Register
+              </span>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="TCDemoId1" style="width: 30px">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.TCDemoId" style="text-align: center;">
+            <button class="btn btn-primary waves-effect" (click)="openViewDemoDialog(row)" [disabled]="disablerow" style="padding: 4px;margin-left: 5px;">
+              <span md-tooltip="tooltip" title="View" mdTooltipPosition="before">
+                View
+              </span>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="DateModified">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.DateModified" style="text-align: center">
+            <button *ngIf="currentUser!=null &&( currentUser.RoleID==1 || currentUser.RoleID==2)" class="btn btn-primary waves-effect"
+              (click)="editDemoCourselist(row)" [disabled]="disablerow">
+              <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </span>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="DateModified1">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.DateModified" style="text-align: center">
+            <button *ngIf="currentUser!=null &&( currentUser.RoleID==1 || currentUser.RoleID==2)" class="btn btn-danger waves-effect"
+              (click)="onDeleteClick(row)" [disabled]="disablerow">
+              <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </span>
+            </button>
+          </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="DateModified" *ngIf="currentUser==null || currentUser.RoleId==3">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let row"></td>
+        </ng-container> -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+
+
+        <ng-container matColumnDef="Createdby">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.Createdby">
+            <button *ngIf="currentUser!=null &&( currentUser.RoleId==1 || currentUser.Roletype==2)" mat-mini-fab style="text-align: center;background-color: #67aed3;color:white"
+              (click)='editDemoCourselist(row)'>
+              <span matTooltip="{{'Edit'}}">
+                <i class="fa fa-edit"></i>
+              </span>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="TutorId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let row" [style.color]="row.TutorId">
+            <a mat-raised-button (click)="openRegisterDemoDialog(row)" class="btn btn-primary">Register</a>
+          </td>
+        </ng-container>
+      </table>
+      <div [hidden]="!isLoadingResults" class="text-center">
+        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+        <h5>
+          Loading Please Wait..
+        </h5>
+        <span class="sr-only"></span>
+      </div>
+
+      <!-- <div class="clearfix space20"></div> -->
+      <div class="text-center" [hidden]="!(dataSource.data.length==0&&!isLoadingResults)">
+        No Records Found</div>
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+</div>

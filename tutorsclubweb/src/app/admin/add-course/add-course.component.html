@@ -1,0 +1,101 @@
+<div class="dialog-header">
+    <h2 mat-dialog-title>&nbsp;Add Course Details
+        <img class="fa fa-times pull-right" src="assets/Images/icons/close.png" (click)="onNoClick()" />
+    </h2>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="AddCourseRegistrationrFrm">
+        <div class="col-md-12">
+            <div class="row">
+                <mat-form-field class="col-md-6">
+                    <mat-select placeholder="Category" formControlName="categoryID">
+                        <mat-option *ngFor="let Catagory of CatagoryList" [value]="Catagory.CategoryId">{{Catagory.CategoryName}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <span *ngIf="!AddCourseRegistrationrFrm.get('categoryID').valid || AddCourseRegistrationrFrm.get('categoryID').touched ||  AddCourseRegistrationrFrm.get('categoryID').dirty">
+                            <span *ngIf="AddCourseRegistrationrFrm.controls['categoryID'].hasError('required') ">
+                                Please Select Category
+                            </span>
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                    <input matInput placeholder="Course Name" minlength="3" formControlName="courseName" required/>
+                    <mat-error>
+                        <span *ngIf="!AddCourseRegistrationrFrm.get('courseName').valid || AddCourseRegistrationrFrm.get('courseName').touched ||  AddCourseRegistrationrFrm.get('courseName').dirty">
+                            <span *ngIf="AddCourseRegistrationrFrm.controls['courseName'].hasError('required') ">
+                                Please Enter Course Name
+                            </span>
+                            <span *ngIf="AddCourseRegistrationrFrm.controls['courseName'].hasError('minlength') ">
+                                Min Length Should Be A Characters
+                            </span>
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                    <input matInput placeholder="Alias Name" minlength="3" formControlName="aliasName" required/>
+                    <mat-error>
+                        <span *ngIf="!AddCourseRegistrationrFrm.get('aliasName').valid || AddCourseRegistrationrFrm.get('aliasName').touched ||  AddCourseRegistrationrFrm.get('courseName').dirty">
+                            <span *ngIf="AddCourseRegistrationrFrm.controls['aliasName'].hasError('required') ">
+                                Please Enter Alias Name
+                            </span>
+                            <span *ngIf="AddCourseRegistrationrFrm.controls['aliasName'].hasError('minlength') ">
+                                Min Length Should Be A Characters
+                            </span>
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="col-md-12">
+                    <textarea matInput placeholder="Description" formControlName="description" minlength="10" required></textarea>
+                    <mat-error>
+                        <span *ngIf="!AddCourseRegistrationrFrm.get('description').valid || AddCourseRegistrationrFrm.get('description').touched ||  AddCourseRegistrationrFrm.get('description').dirty">
+                            <span *ngIf="AddCourseRegistrationrFrm.controls['description'].hasError('required') ">
+                                Please Enter Description
+                            </span>
+                            <span *ngIf="AddCourseRegistrationrFrm.controls['description'].hasError('minlength') ">
+                                Min Length Should Be 10 Characters
+                            </span>
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-sm-12 space20">
+            <!-- <div>
+                    <a class='btn btn-primary'>
+                            Upload Course Photo
+                        <input type="file" (change)="onFileSelect()" class="fileUpload" id="file-upload" #_fileInput type="file" formControlName="filename" (change)="cropping.selectInputEvent($event)" accept="image/*" hidden>
+                    </a> 
+                    &nbsp;
+                    <span>{{fineName}}</span>
+                </div>
+<div class="space20"></div> -->
+            <label for="file-upload" class="custom-file-upload btn-primary">
+                <i class="fa fa-cloud-upload"></i> Upload Course Photo
+            </label>
+            <div class="actions">
+                <input id="file-upload" #_fileInput type="file" formControlName="filename" (change)="cropping.selectInputEvent($event)" accept="image/*"
+                    hidden>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="resize-image space20">
+                        <ly-cropping #cropping [config]="myConfig" (loaded)="onloaded()" (error)="onerror()">
+                        </ly-cropping>
+                    </div>
+                    <button *ngIf="cropping.isLoaded" class="btn btn-primary" (click)="crop()" ly-button>Crop Image</button>
+                </div>
+                <div class="col-lg-2">
+                    <img *ngIf="cropping.isCropped" [src]="cropping.result">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 justify">
+            <button class="btn btn-primary full-width" [disabled]="!AddCourseRegistrationrFrm.valid || btnDisable|| image" (click)="AddCourseLoginForm()"
+                cdkFocusInitial>Submit</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,669 @@
+<div class="clearfix space20"></div>
+<!-- <div class="content-wrapper">
+  <div class="container-fluid"> -->
+<div>
+  <ngx-carousel [inputs]="carouselOne">
+    <ngx-item NgxCarouselItem *ngFor="let img of images" style="height: 350px">
+      <img class="img-responsive" src="{{img.ImageUrl}}" style="width:100%;height:350px" />
+    </ngx-item>
+    <button NgxCarouselPrev class='leftRs'>
+      <b>
+        <i class="fa fa-angle-left fa-2x" aria-hidden="true"></i>
+      </b>
+    </button>
+    <button NgxCarouselNext class='rightRs'>
+      <b>
+        <i class="fa fa-angle-right fa-2x" aria-hidden="true"></i>
+      </b>
+    </button>
+  </ngx-carousel>
+</div>
+<!-- <div class="clearfix space20"></div> -->
+<!-- Description -->
+<!-- <div class="row"> -->
+<div class="text-center desc">
+  <h2 class="heading col-xs-12">
+    WELCOME TO &nbsp;
+    <span>TUTORS CLUB</span>
+  </h2>
+  <div class="col-xs-12">
+    <p>Tutor's Club provides universal access to the world’s best education, partnering with top universities and organizations
+      to offer courses online.
+      <br/> Connect with thousands of other learners and debate ideas, discuss course material, and get help mastering concepts.
+  </div>
+  <div class="clearfix"></div>
+</div>
+<!-- Upcoming Live Trainings -->
+<!-- <div class="clearfix space20"></div> -->
+<div>
+  <div class="col-lg-12">
+    <h2 class="heading">
+      Upcoming &nbsp;
+      <span>Live Trainings</span>
+    </h2>
+    <!-- <div class="clearfix space20"></div> -->
+    <div class="tab">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a data-toggle="tab" href="#livedemo">Upcoming Live Demo Trainings</a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#liveregular">Upcoming Live Regular Trainings</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div id="livedemo" class="tab-pane fade in active">
+          <div class="row">
+            <div class="col-lg-12" style="overflow: auto;">
+              <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="ImageUrl">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Image</th>
+                  <td mat-cell *matCellDef="let row">
+                    <a [routerLink]="['/CourseExplanation',row.CourseId]" title="View Course">
+                      <img class="img-circle" src="{{row.ImageUrl}}" style="height: 30px;width: 40px;" />
+                    </a>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="CourseName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+                  <td mat-cell *matCellDef="let row">
+                    <a [routerLink]="['/CourseExplanation',row.CourseId]" title="View Course">{{row.CourseName}}</a>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="SessionTypeName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Session Type</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{row.SessionTypeName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Time">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Time</th>
+                  <td mat-cell *matCellDef="let row" [style.color]="row.StartDate"> {{row.Time |date:"hh:mm a"}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="StartDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date</th>
+                  <td mat-cell *matCellDef="let row" [style.color]="row.StartDate"> {{row.StartDate |date:"mediumDate"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="TrainingMode">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Mode</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{row.TrainingMode==true?"Online":"offline"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Fee">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Training Fee</th>
+                  <td mat-cell *matCellDef="let row" [style.color]="row.Fee">{{row.Fee==null?'':symbol}}{{row.Fee==null?"Free":row.Fee*exchangeRate|round}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Duration">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{row.Duration}} Hrs </td>
+                </ng-container>
+                <ng-container matColumnDef="TutorName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Trainer</th>
+                  <td mat-cell *matCellDef="let row">
+                    <a [routerLink]="['/viewTutorProfile',row.TutorID]">{{row.TutorName}}</a>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Timezone">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Timezone</th>
+                  <td mat-cell *matCellDef="let row">{{row.Timezone}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                  <td mat-cell *matCellDef="let row" [style.color]="row.Action" style="text-align: center">
+                    <button *ngIf="currentUser==null ||  currentUser.RoleID==3" class="btn btn-danger waves-effect" [disabled]="disablerow" (click)="openRegisterDemoDialog(row)"
+                      style="padding: 4px">
+                      <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                        Register
+                      </span>
+                    </button>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Action1">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                  <td mat-cell *matCellDef="let row" [style.color]="row.Action" style="text-align: center">
+                    <button class="btn btn-info waves-effect" [disabled]="disablerow" (click)="openViewDemoDialog(row)" style="padding: 4px;margin-left: 5px;">
+                      <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                        View
+                      </span>
+                    </button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+              </table>
+              <div [hidden]="!isLoadingResults" class="text-center">
+                <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                <h5>
+                  Loading Please Wait..
+                </h5>
+                <span class="sr-only"></span>
+              </div>
+
+              <div class="clearfix space20"></div>
+              <div class="text-center" [hidden]="!(dataSource.data.length==0&&!isLoadingResults)">
+                No Records Found</div>
+            </div>
+            <div class="col-lg-12" style="text-align: right;margin-top: 5px;" *ngIf="moreBtnVisible">
+              <a routerLink="/DemoList" class="btn btn-info">More >></a>
+            </div>
+          </div>
+        </div>
+        <div id="liveregular" class="tab-pane fade">
+          <div class="row">
+            <div class="col-lg-12" style="overflow: auto;">
+              <table mat-table [dataSource]="dataRegSource" matSort>
+                <ng-container matColumnDef="ImageUrl">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Image</th>
+                  <td mat-cell *matCellDef="let row">
+                    <a [routerLink]="['/CourseExplanation',row.CourseId]" title="View Course">
+                      <img class="img-circle" src="{{row.ImageUrl}}" style="height:30px;width: 40px;" />
+                    </a>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="CourseName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                  <td mat-cell *matCellDef="let row">
+                    <a [routerLink]="['/CourseExplanation',row.CourseId]" title="View Course">{{row.CourseName}}</a>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Fee">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Training Fee</th>
+                  <td mat-cell *matCellDef="let row" [style.color]="row.Fee">{{row.Fee==null?'':symbol}}{{row.Fee==null?"Free":row.Fee*exchangeRate|round}}</td>
+                </ng-container>
+                <ng-container matColumnDef="SessionTypeName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Session Type</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{row.SessionTypeName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="StartDate">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date</th>
+                  <td mat-cell *matCellDef="let row" [style.color]="row.StartDate"> {{row.StartDate |date:"mediumDate"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="TrainingMode">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Mode</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{row.TrainingMode==true?"Online":"offline"}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Duration">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{row.Duration}} Hrs </td>
+                </ng-container>
+                <ng-container matColumnDef="TutorName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Trainer</th>
+                  <td mat-cell *matCellDef="let row">
+                    <a [routerLink]="['/viewTutorProfile',row.TutorID]">{{row.TutorName}}</a>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                  <td mat-cell *matCellDef="let row" [style.color]="row.Action">
+                    <button *ngIf="currentUser==null ||  currentUser.RoleID==3" class="btn btn-primary waves-effect" [disabled]="disablerow"
+                      (click)="openRegisterRegularDialog(row)" style="padding: 4px">
+                      <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                        Enroll
+                      </span>
+                    </button>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Time">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
+                  <td mat-cell *matCellDef="let row" [style.color]="row.StartDate"> {{row.Time |date:"hh:mm a"}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="TutorID">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                  <td mat-cell *matCellDef="let row" [style.color]="row.TutorID">
+                    <button class="btn btn-primary waves-effect" [disabled]="disablerow" (click)="openRegisterDemoDialog(row)" style="padding: 4px">
+                      <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                        View Details
+                      </span>
+                    </button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedRegColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedRegColumns;">
+                </tr>
+              </table>
+              <div [hidden]="!isLoadingResults" class="text-center">
+                <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+                <h5>
+                  Loading Please Wait..
+                </h5>
+                <span class="sr-only"></span>
+              </div>
+
+              <div class="clearfix space20"></div>
+              <div class="text-center" [hidden]="!(dataSource.data.length==0&&!isLoadingResults)">
+                No Records Found</div>
+            </div>
+            <div class="col-lg-12" style="text-align: right;margin-top: 5px;" *ngIf="moreBtnVisible">
+              <a routerLink="/RegList" class="btn btn-info" style="background-color: #118aef">More >></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix space20"></div>
+<!-- Trending Courses -->
+<div class="row">
+  <div class="container">
+    <h2 class="heading">
+      Trending &nbsp;
+      <span>Courses</span>
+    </h2>
+    <div class="row">
+      <div>
+        <ngx-carousel [inputs]="carouselTile" (carouselLoad)="carouselTileLoad($event)" style="height: 320px">
+          <ngx-tile NgxCarouselItem *ngFor="let Tile of carouselTileItems">
+            <article style="font-weight: 200" [routerLink]="['/CourseExplanation',Tile.CourseId]" style="cursor: pointer">
+              <div class="firstSide">
+                <div class="wBg font">
+                  <div style="margin-top: 10px">
+                    <img class="img-responsive" [src]="(Tile.ImageUrl==null)?Ss:Tile.ImageUrl" style="height:155px;width: 100%;border-radius: 2%">
+                  </div>
+                  <div style="background-color: #f1ecec;height: 70px;padding-top: 4px;border-bottom: 2px solid cornflowerblue">
+                    <h5 class="text-center" style=" color: black" matTooltip="{{Tile.CourseName}}">
+                      {{Tile.CourseName}}
+                    </h5>
+                    <h6>{{Tile.Description}}</h6>
+                  </div>
+                </div>
+                <!-- <div class="overlay">
+                    <div class="text">Hello World</div>
+                  </div> -->
+                <div class="secondSide">
+                  <div class="pull-right">
+                    <i class="fa fa-share"></i>
+                  </div>
+
+                  <div class="font">
+                    <div style="margin-top: 80px">
+                      <div>
+                        <h6>{{Tile.CourseName}}</h6>
+                      </div>
+                      <div>
+                        <h6>{{Tile.CategoryName}}</h6>
+                      </div>
+                      <div>
+                        <h6>{{Tile.Description}}</h6>
+                      </div>
+                      <div>
+                        <!-- <ngb-rating [(rate)]="currentRate" max="5" [readonly]="true">
+                              <ng-template let-fill="fill" let-index="index">
+                                <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                              </ng-template>
+                            </ngb-rating> (3) -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </article>
+          </ngx-tile>
+
+          <button NgxCarouselPrev class='prev'>
+            <b>
+              <i class="fa fa-angle-left fa-2x" aria-hidden="true"></i>
+            </b>
+          </button>
+          <button NgxCarouselNext class='next'>
+            <b>
+              <i class="fa fa-angle-right fa-2x" aria-hidden="true"></i>
+            </b>
+          </button>
+        </ngx-carousel>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix space20"></div>
+<div class="policy-item parallax-bg2">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-4 col-sm-4">
+        <div class="pi-wrap text-center">
+          <i class="fa fa-universal-access  fa-3x"></i>
+          <h4>Training
+            <!-- <span>Training</span> -->
+          </h4>
+          <p>We will provide a lot of opportunities to our trained candidates to attend for the interviews in the organizations
+            who are already tied up with us. This will help the students to get a job much easier than compare with the others.
+          </p>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-4 col-sm-4">
+        <div class="pi-wrap text-center">
+          <i class="fa fa-desktop  fa-3x"></i>
+          <h4>Recruitment
+            <!-- <span>Recruitment</span> -->
+          </h4>
+          <p>As our name recommends, we trust that PEOPLE are prime, and hence, are the most imperative asset in any association.
+            It is a direct result of this that we ardently approach our assignment of recognizing the right ability.</p>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-4 col-sm-4">
+        <div class="pi-wrap text-center">
+          <i class="fa fa-code fa-3x"></i>
+          <h4>Consultant
+            <!-- <span>Consultant</span> -->
+          </h4>
+          <p>Our Recruitment Process Outsourcing Service offers sources and attracts talent through flexible and scalable recruitment
+            solutions which can include everything from sourcing selection-onboarding- Off boarding.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix space100"></div>
+<!-- <div class="row">
+  <section style="text-align:center">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-10">
+      <div class="inner-box font">
+        <div class="row">
+          <div class="col-xs-12 col-lg-4">
+            <div>
+              <i class="fa fa-universal-access fa-3x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+              <h3>Training</h3>
+            </div>
+            <div>
+              <span class="under_line"></span>
+            </div>
+            <div>
+              <p>We will provide a lot of opportunities to our trained candidates to attend for the interviews in the organizations
+                who are already tied up with us. This will help the students to get a job much easier than compare with the
+                others.
+              </p>
+            </div>
+          </div>
+          <div class="col-xs-12 col-lg-4">
+            <div>
+              <i class="fa fa-desktop fa-3x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+              <h3>Recruitment</h3>
+            </div>
+            <div>
+              <span class="under_line"></span>
+            </div>
+            <div>
+              <p>As our name recommends, we trust that PEOPLE are prime, and hence, are the most imperative asset in any association.
+                It is a direct result of this that we ardently approach our assignment of recognizing the right ability.
+              </p>
+            </div>
+          </div>
+          <div class="col-xs-12 col-lg-4">
+            <div>
+              <i class="fa fa-code fa-3x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+              <h3>Consultant</h3>
+            </div>
+            <div>
+              <span class="under_line"></span>
+            </div>
+            <div>
+              <p>Our Recruitment Process Outsourcing Service offers sources and attracts talent through flexible and scalable
+                recruitment solutions which can include everything from sourcing selection-onboarding- Off boarding.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1"></div>
+  </section>
+
+  <section class="latest-news">
+    <div class="container">
+      <div class="sec-title">
+      </div>
+    </div>
+  </section>
+</div> -->
+
+<!-- </div>
+</div> -->
+
+<!-- Avail -->
+<!-- <div class="row">
+      <section style="text-align:center"> 
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10">
+          <div class="inner-box font" style="margin-top:5px;color: #005194">
+            <div class="row">
+              <div class="col-lg-4">
+                <div style="margin-bottom: 10px">
+                  <i style="display:inline" class="fa fa-universal-access fa-3x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <h3 style="display:inline">Training</h3>
+                </div>
+                <div style="margin-bottom: 10px">
+                  <span class="under_line"></span>
+                </div>
+                <div >
+                  <p>We will provide a lot of opportunities to our trained candidates to attend for the interviews in the organizations
+                    who are already tied up with us. This will help the students to get a job much easier than compare with
+                    the others.
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div style="margin-bottom: 10px">
+                  <i style="display:inline" class="fa fa-desktop fa-3x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <h3 style="display:inline">Recruitment</h3>
+                </div>
+                <div style="margin-bottom: 10px">
+                  <span class="under_line"></span>
+                </div>
+                <div >
+                  <p>As our name recommends, we trust that PEOPLE are prime, and hence, are the most imperative asset in any
+                    association. It is a direct result of this that we ardently approach our assignment of recognizing the
+                    right ability.
+                  </p>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div style="margin-bottom: 10px">
+                  <i style="display:inline" class="fa fa-code fa-3x" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <h3 style="display:inline">Consultant</h3>
+                </div>
+                <div style="margin-bottom: 10px">
+                  <span class="under_line"></span>
+                </div>
+                <div >
+                  <p>Our Recruitment Process Outsourcing Service offers sources and attracts talent through flexible and scalable
+                    recruitment solutions which can include everything from sourcing selection-onboarding- Off boarding.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1"></div>
+      </section>
+
+      <section class="latest-news">
+        <div class="container">
+          <div class="sec-title">
+          </div>
+        </div>
+      </section>
+    </div> -->
+<!-- <div class="panel panel-info">
+  <div class="panel-heading">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#livedemo" data-toggle="tab">Upcoming Live Demo Trainings</a>
+      </li>
+      <li>
+        <a data-toggle="tab" href="#liveregular">Upcoming Live Regular Trainings</a>
+      </li>
+    </ul>
+  </div>
+  <div class="panel-body">
+    <div id="livedemo" class="tab-pane fade in active">
+      <div class="row">
+        <div class="col-lg-12" style="overflow: auto;">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="ImageUrl">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Image</th>
+              <td mat-cell *matCellDef="let row">
+                <a [routerLink]="['/getCourseExplanation',row.CourseId]" title="View Course">
+                  <img class="img-circle" src="{{row.ImageUrl}}" style="height: 30px;width: 40px;" />
+                </a>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="CourseName" style="font-weight: 500">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Course Name</th>
+              <td mat-cell *matCellDef="let row">
+                <a [routerLink]="['/getCourseExplanation',row.CourseId]" title="View Course">{{row.CourseName}}</a>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="StartDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date</th>
+              <td mat-cell *matCellDef="let row" [style.color]="row.StartDate"> {{row.StartDate |date:"dd/MM/yyyy hh:mm a"}} </td>
+            </ng-container>
+            <ng-container matColumnDef="TrainingMode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Training Mode</th>
+              <td mat-cell *matCellDef="let row">
+                {{row.TrainingMode==true?"Online":"offline"}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Duration">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+              <td mat-cell *matCellDef="let row">
+                {{row.Duration}} Hrs </td>
+            </ng-container>
+            <ng-container matColumnDef="TutorName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Tutor Name</th>
+              <td mat-cell *matCellDef="let row">
+                <a [routerLink]="['/viewTutorProfile',row.TutorID]">{{row.TutorName}}</a>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Timezone">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Timezone</th>
+              <td mat-cell *matCellDef="let row">{{row.Timezone }} </td>
+            </ng-container>
+            <ng-container matColumnDef="TCDemoId" style="width: 30px">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td mat-cell *matCellDef="let row" [style.color]="row.TCDemoId" style="text-align: center">
+                <button *ngIf="currentUser==null ||  currentUser.RoleID==3" class="btn btn-danger waves-effect" [disabled]="disablerow" (click)="openRegisterDemoDialog(row)"
+                  style="padding: 4px">
+                  <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                    Register
+                  </span>
+                </button>
+                <button class="btn btn-info waves-effect" [disabled]="disablerow" (click)="openViewDemoDialog(row)" style="padding: 4px;margin-left: 5px;">
+                  <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                    View
+                  </span>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+          <div [hidden]="!isLoadingResults" class="text-center">
+            <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+            <h5>
+              Loading Please Wait..
+            </h5>
+            <span class="sr-only"></span>
+          </div>
+
+          <div class="clearfix space20"></div>
+          <div class="text-center" [hidden]="!(dataSource.data.length==0&&!isLoadingResults)">
+            No Records Found</div>
+        </div>
+        <div class="col-lg-12" style="text-align: right;margin-top: 5px;" *ngIf="moreBtnVisible">
+          <a routerLink="/getDemoList" class="btn btn-info">More >></a>
+        </div>
+      </div>
+    </div>
+    <div id="liveregular" class="tab-pane fade">
+      <div class="row">
+        <div class="col-lg-12">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="ImageUrl">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Image</th>
+              <td mat-cell *matCellDef="let row">
+                <a [routerLink]="['/getCourseExplanation',row.CourseId]" title="View Course">
+                  <img class="img-circle" src="{{row.ImageUrl}}" style="height:30px;width: 40px;" />
+                </a>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="CourseName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Course Name </th>
+              <td mat-cell *matCellDef="let row">
+                <a [routerLink]="['/getCourseExplanation',row.CourseId]" title="View Course">{{row.CourseName}}</a>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="StartDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Start Date</th>
+              <td mat-cell *matCellDef="let row" [style.color]="row.StartDate"> {{row.StartDate |date:"dd/MM/yyyy hh:mm a"}} </td>
+            </ng-container>
+            <ng-container matColumnDef="TrainingMode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Training Mode</th>
+              <td mat-cell *matCellDef="let row">
+                {{row.TrainingMode==true?"Online":"offline"}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Duration">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration</th>
+              <td mat-cell *matCellDef="let row">
+                {{row.Duration}} Hrs </td>
+            </ng-container>
+            <ng-container matColumnDef="TutorName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Tutor Name</th>
+              <td mat-cell *matCellDef="let row">
+                <a [routerLink]="['/viewTutorProfile',row.TutorID]">{{row.TutorName}}</a>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Timezone">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Timezone</th>
+              <td mat-cell *matCellDef="let row">{{row.Timezone }} </td>
+            </ng-container>
+            <ng-container matColumnDef="TCDemoId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td mat-cell *matCellDef="let row" [style.color]="row.TCDemoId">
+                <button class="btn btn-primary waves-effect" [disabled]="disablerow" (click)="openRegisterDemoDialog(row)" style="padding: 4px">
+                  <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                    Enroll
+                  </span>
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="TutorID">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td mat-cell *matCellDef="let row" [style.color]="row.TutorID">
+                <button class="btn btn-primary waves-effect" [disabled]="disablerow" (click)="openRegisterDemoDialog(row)" style="padding: 4px">
+                  <span md-tooltip="tooltip" title="Edit" mdTooltipPosition="before">
+                    View Details
+                  </span>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+          <div [hidden]="!isLoadingResults" class="text-center">
+            <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+            <h5>
+              Loading Please Wait..
+            </h5>
+            <span class="sr-only"></span>
+          </div>
+
+          <div class="clearfix space20"></div>
+          <div class="text-center" [hidden]="!(dataSource.data.length==0&&!isLoadingResults)">
+            No Records Found</div>
+        </div>
+        <div class="col-lg-12" style="text-align: right;margin-top: 5px;" *ngIf="moreBtnVisible">
+          <a routerLink="/getDemoList" class="btn btn-info" style="background-color: #118aef">More >></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

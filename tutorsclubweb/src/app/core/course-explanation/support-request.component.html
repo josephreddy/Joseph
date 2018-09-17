@@ -1,0 +1,75 @@
+<div class="dialog-header">
+    <h2 mat-dialog-title>&nbsp;Send Message
+        <img class="fa fa-times pull-right" src="assets/Images/icons/close.png" (click)="onNoClick()" />
+    </h2>
+</div>
+<div mat-dialog-content>
+    <form [formGroup]="SupportRequestForm" style="margin-top: 0px;">
+        <mat-form-field class="col-xs-12 col-md-6">
+            <input matInput placeholder="Course Name (disabled)" disabled value={{CourseName}}>
+        </mat-form-field>
+        <!-- <mat-form-field class="col-xs-12 col-md-6">
+            <input placeholder="Course Name" [(ngModel)]="CourseName" matInput>
+        </mat-form-field> -->
+        <mat-form-field class="col-xs-12 col-md-6">
+            <input placeholder="Phone Number" [(ngModel)]="LearnerDetails.PhoneNumber" formControlName="PhoneNumber" matInput>
+            <mat-error>
+                <!-- <span *ngIf="SharedInfoForm.controls['Blog'].hasError('required')">Please Enter Blog URL</span> -->
+                <span *ngIf="SupportRequestForm.controls['PhoneNumber'].hasError('pattern')">Please enter valid Blog URL</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12 col-md-6">
+            <input placeholder="EmailId" [(ngModel)]="LearnerDetails.EmailId" formControlName="EmailId" matInput>
+            <mat-error>
+                <!-- <span *ngIf="SharedInfoForm.controls['Blog'].hasError('required')">Please Enter Blog URL</span> -->
+                <span *ngIf="SupportRequestForm.controls['EmailId'].hasError('pattern')">Please enter valid Blog URL</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12 col-md-6">
+            <textarea placeholder="Message" formControlName="Message" matInput></textarea>
+            <mat-error>
+                <!-- <span *ngIf="SharedInfoForm.controls['Blog'].hasError('required')">Please Enter Blog URL</span> -->
+                <span *ngIf="SupportRequestForm.controls['Message'].hasError('pattern')">Please enter valid Blog URL</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12 col-md-6">
+            <mat-select placeholder="Batch Type" [(value)]="selected" formControlName="BatchType" required>
+                <mat-option value="Demo">Demo</mat-option>
+                <mat-option value="Regular Batch">Regular Batch</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12 col-md-6">
+            <mat-select placeholder="Training Mood" formControlName="TrainingMode" required>
+                <mat-option *ngFor="let trainings of traininglist" [value]="trainings.TrainingModeId">{{trainings.TrainingName}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12 col-md-6">
+            <input oninput="this.value = this.value.replace(/[^.]/g, '').replace(/(\..*)\./g, '$1');" formControlName="Time" matInput
+                [owlDateTimeTrigger]="time" placeholder="{{'Timing'}}" [owlDateTime]="time" #time/>
+            <owl-date-time #time [hour12Timer]="true" [pickerType]="'timer'"></owl-date-time>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12 col-md-6">
+            <input matInput [matDatepicker]="picker" formControlName="StartDate" placeholder="Start Date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12 col-md-6">
+            <mat-select placeholder="Training Types" formControlName="TrainingTypelist">
+                <mat-option *ngFor="let training of trainingTypelist" [value]="training.TrainingMode">{{training.TrainingModeName}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12 col-md-6">
+            <mat-select placeholder="Session Type" formControlName="Session" required>
+                <mat-option *ngFor="let trainings of sessionType" [value]="trainings.sessionTypeId">{{trainings.SessionType}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div class="col-xs-12 col-md-6">
+            <ng2-timezone-picker (change)="ChangeTimeZone($event)" width="100%" placeholder="Select timezone" showOffset="true" guess="true">
+            </ng2-timezone-picker>
+        </div>
+        <mat-form-field class="col-xs-12 col-md-6">
+            <input matInput placeholder="TimeZone" [(ngModel)]="ChangeZone" formControlName="TimeZone" readonly />
+        </mat-form-field>
+    </form>
+    <button class="pull-right btn btn-primary" (click)="onSubmit()">Submit</button>
+</div>

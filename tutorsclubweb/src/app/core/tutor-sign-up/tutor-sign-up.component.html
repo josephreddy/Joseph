@@ -1,0 +1,145 @@
+<div class="account-wrap parallax-LnrSignUp" style="min-height: 800px;">
+        
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-xs-12 col-md-offset-1 col-sm-6 col-md-5 color">
+                    <h3 class="color">
+                        <b>Tutor Sign up into TutorsClub Portal</b>
+                    </h3>
+                    <div class="space90"></div>                                        
+                    <h6>
+                        <u>Powered by
+                            <span>TutorsClub</span>
+                        </u>
+                    </h6>
+                    <h1 class="text-white text-uppercase">
+                        Online tutoring jobs
+                    </h1>
+                    <div class="space90"></div>
+                    <h3 class="inline">Start tutoring online with TutorsClub</h3>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 pull-right">
+                    <div id="account-id">
+                        <h3 class="form-header">Tutor Signup Details</h3>                                                
+                        <div class="account-form">
+                            <!-- <div *ngIf="alert" class="font success col-lg-12 col-sm-12 col-md-12" style="text-align: center; background-color: blue;color: white">
+                                <h5>
+                                    <b>Registered Succesfully</b>
+                                </h5>
+                            </div> -->
+                            <div *ngIf="isError" class="font col-lg-12 col-sm-12 col-md-12" style="text-align: center;background-color: red;color: white">
+                                <h4>
+                                    <b>{{result}}</b>
+                                </h4>
+                            </div>
+                            <form [formGroup]="TutorSignUpForm">
+                                <div class="row">
+                                    <mat-form-field class="col-md-12">
+                                        <input matInput type="text" formControlName="FirstName" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                                            placeholder="First Name" required>
+                                        <mat-error>
+                                            <span *ngIf="!TutorSignUpForm.get('FirstName').valid && TutorSignUpForm.get('FirstName').touched">
+                                                <span *ngIf="TutorSignUpForm.controls['FirstName'].hasError('required') ">
+                                                    Please Enter First Name
+                                                </span>
+                                            </span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="row">
+                                    <mat-form-field class="col-md-12">
+                                        <input matInput type="text" formControlName="LastName" placeholder="Last Name" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                                            required>
+                                        <mat-error>
+                                            <span *ngIf="!TutorSignUpForm.get('LastName').valid && TutorSignUpForm.get('LastName').touched">
+                                                <span *ngIf="TutorSignUpForm.controls['LastName'].hasError('required') ">
+                                                    Please Enter Last Name
+                                                </span>
+                                                <span *ngIf="TutorSignUpForm.controls['LastName'].hasError('minlength') ">
+                                                    Min Length Should Be 4 Characters
+                                                </span>
+    
+                                            </span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+    
+                                <div class="row">
+                                    <mat-form-field class="col-md-12">
+                                        <input matInput type="text" formControlName="Email" placeholder="Email Address" required>
+                                        <mat-error>
+                                            <span *ngIf="!TutorSignUpForm.get('Email').valid && TutorSignUpForm.get('Email').touched">
+                                                <span *ngIf="TutorSignUpForm.controls['Email'].hasError('required') ">
+                                                    Please Enter Email Address
+                                                </span>
+                                                <span *ngIf="TutorSignUpForm.controls['Email'].hasError('pattern')">
+                                                    Please Enter Valid Email Address
+                                                </span>
+    
+                                            </span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+    
+                                <div class="row">
+                                    <mat-form-field class="col-md-12">
+                                        <input matInput type="password" formControlName="Password" placeholder="Password" required>
+                                        <mat-error>
+                                            <span *ngIf="!TutorSignUpForm.get('Password').valid && TutorSignUpForm.get('Password').touched">
+                                                <span *ngIf="TutorSignUpForm.controls['Password'].hasError('required') ">
+                                                    Please Enter Password
+                                                </span>
+                                                <span *ngIf="TutorSignUpForm.get('Password').hasError('pattern')">Password Should Contain One Uppercase,One Lowercase,One Special Character,One
+                                                    Numeric and Minimum of 8 Characters</span>
+    
+                                            </span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="row">
+                                    <mat-form-field class="col-md-12">
+                                        <!-- <input matInput type="text" formControlName="MobileNumber" placeholder="Mobile Number" required maxlength="10" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> -->
+                                        <input matInput formControlName="MobileNumber" type="text" ng2TelInput (intlTelInputObject)="telInputObject($event)" 
+                                        [textMask]="{mask: mask}" (countryChange)="onCountryChange($event)" required/>
+                                        <mat-error>
+                                            <span *ngIf="!TutorSignUpForm.get('MobileNumber').valid && TutorSignUpForm.get('MobileNumber').touched">
+                                                <span *ngIf="TutorSignUpForm.controls['MobileNumber'].hasError('required') ">
+                                                    {{'Please Enter Your Mobile Number'}}
+                                                </span>
+                                                <!-- <span *ngIf="TutorSignUpForm.controls['MobileNumber'].hasError('minlength') ">
+                                                    {{'Please Enter valid Mobile Number'}}
+                                                </span> -->
+                                                <!-- <span *ngIf="TutorSignUpForm.controls['MobileNumber'].hasError('maxlength') ">
+                                                    {{'Please Enter A 10 Digit Mobile Number'}}
+                                                </span> -->
+                                                <!-- <span *ngIf="TutorSignUpForm.controls['MobileNumber'].hasError('required')&&TutorSignUpForm.controls['MobileNumber'].hasError('pattern')">
+                                                    {{'Please Enter Valid Mobile Number'}}
+                                                </span> -->
+                                            </span>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </form>
+    
+                            <div class="pull-right">
+                                <button class="btn btn-primary" (click)="TutorSignUpClick(TutorSignUpForm)" type="submit" [disabled]="(!TutorSignUpForm.valid || isLoading)">
+                                    <!-- [disabled]="(!TutorSignUpForm.valid || isLoading)" -->
+                                    <i class="fa fa-spinner fa-spin fa-2x fa-fw" *ngIf="isLoading"></i>&nbsp;&nbsp;Sign Up</button>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <h4> Already Have An Account?
+                                        <a routerLink="." (click)="openLoginDialog()">
+                                            <u>Login</u>
+                                        </a>
+                                    </h4>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>

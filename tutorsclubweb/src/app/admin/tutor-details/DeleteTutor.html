@@ -1,0 +1,14 @@
+<div class="text-center dialog-header">
+    <h2 mat-dialog-title>&nbsp;Delete Tutor
+        <img class="pull-right" src="assets/Images/icons/close.png" (click)="onNoClick()" />
+    </h2>
+</div>
+<mat-dialog-content>
+    <h3>Are you sure you want to remove?</h3>
+</mat-dialog-content>
+<div class="clearfix space20"></div>
+<div class="col-lg-12 text-center">
+    <button type="button" class="btn btn-success" id="btnuserSave" (click)=Delete(data.TutorID)>Delete</button>
+    &nbsp;
+    <button type="button" class="btn btn-danger" id="btnuserCancel" (click)=onNoClick()>Cancel</button>
+</div>

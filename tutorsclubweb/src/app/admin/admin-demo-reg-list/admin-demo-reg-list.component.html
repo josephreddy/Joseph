@@ -1,0 +1,124 @@
+<div class="bgcolor">
+  <div class="bcrumbs">
+    <h2>Registered User's </h2>
+  </div>
+  <div class="container-fluid">
+    <button class="btn btn-success pull-right" [disabled]="isLoading" (click)="updateDemoStatus()">
+      <i *ngIf="isLoading" class="fa fa-spinner fa-spin fa-1x fa-fw"></i>&nbsp;&nbsp;Update Status</button>
+    <!-- <button class="btn btn-success pull-right" [disabled]="isLoading" routerLink="/admin/CreateRegBatch">Create New Batch</button> -->
+    <!-- <button class="btn btn-success pull-right" [disabled]="isLoading">Create New Batch</button> -->
+    <div>
+      <div class="col-md-2 pull-right">
+        <mat-select class="custom-select" placeholder="Tutor Name" [disabled]="disable" [(ngModel)]="tutorID" (ngModelChange)="onTutorSelect($event)"
+          required>
+          <mat-option *ngFor="let tutor of tutorslist.data" [value]="tutor.tutorID">{{tutor.start}} {{tutor.End}}</mat-option>
+        </mat-select>
+      </div>
+      <div class="col-md-2 pull-right">
+        <mat-select class="custom-select" placeholder="Demo List" [(ngModel)]="DemoId" (ngModelChange)="onDemoSelect($event)" required>
+          <mat-option>No Records</mat-option>
+          <mat-option *ngFor="let course of courselist.data" [value]="course.TCDemoId">{{course.TCDemoId}}</mat-option>
+        </mat-select>
+      </div>
+      <!-- <div class="col-md-2">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+      </div> -->
+      <input type="text" class="form-control searchPosition" (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      <div class="space20"></div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="mat-elevation-z8" style="overflow: auto;">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="Contacted">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Contacted</th>
+          <td mat-cell *matCellDef="let row" class="alignMiddle">
+            <mat-checkbox class="example-margin" [(ngModel)]="row.LContacted" (change)="onCheckChange(row)" [(indeterminate)]="indeterminate"
+              [labelPosition]="labelPosition" [disabled]="disabled">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Description" style="width: 5px">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+          <td mat-cell *matCellDef="let row" class="alignMiddle">{{row.LStatusDescription==null||undefined?"-":row.LStatusDescription}}
+            <!-- <mat-form-field [(ngModel)]="row.LStatusDescription" class="example-full-width" value="Reason">
+              <input matInput placeholder="Reason">
+            </mat-form-field> -->
+            <!-- <span *ngIf="(row.LStatusId==undefined)">-</span> -->
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+          <td mat-cell *matCellDef="let row" class="alignMiddle">
+            <mat-form-field *ngIf="row.LContacted==true">
+              <mat-select (selectionChange)="Changes(row,$event)" [(ngModel)]="row.LStatusId" name="statusList">
+                <mat-option *ngFor="let statusList of status" [value]="statusList.StatusId">
+                  {{statusList.StatusName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span *ngIf="row.LContacted==false">Not Contacted</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="LearnerName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> LearnerName</th>
+          <td mat-cell *matCellDef="let row" class="alignMiddle"> {{row.LearnerName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Demo Id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Demo Id</th>
+          <td mat-cell *matCellDef="let row" class="alignMiddle"> {{row.TCDemoID}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Demo Course Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Course Name </th>
+          <td mat-cell *matCellDef="let row" class="alignMiddle">
+            <a [routerLink]="['/CourseExplanation',row.CourseId]" title="View Course">{{row.CourseName}}</a>
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="TutorName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> TutorName</th>
+          <td mat-cell *matCellDef="let row" class="alignMiddle"> {{row.TutorName}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="PhoneNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>PhoneNumber</th>
+          <td mat-cell *matCellDef="let row" class="alignMiddle">
+            {{row.PhoneNumber}} </td>
+        </ng-container>
+        <ng-container matColumnDef="City">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
+          <td mat-cell *matCellDef="let row" class="alignMiddle"> {{row.City}} </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="Contacted">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Contacted</th>
+              <td mat-cell *matCellDef="let row"> {{row.Contacted=="true"?"Yes":"No"}} </td>
+            </ng-container> -->
+        <ng-container matColumnDef="EmailId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>EmailId</th>
+          <td mat-cell *matCellDef="let row" class="alignMiddle"> {{row.EmailId}} </td>
+
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+      <div [hidden]="!isLoadingResults" class="text-center">
+        <i class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+        <h5>
+          Loading Please Wait..
+        </h5>
+        <span class="sr-only"></span>
+      </div>
+
+      <!-- <div class="clearfix space20"></div> -->
+      <div class="text-center" [hidden]="!(dataSource.data.length==0&&!isLoadingResults)">
+        No Records Found</div>
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+</div>

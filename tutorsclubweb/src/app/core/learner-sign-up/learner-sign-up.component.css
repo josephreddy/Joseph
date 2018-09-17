@@ -1,0 +1,45 @@
+.color{
+    color: white;
+}
+
+.success{
+    background-color: #2e6da4;
+    color: aliceblue
+}
+
+.info, .success, .warning, .error, .validation {
+  -webkit-animation: seconds 1.0s forwards;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 5s;
+  animation: seconds 1.0s forwards;
+  animation-iteration-count: 1;
+  animation-delay: 2s;
+  position: relative;
+    
+}
+@-webkit-keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px; 
+    position: absolute;   
+  }
+}
+@keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px;
+    position: absolute;     
+  }
+}
+
+
+label{
+  color: #aaaaaa;
+  font-weight: normal;
+}

@@ -1,0 +1,333 @@
+<div class="container-fluid backGroundColor">
+  <div class="clearfix space20"></div>
+  <h2 class="color">
+    <b>Learner Edit</b>
+  </h2>
+  <div class="container">
+    <!-- <div> -->
+    <!-- <div class="col-xs-12 col-md-offset-1 col-sm-6 col-md-3 pull-left color">
+            <h5>
+              <u>Powered by
+                <span>TutorsClub</span>
+              </u>
+            </h5>
+            <div class="space90"></div>
+    
+            <h1 class="text-white text-uppercase width">
+              Online tutoring jobs
+            </h1>
+            <h3 class="inline width">Start tutoring online with TutorsClub</h3>
+          </div> -->
+    <div class="col-xs-12 col-sm-12 col-md-12 panel panel-info">
+      <div class="panel-body">
+        <ng-template matStepLabel>Learner Profile</ng-template>
+        <h2>Edit Learner Profile</h2>
+        <hr>
+        <form [formGroup]="LearnerFrm">
+          <!-- <div class="col-lg-12"> -->
+          <div class="row">
+            <label class="col-xs-12 col-md-4 lablecolor">First Name:</label>
+            <mat-form-field class="col-xs-12 col-md-6">
+              <input [(ngModel)]="Firstname" formControlName="firstName" matInput onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                required>
+              <mat-error class="errormessage">
+                <span *ngIf="LearnerFrm.controls['firstName'].hasError('required')">Please Enter First Name</span>
+                <span *ngIf="LearnerFrm.controls['firstName'].hasError('minlength')">First Name should be mininium 4 Characters</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- <mat-form-field class="example-full-width">
+              <input matInput placeholder="First Name" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                [(ngModel)]="Firstname" maxlength="16" minlength="4" formControlName="firstName" required/>
+              <mat-error>
+                <span *ngIf="!LearnerFrm.get('firstName').valid || LearnerFrm.get('firstName').touched ||  LearnerFrm.get('firstName').dirty">
+                  <span *ngIf="LearnerFrm.controls['firstName'].hasError('required') ">
+                    {{'Please Enter First Name'}}
+                  </span>
+
+                  <span *ngIf="LearnerFrm.controls['firstName'].hasError('minlength') ">
+                    {{'Min Length Should Be 4 Characters'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['firstName'].hasError('maxlength') ">
+                    {{'Max Length Should Be 16 Characters'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field> -->
+          <!-- </div> -->
+          <!-- </div> -->
+          <div class="row">
+            <label class="col-xs-12 col-md-4 lablecolor">Last Name:</label>
+            <mat-form-field class="col-xs-12 col-md-6">
+              <input [(ngModel)]="Lastname" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                formControlName="lastName" matInput required>
+              <mat-error class="errormessage">
+                <span *ngIf="LearnerFrm.controls['lastName'].hasError('required')">Please Enter Last Name</span>
+                <span *ngIf="LearnerFrm.controls['lastName'].hasError('minlength')">First Name should be mininium 4 Characters</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- <div class="row" style="margin-top: 10px;">
+            <div class="col-lg-12">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Last Name" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                  [(ngModel)]="Lastname" maxlength="16" minlength="4" formControlName="lastName" required/>
+                <mat-error>
+                  <span *ngIf="!LearnerFrm.get('lastName').valid || LearnerFrm.get('lastName').touched ||  LearnerFrm.get('lastName').dirty">
+                    <span *ngIf="LearnerFrm.controls['lastName'].hasError('required') ">
+                      {{'Please Enter Last Name'}}
+                    </span>
+
+                    <span *ngIf="LearnerFrm.controls['lastName'].hasError('minlength') ">
+                      {{'Min Length Should Be 4 Characters'}}
+                    </span>
+                    <span *ngIf="LearnerFrm.controls['lastName'].hasError('maxlength') ">
+                      {{'Max Length Should Be 16 Characters'}}
+                    </span>
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div> -->
+
+          <div class="row">
+            <label class="col-xs-12 col-md-4 lablecolor">Email ID:</label>
+            <mat-form-field class="col-xs-12 col-md-6">
+              <input [(ngModel)]="emailID" formControlName="emailid" matInput required>
+              <mat-error>
+                <span *ngIf="LearnerFrm.controls['emailid'].hasError('required')">Please Enter Email</span>
+                <span *ngIf="LearnerFrm.controls['emailid'].hasError('pattern')">Please enter valid email</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- <div class="row" style="margin-top: 10px;">
+            <div class="col-lg-12">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Email ID" [(ngModel)]="emailID" formControlName="emailid" readonly/>
+              </mat-form-field>
+            </div>
+          </div> -->
+          <div class="row">
+            <label class="col-xs-12 col-md-4 lablecolor">Phone Number:</label>
+            <mat-form-field class="col-xs-12 col-md-6">
+              <input matInput [(ngModel)]="phoneNumber" [textMask]="{mask: mask}" formControlName="contactNumber" type="text" ng2TelInput
+                (intlTelInputObject)="telInputObject($event)" (countryChange)="onCountryChange($event)" required/>
+              <!-- <input matInput [(ngModel)]="phoneNumber" formControlName="contactNumber" type="text" ng2TelInput (intlTelInputObject)="telInputObject($event)"
+                (countryChange)="onCountryChange($event)" [textMask]="{mask: mask}" required/> -->
+              <mat-error>
+                <span *ngIf="!LearnerFrm.get('contactNumber').valid && LearnerFrm.get('contactNumber').touched">
+                  <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('required') ">
+                    {{'Please Enter Your Mobile Number'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('minlength') ">
+                    {{'Please Enter valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('maxlength') ">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('required')&&LearnerFrm.controls['contactNumber'].hasError('pattern')">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- <div class="row">
+            <label class="col-xs-12 col-md-4 lablecolor">First Name:</label>
+            <mat-form-field class="col-xs-12 col-md-6">
+              <input matInput [(ngModel)]="phoneNumber" style="width: 178px; height: 37px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                formControlName="contactNumber" type="text" maxlength="10" minlength="3" ng2TelInput (intlTelInputObject)="telInputObject($event)"
+                (countryChange)="onCountryChange($event)" required/>
+              <mat-error>
+                <span *ngIf="!LearnerFrm.get('contactNumber').valid && LearnerFrm.get('contactNumber').touched">
+                  <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('required') ">
+                    {{'Please Enter Your Mobile Number'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('minlength') ">
+                    {{'Please Enter valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('maxlength') ">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('required')&&LearnerFrm.controls['contactNumber'].hasError('pattern')">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div> -->
+          <!-- <div class="row" style="margin-top: 5px;">
+            <div class="col-lg-5">
+              <mat-form-field class="example-full-width">
+                <input matInput [(ngModel)]="phoneNumber" style="width: 178px; height: 37px;" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                  formControlName="contactNumber" type="text" maxlength="10" minlength="3" ng2TelInput (intlTelInputObject)="telInputObject($event)"
+                  (countryChange)="onCountryChange($event)" required/> -->
+          <!-- <input matInput placeholder="Phone Number" [(ngModel)]="phoneNumber" formControlName="contactNumber" required/> -->
+          <!-- <int-phone-prefix placeholder="Phone Number" [locale]="'es'" [(ngModel)]="phoneNumber" formControlName="contactNumber" required></int-phone-prefix> -->
+          <!-- <mat-error>
+                  <span *ngIf="!LearnerFrm.get('contactNumber').valid && LearnerFrm.get('contactNumber').touched">
+                    <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('required') ">
+                      {{'Please Enter Your Mobile Number'}}
+                    </span>
+                    <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('minlength') ">
+                      {{'Please Enter valid Mobile Number'}}
+                    </span>
+                    <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('maxlength') ">
+                      {{'Please Enter Valid Mobile Number'}}
+                    </span>
+                    <span *ngIf="LearnerFrm.controls['contactNumber'].hasError('required')&&LearnerFrm.controls['contactNumber'].hasError('pattern')">
+                      {{'Please Enter Valid Mobile Number'}}
+                    </span>
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div> -->
+
+          <div class="row">
+            <label class="col-xs-12 col-md-4 lablecolor">Alternate Number:</label>
+            <mat-form-field class="col-xs-12 col-md-6">
+              <input matInput [(ngModel)]="AltPhoneNumber" [textMask]="mask ? {mask: mask} : null" formControlName="AlternativeContactNumber"
+                type="text" ng2TelInput (intlTelInputObject)="telInputObject1($event)" (countryChange)="onCountryChange1($event)"
+                required/>
+              <mat-error>
+                <span *ngIf="!LearnerFrm.get('AlternativeContactNumber').valid && LearnerFrm.get('AlternativeContactNumber').touched">
+                  <span *ngIf="LearnerFrm.controls['AlternativeContactNumber'].hasError('required')">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['AlternativeContactNumber'].hasError('minlength') ">
+                    {{'Please Enter valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['AlternativeContactNumber'].hasError('maxlength') ">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['AlternativeContactNumber'].hasError('pattern')">
+                    {{'Please Enter Valid Mobile Number'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <label class="col-xs-12 col-md-4 lablecolor">Country:</label>
+            <mat-form-field class="col-xs-12 col-md-6">
+              <mat-select [(ngModel)]="countryValue" placeholder="Country" (ngModelChange)="countryChanges($event)" formControlName="country"
+                required>
+                <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
+              </mat-select>
+
+              <mat-error>
+                <span *ngIf="!LearnerFrm.get('country').valid && LearnerFrm.get('country').touched">
+                  <span *ngIf="LearnerFrm.controls['country'].hasError('required') ">
+                    Please Select Country
+                  </span>
+
+                </span>
+              </mat-error>
+            </mat-form-field>
+            <!-- <mat-form-field class="col-xs-12 col-md-6">
+              <input matInput placeholder="Country" [(ngModel)]="countryValue" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                maxlength="16" formControlName="country" required />
+              <mat-error>
+                <span *ngIf="!LearnerFrm.get('country').valid || LearnerFrm.get('country').touched ||  LearnerFrm.get('country').dirty">
+                  <span *ngIf="LearnerFrm.controls['country'].hasError('required') ">
+                    {{'Please Enter State'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['country'].hasError('minlength') ">
+                    {{'Min Length Should Be 4 Characters'}}
+                  </span>
+
+                </span>
+              </mat-error>
+            </mat-form-field> -->
+          </div>
+          <div class="row">
+            <label class="col-xs-12 col-md-4 lablecolor">State:</label>
+            <mat-form-field class="col-xs-12 col-md-6">
+              <input matInput placeholder="State" [(ngModel)]="stateValue" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                maxlength="16" formControlName="state" required />
+              <mat-error>
+                <span *ngIf="!LearnerFrm.get('state').valid || LearnerFrm.get('state').touched ||  LearnerFrm.get('state').dirty">
+                  <span *ngIf="LearnerFrm.controls['state'].hasError('required') ">
+                    {{'Please Enter State'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['state'].hasError('minlength') ">
+                    {{'Min Length Should Be 4 Characters'}}
+                  </span>
+
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <label class="col-xs-12 col-md-4 lablecolor">City:</label>
+            <mat-form-field class="col-xs-12 col-md-6">
+              <input matInput placeholder="City" [(ngModel)]="cityValue" onkeypress="return ((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode == 8 || event.charCode == 32) );"
+                maxlength="16" formControlName="city" required />
+              <mat-error>
+                <span *ngIf="!LearnerFrm.get('city').valid || LearnerFrm.get('city').touched ||  LearnerFrm.get('city').dirty">
+                  <span *ngIf="LearnerFrm.controls['city'].hasError('required') ">
+                    {{'Please Enter City'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['city'].hasError('minlength') ">
+                    {{'Min Length Should Be 4 Characters'}}
+                  </span>
+
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <label class="col-xs-12 col-md-4 lablecolor">Zip/PIN code:</label>
+            <mat-form-field class="col-xs-12 col-md-6">
+              <input matInput type="text" (keypress)="keyPress($event)" placeholder="Zip" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                [(ngModel)]="zipcodeValue" maxlength="6" formControlName="zipcode" required/>
+              <mat-error>
+                <span *ngIf="!LearnerFrm.get('zipcode').valid || LearnerFrm.get('zipcode').touched ||  LearnerFrm.get('zipcode').dirty">
+                  <span *ngIf="LearnerFrm.controls['zipcode'].hasError('required') ">
+                    {{'Please Enter Zip'}}
+                  </span>
+                  <span *ngIf="LearnerFrm.controls['zipcode'].hasError('minlength') ">
+                    {{'Min Length Should Be 5 Numbers'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <label class="col-xs-12 col-md-4 lablecolor">Time Zone:</label>
+            <mat-form-field class="col-xs-12 col-md-3">
+              <input matInput placeholder="TimeZone" [(ngModel)]="TimeZone" formControlName="time" required readonly />
+              <mat-error>
+                <span *ngIf="!LearnerFrm.get('time').valid || LearnerFrm.get('time').touched ||  LearnerFrm.get('time').dirty">
+                  <span *ngIf="LearnerFrm.controls['time'].hasError('required') ">
+                    {{'Please Select TimeZone'}}
+                  </span>
+                </span>
+              </mat-error>
+            </mat-form-field>
+            <div class="space20"></div>
+            <div class="col-xs-12 col-md-3">
+              <ng2-timezone-picker (change)="ChangeTimeZone($event);changeDetect()" placeholder="Select timezone" showOffset="true" guess="true">
+              </ng2-timezone-picker>
+            </div>
+          </div>
+
+          <!-- <div class="col-lg-6 col-sm-12">
+            <label class="col-xs-12 col-md-4 lablecolor">Time Zone:</label>
+
+          </div> -->
+
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-lg-12">
+              <div mat-dialog-actions class="pull-right">
+                <button mat-button mat-raised-button color="primary" [disabled]="!LearnerFrm.valid ||(!LearnerFrm.dirty&&changeDetection)" (click)="LearnerEdit()">Save</button>
+                <!-- <button  mat-button  style="background: skyblue;color: whitesmoke" (click)="LearnerEdit()"  [disabled]="!LearnerFrm.valid">Save</button> -->
+                <button mat-button [routerLink]="['/admin/LearnerList']" style="margin-left: 5px;background: orange;color: whitesmoke">Cancel</button>
+              </div>
+            </div>
+          </div>
+          <!-- </div> -->
+        </form>
+      </div>
+    </div>
+  </div>
